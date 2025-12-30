@@ -219,7 +219,25 @@ body::before {
 
     /* Hero */
     .hero { text-align: center; margin-bottom: 50px; }
-    .greeting { font-size: 3rem; font-weight: 700; background: linear-gradient(135deg, var(--text-primary) 30%, var(--text-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; margin-bottom: 10px; }
+    .greeting { 
+    font-size: 3rem; 
+    font-weight: 700; 
+    
+    /* Gradient */
+    background-image: linear-gradient(135deg, var(--text-primary) 30%, var(--text-secondary));
+    
+    /* The Firefox Fix */
+    background-clip: text;
+    -webkit-background-clip: text;
+    
+    /* Transparency */
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    
+    display: inline-block;
+    letter-spacing: -1px; 
+    margin-bottom: 10px; 
+}
     .date-badge { display: inline-block; padding: 6px 16px; border-radius: 20px; background: rgba(251, 191, 36, 0.1); color: var(--brand-gold); font-size: 0.9rem; font-weight: 600; border: 1px solid var(--brand-gold-glow); }
 
     /* Card Grid */
@@ -294,15 +312,28 @@ body::before {
         padding: 20px 0;
     }
     
-    .hero-arabic {
+  .hero-arabic {
         font-family: 'Amiri', serif;
         font-size: 3.5rem;
         font-weight: 700;
-        /* Golden Gradient Text */
-        background: linear-gradient(135deg, var(--brand-gold) 20%, #fff 80%);
+        
+        /* 1. Define the Gradient */
+        background-image: linear-gradient(135deg, var(--brand-gold) 20%, #fff 80%);
+        
+        /* 2. THE FIX: Standard Syntax for Firefox */
+        background-clip: text;
+        
+        /* 3. Webkit Syntax for Chrome/Mobile */
         -webkit-background-clip: text;
+        
+        /* 4. Make text transparent */
+        color: transparent;
         -webkit-text-fill-color: transparent;
+        
+        /* 5. Essential layout fix */
+        display: inline-block;
         line-height: 1.2;
+        
         /* Glow Effect */
         filter: drop-shadow(0 0 15px var(--brand-gold-glow));
         animation: heroFade 1s ease-out;
@@ -701,7 +732,7 @@ button:active {
 /* --- SCROLL INDICATOR STYLES --- */
 .scroll-indicator {
     position: fixed; /* Positions it relative to the home section */
-    bottom: 30px;      /* Distance from bottom of the 'fold' */
+    bottom: 90px;      /* Distance from bottom of the 'fold' */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -919,15 +950,22 @@ button:active {
     margin-left: 2px;
 }
 .brand-deen {
-    font-family: 'Amiri', serif; 
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--brand-gold);
-    background: linear-gradient(135deg, #fbbf24 0%, #ffe4a0 50%, #d97706 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 0.5px;
-}
+        font-family: 'Amiri', serif; 
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--brand-gold);
+        
+        /* Gradient */
+        background-image: linear-gradient(135deg, #fbbf24 0%, #ffe4a0 50%, #d97706 100%);
+        
+        /* Fixes */
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        
+        display: inline-block;
+        letter-spacing: 0.5px;
+    }
 @keyframes slowPulse {
     0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px var(--brand-gold-glow)); }
     50% { transform: scale(1.03); filter: drop-shadow(0 0 15px var(--brand-gold-glow)); }
