@@ -522,10 +522,10 @@ html.font-extra { font-size: 22px; }
 body.light-theme .hero-arabic {
     /* Change gradient from White to Dark Blue */
     background: linear-gradient(135deg, var(--brand-gold) 20%, var(--text-primary) 80%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
     
     /* Reduce the glow so it's not blurry */
     filter: drop-shadow(0 0 2px rgba(0,0,0,0.1));
@@ -538,10 +538,16 @@ body.light-theme .hero-tagline {
 }
 
 body.light-theme .greeting {
-    background: var(--text-primary); 
-    background-clip: text;/* Solid color instead of gradient */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    /* Reset background to transparent */
+    background: none !important;
+    
+    /* Set solid text color */
+    color: var(--text-primary) !important;
+    
+    /* Turn off the clipping engine to prevent the "Box" bug */
+    -webkit-text-fill-color: var(--text-primary) !important;
+    background-clip: border-box !important;
+    -webkit-background-clip: border-box !important;
 }
 /* --- 100x CARD ANIMATIONS --- */
 @keyframes shimmerMove {
