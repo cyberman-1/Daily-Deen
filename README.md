@@ -6,6 +6,11 @@ I built this because I was tired of Islamic apps that were cluttered with ads, t
 
 It's free, open-source, and privacy-focused. No servers, no tracking, just you and your Deen.
 
+### 🌐 Live Site
+**You can use the app right now at:**
+### [dailydeen.site](https://dailydeen.site)
+*(Please share this link with friends and family—it's free forever.)*
+
 ---
 
 ## 📖 Why I Built This (Sadaqah Jariyah)
@@ -16,16 +21,16 @@ I built this inspired by a specific person who brought me closer to my faith. My
 
 ---
 
-##  What's Inside?
+## ✨ What's Inside?
 
 I tried to pack in everything a modern Muslim needs without the bloat:
 
-*  Prayer Times that actually work:** It uses your GPS or a manual city search. It saves the times to your phone so it loads instantly next time.
-*  The Noble Quran:** Clean, readable text with English translations. No distractions.
-*  Serenity Station:** This is my favorite feature. It's a focus player with Lofi Quran, rain sounds, and soft nasheeds. Perfect for studying or falling asleep.
-*  Qibla Finder:** A simple compass to find the Kaaba wherever you are.
-*  Heart Check-In:** Feeling anxious? Sad? Lazy? Click the button, and it gives you a specific Dua/Remedy from the Sunnah for that exact emotion.
-*  Ramadan Mode:** A toggle switch that changes the theme and adds trackers for Taraweeh and fasting.
+* **📍 Prayer Times that actually work:** It uses your GPS or a manual city search. It saves the times to your phone so it loads instantly next time.
+* **📖 The Noble Quran:** Clean, readable text with English translations. No distractions.
+* **🎧 Serenity Station:** This is my favorite feature. It's a focus player with Lofi Quran, rain sounds, and soft nasheeds. Perfect for studying or falling asleep.
+* **🧭 Qibla Finder:** A simple compass to find the Kaaba wherever you are.
+* **❤️ Heart Check-In:** Feeling anxious? Sad? Lazy? Click the button, and it gives you a specific Dua/Remedy from the Sunnah for that exact emotion.
+* **🌙 Ramadan Mode:** A toggle switch that changes the theme and adds trackers for Taraweeh and fasting.
 
 ---
 
@@ -44,7 +49,7 @@ I kept it old school. No heavy frameworks, no React, no build steps. Just clean,
 
 ---
 
-## 🚀 How to Run It
+## 🚀 How to Run It Yourself
 
 Since it's just a static site, you don't need to install anything complicated.
 
@@ -52,7 +57,7 @@ Since it's just a static site, you don't need to install anything complicated.
 2.  **Open it:** Double-click `index.html`.
 3.  **That's it.** It runs right in your browser.
 
-If you want to host it yourself, you can drag and drop the folder into **Vercel** or **GitHub Pages**.
+If you want to host your own version, you can drag and drop the folder into **Vercel** or **GitHub Pages**.
 
 ---
 
