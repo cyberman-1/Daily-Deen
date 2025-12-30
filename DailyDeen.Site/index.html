@@ -522,7 +522,9 @@ html.font-extra { font-size: 22px; }
 body.light-theme .hero-arabic {
     /* Change gradient from White to Dark Blue */
     background: linear-gradient(135deg, var(--brand-gold) 20%, var(--text-primary) 80%);
+    background-clip: text;
     -webkit-background-clip: text;
+    color: transparent;
     -webkit-text-fill-color: transparent;
     
     /* Reduce the glow so it's not blurry */
@@ -536,7 +538,8 @@ body.light-theme .hero-tagline {
 }
 
 body.light-theme .greeting {
-    background: var(--text-primary); /* Solid color instead of gradient */
+    background: var(--text-primary); 
+    background-clip: text;/* Solid color instead of gradient */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
