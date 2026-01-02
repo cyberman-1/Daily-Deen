@@ -1145,17 +1145,57 @@ body::before {
 }
 
 /* --- 2. SWIPE LAYOUT (Horizontal Scroll) --- */
+/* --- 2. PERFECT SNAP CARDS (Fixed) --- */
 .horizontal-scroll { display: contents; } /* Desktop: Normal Grid */
 
 @media (max-width: 768px) {
     .horizontal-scroll {
-        display: flex; overflow-x: auto; gap: 15px; padding-bottom: 5px;
-        margin: 0 -15px; padding-left: 15px; padding-right: 15px;
-        scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+        display: flex;
+        overflow-x: auto;
+        gap: 15px;
+        padding: 10px 20px 20px 20px; /* Padding for shadow breathing room */
+        margin: 0 -15px; /* Bleed to edge */
+        
+        /* The "Magnetic" Snap */
+        scroll-snap-type: x mandatory; 
+        -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
+        
+        /* Alignment helper */
+        align-items: stretch; 
     }
     .horizontal-scroll::-webkit-scrollbar { display: none; }
-    .swipe-card { min-width: 85vw; scroll-snap-align: center; flex-shrink: 0; }
+    
+    .swipe-card {
+        /* Force single card focus */
+        min-width: 88vw; 
+        max-width: 88vw;
+        
+        /* FIXED HEIGHT (Crucial for clean look) */
+        height: 280px; 
+        display: flex; 
+        flex-direction: column;
+        
+        /* Snap Logic */
+        scroll-snap-align: center;
+        scroll-snap-stop: always; /* Forces it to stop on a card */
+        flex-shrink: 0;
+        
+        /* Visuals */
+        margin: 0;
+        background: var(--bg-card); 
+    }
+
+    /* Handle Long Text (Scroll inside the card) */
+    .swipe-card .card-header {
+        flex-shrink: 0; /* Header stays at top */
+    }
+    .swipe-card > div:not(.card-header) {
+        overflow-y: auto; /* Scroll text if too long */
+        padding-right: 5px; /* Space for scrollbar */
+        justify-content: flex-start !important; /* Align text to top */
+        padding-top: 10px;
+    }
 }
 
 /* --- 3. BREATHING COUNTDOWN BORDER --- */
