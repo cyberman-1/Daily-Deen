@@ -12,16 +12,18 @@
     <meta name="theme-color" content="#0f172a">
 
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-website-url.com/">
     <meta property="og:title" content="Daily Deen | Your Digital Sanctuary">
     <meta property="og:description" content="Accurate Prayer Times, Quran, and Mindfulness for the modern Muslim. Ad-free and privacy-focused.">
-    <meta property="og:url" content="https://dailydeen.site/">
-    <meta property="og:image" content="https://dailydeen.site/preview.jpg">
+    <meta property="og:image" content="https://your-website-url.com/preview-image.jpg">
+
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="Daily Deen">
     <meta property="twitter:description" content="Accurate Prayer Times, Quran, and Mindfulness for the modern Muslim.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='gold' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23fbbf24'/%3E%3Cstop offset='100%25' stop-color='%23d97706'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='%2309090b'/%3E%3Cpath d='M50,15 C28,15 10,33 10,55 C10,77 28,95 50,95 C54.5,95 59,94 63,93 C55,91 48,87 43,81 C38,75 36,68 36,60 C36,48 43,37 53,31 C52,31 51,31 50,31 C36.5,31 25.5,42 25.5,55.5 C25.5,69 36.5,80 50,80 C55,80 59,79 63,76 C65,79 68,82 71,84 C65,88 58,90 50,90 C31,90 15,75 15,55 C15,36 31,20 50,20 C58,20 65,22 71,26 C66,29 62,34 60,39 C65,37 71,36 77,36 C79,36 81,36 83,36 C85,30 84,22 80,16 C72,21 62,24 52,24 L50,15 Z' fill='url(%23gold)'/%3E%3C/svg%3E">
@@ -86,26 +88,29 @@
     .ramadan-btn:hover { background: rgba(251, 191, 36, 0.1); }
     .ramadan-btn.active { background: var(--brand-gold); color: #000; }
 
-    .ramadan-widget {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 50;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end; /* Aligns text to the right */
-    }
-    .ramadan-btn:hover { background: rgba(251, 191, 36, 0.1); }
+    /* --- VISIBLE RAMADAN BADGE --- */
+.ramadan-widget {
+    position: absolute; top: 20px; right: 20px; z-index: 50;
+    display: flex; flex-direction: column; align-items: flex-end;
+    background: rgba(0, 0, 0, 0.6); /* Dark Glass */
+    backdrop-filter: blur(10px);
+    padding: 10px 15px;
+    border-radius: 16px;
+    border: 1px solid var(--brand-gold);
+    box-shadow: 0 0 15px var(--brand-gold-glow);
+    transition: transform 0.3s;
+}
+.ramadan-widget:hover { transform: scale(1.02); }
+.ramadan-btn.active { background: var(--brand-gold); color: #000;}
 
-    .ramadan-btn.active { background: var(--brand-gold); color: #000; }
-
-    .ramadan-days-left {
-        font-size: 0.75rem;
-        color: var(--text-secondary);
-        font-weight: 500;
-        margin-right: 5px;
-        opacity: 0.9;
-    }
+.ramadan-days-left {
+    font-size: 0.9rem; /* Larger text */
+    color: var(--brand-gold); /* Gold text */
+    font-weight: 700;
+    margin-right: 0;
+    margin-top: 5px;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+}
 
     /* LIGHT MODE OVERRIDES */
     body.light-theme {
@@ -130,15 +135,44 @@
     * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.4s ease, color 0.3s ease, border-color 0.3s ease; }
 
    /* --- 100x ATMOSPHERE ENGINE --- */
+
+/* --- NEW ANIMATED ATMOSPHERE ENGINE --- */
+
+/* 1. Define the Color Palette (Variables) */
+:root {
+    /* Default (Night) - Dark Blue/Black */
+    --bg-color-1: #0f172a;
+    --bg-color-2: #1e1b4b;
+    --bg-color-3: #000000;
+}
+
+/* --- VIBRANT AURORA ENGINE --- */
 body {
-    background-color: var(--bg-body);
+    /* Brighter, deeper colors for visibility */
+    background: linear-gradient(300deg, #0f172a, #312e81, #0f172a, #1e3a8a);
+    background-size: 240% 240%;
+    animation: gradient-animation 10s ease infinite; /* Faster speed */
     color: var(--text-primary);
     font-family: 'Outfit', sans-serif;
     min-height: 100vh;
     display: flex; flex-direction: column;
     overflow-x: hidden;
-    transition: background 2s ease; /* Smooth transition between times */
+    transition: --bg-color-1 3s; 
 }
+
+@keyframes gradient-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Time-Based Overrides (More Distinct) */
+body.time-fajr { background: linear-gradient(300deg, #0f172a, #0d9488, #0f172a); } /* Teal glow */
+body.time-day { background: linear-gradient(300deg, #0369a1, #38bdf8, #0284c7); } /* Sky blue motion */
+body.time-maghrib { background: linear-gradient(300deg, #4c0519, #be123c, #7c2d12); } /* Red/Sunset motion */
+body.time-night { background: linear-gradient(300deg, #0f172a, #312e81, #000000); } /* Deep Indigo */
+
+/* NIGHT: Uses the default defined in :root */
 
 /* The Grain Texture (Kept, but refined) */
 body::before {
@@ -147,11 +181,7 @@ body::before {
     pointer-events: none; z-index: -1;
 }
 
-/* Dynamic Background Classes (JS will toggle these) */
-body.time-fajr { background: linear-gradient(to bottom, #2c3e50, #4ca1af); } /* Dawn */
-body.time-day { background: linear-gradient(to bottom, #2980b9, #6dd5fa); } /* Noon */
-body.time-maghrib { background: linear-gradient(to bottom, #2b32b2, #f64f59); } /* Sunset */
-body.time-night { background: linear-gradient(at 50% 0%, #0f172a, #000000); } /* Night (Default) */
+
 
 /* This must be SEPARATE, not inside body {} */
 body::before {
@@ -218,25 +248,7 @@ body::before {
 
     /* Hero */
     .hero { text-align: center; margin-bottom: 50px; }
-    .greeting { 
-    font-size: 3rem; 
-    font-weight: 700; 
-    
-    /* Gradient */
-    background-image: linear-gradient(135deg, var(--text-primary) 30%, var(--text-secondary));
-    
-    /* The Firefox Fix */
-    background-clip: text;
-    -webkit-background-clip: text;
-    
-    /* Transparency */
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    
-    display: inline-block;
-    letter-spacing: -1px; 
-    margin-bottom: 10px; 
-}
+    .greeting { font-size: 3rem; font-weight: 700; background: linear-gradient(135deg, var(--text-primary) 30%, var(--text-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; margin-bottom: 10px; }
     .date-badge { display: inline-block; padding: 6px 16px; border-radius: 20px; background: rgba(251, 191, 36, 0.1); color: var(--brand-gold); font-size: 0.9rem; font-weight: 600; border: 1px solid var(--brand-gold-glow); }
 
     /* Card Grid */
@@ -311,28 +323,15 @@ body::before {
         padding: 20px 0;
     }
     
-  .hero-arabic {
+    .hero-arabic {
         font-family: 'Amiri', serif;
         font-size: 3.5rem;
         font-weight: 700;
-        
-        /* 1. Define the Gradient */
-        background-image: linear-gradient(135deg, var(--brand-gold) 20%, #fff 80%);
-        
-        /* 2. THE FIX: Standard Syntax for Firefox */
-        background-clip: text;
-        
-        /* 3. Webkit Syntax for Chrome/Mobile */
+        /* Golden Gradient Text */
+        background: linear-gradient(135deg, var(--brand-gold) 20%, #fff 80%);
         -webkit-background-clip: text;
-        
-        /* 4. Make text transparent */
-        color: transparent;
         -webkit-text-fill-color: transparent;
-        
-        /* 5. Essential layout fix */
-        display: inline-block;
         line-height: 1.2;
-        
         /* Glow Effect */
         filter: drop-shadow(0 0 15px var(--brand-gold-glow));
         animation: heroFade 1s ease-out;
@@ -522,10 +521,8 @@ html.font-extra { font-size: 22px; }
 body.light-theme .hero-arabic {
     /* Change gradient from White to Dark Blue */
     background: linear-gradient(135deg, var(--brand-gold) 20%, var(--text-primary) 80%);
-    background-clip: text !important;
-    -webkit-background-clip: text !important;
-    color: transparent !important;
-    -webkit-text-fill-color: transparent !important;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     
     /* Reduce the glow so it's not blurry */
     filter: drop-shadow(0 0 2px rgba(0,0,0,0.1));
@@ -538,16 +535,9 @@ body.light-theme .hero-tagline {
 }
 
 body.light-theme .greeting {
-    /* Reset background to transparent */
-    background: none !important;
-    
-    /* Set solid text color */
-    color: var(--text-primary) !important;
-    
-    /* Turn off the clipping engine to prevent the "Box" bug */
-    -webkit-text-fill-color: var(--text-primary) !important;
-    background-clip: border-box !important;
-    -webkit-background-clip: border-box !important;
+    background: var(--text-primary); /* Solid color instead of gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 /* --- 100x CARD ANIMATIONS --- */
 @keyframes shimmerMove {
@@ -740,7 +730,7 @@ button:active {
 /* --- SCROLL INDICATOR STYLES --- */
 .scroll-indicator {
     position: fixed; /* Positions it relative to the home section */
-    bottom: 90px;      /* Distance from bottom of the 'fold' */
+    bottom: 30px;      /* Distance from bottom of the 'fold' */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -958,22 +948,15 @@ button:active {
     margin-left: 2px;
 }
 .brand-deen {
-        font-family: 'Amiri', serif; 
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: var(--brand-gold);
-        
-        /* Gradient */
-        background-image: linear-gradient(135deg, #fbbf24 0%, #ffe4a0 50%, #d97706 100%);
-        
-        /* Fixes */
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        
-        display: inline-block;
-        letter-spacing: 0.5px;
-    }
+    font-family: 'Amiri', serif; 
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--brand-gold);
+    background: linear-gradient(135deg, #fbbf24 0%, #ffe4a0 50%, #d97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+}
 @keyframes slowPulse {
     0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px var(--brand-gold-glow)); }
     50% { transform: scale(1.03); filter: drop-shadow(0 0 15px var(--brand-gold-glow)); }
@@ -986,70 +969,134 @@ button:active {
 /* =========================================
    MOBILE REPAIR KIT (Add to bottom of CSS)
    ========================================= */
+/* --- MASTER MOBILE STYLES (Bottom Nav + Layout Fixes) --- */
 @media (max-width: 768px) {
-
-    /* 1. FIX RAMADAN WIDGET OVERLAP */
-    /* Stops it from floating over text. Puts it nicely at the top. */
-    .ramadan-widget {
-        position: relative; 
-        top: 0;
-        right: 0;
+    
+    /* 1. BOTTOM NAVIGATION (Thumb Zone) */
+    nav { 
+        position: fixed; 
+        bottom: 0; 
+        top: auto; 
         width: 100%;
+        padding: 10px 15px; 
+        border-top: 1px solid var(--border); 
+        border-bottom: none; 
+        background: rgba(0, 0, 0, 0.95); /* Dark background for readability */
+        backdrop-filter: blur(10px);
+        justify-content: center;
+        box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        z-index: 1000;
+    }
+
+    /* Hide Desktop Elements */
+    .brand, .theme-toggle { display: none; } 
+    
+    /* Layout the Buttons */
+    .nav-menu { 
+        width: 100%; 
+        justify-content: space-between; 
+        background: transparent; 
+        border: none; 
+        padding: 0;
         display: flex;
-        flex-direction: row-reverse; /* Keeps toggle on right, text on left */
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px; /* Pushes the "Home" content down */
-        padding: 0 10px;
+    }
+    
+    /* Button Styling */
+    .nav-btn { 
+        padding: 8px; 
+        border-radius: 12px; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        gap: 4px;
+        flex: 1; 
+        background: transparent;
+        color: var(--text-secondary);
     }
 
-    .ramadan-days-left {
-        font-size: 0.8rem;
-        margin-right: 0;
-    }
+    /* Icons & Text */
+    .nav-btn i { font-size: 1.2rem; margin-bottom: 2px; }
+    .nav-label { font-size: 0.65rem; font-weight: 500; }
 
-    /* 2. FIX SETTINGS "OUTSIDE SCREEN" */
-    /* Stacks the City and Country inputs vertically instead of side-by-side */
+    /* Active State */
+    .nav-btn.active { 
+        background: transparent; 
+        color: var(--brand-gold); 
+        box-shadow: none; 
+    }
+    .nav-btn.active i {
+        filter: drop-shadow(0 0 8px var(--brand-gold));
+        transform: translateY(-2px);
+        transition: 0.3s;
+    }
+    
+    /* 2. LAYOUT FIXES */
+    /* Push content up so it isn't hidden behind the bar */
+    body { padding-bottom: 90px; overflow-x: hidden; } 
+    .container { padding-bottom: 90px; padding: 20px 15px; overflow-x: hidden; }
+    
+    /* Ramadan Widget Position */
+    .ramadan-widget { 
+        position: relative; 
+        top: 0; 
+        right: 0; 
+        width: 100%; 
+        flex-direction: row-reverse; 
+        justify-content: space-between; 
+        align-items: center; 
+        margin-bottom: 20px; 
+        padding: 10px;
+    }
+    .ramadan-days-left { font-size: 0.8rem; margin-right: 0; margin-top: 0; }
+
+    /* 3. SETTINGS PAGE FIXES (Keep inputs stacked) */
     .input-group {
         flex-direction: column;
         width: 100%;
     }
-
     .styled-input {
         width: 100%;
-        max-width: 100% !important; /* Overrides the 'Country' small width */
+        max-width: 100% !important;
         margin-bottom: 10px;
     }
-
-    /* 3. FIX NAVIGATION & LAYOUT */
-    /* Ensures nothing makes the screen wider than the phone (Horizontal Scroll Fix) */
-    body, html {
-        overflow-x: hidden;
-    }
-    
-    .container {
-        padding: 20px 15px; /* Smaller padding for mobile */
-        overflow-x: hidden;
-    }
-
-    /* Makes the Nav Menu scrollable sideways if buttons are too big */
-    .nav-menu {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-    }
-    
-    .nav-btn {
-        flex: 1 1 auto; /* Buttons grow to fill space */
-        text-align: center;
-        font-size: 0.8rem;
-        padding: 8px 12px;
-    }
 }
+
+/* Bismillah Screen */
+#bismillah-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: #000; z-index: 9999;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity 1.5s ease-out;
+    pointer-events: none; /* Allows click-through after fading */
+}
+.bismillah-text {
+    font-family: 'Amiri', serif; font-size: 3rem; color: var(--brand-gold);
+    animation: glowText 3s infinite alternate; text-align: center; padding: 0 20px;
+}
+.bismillah-eng {
+    font-family: 'Outfit', sans-serif; font-size: 0.9rem; color: #fff; opacity: 0.6; margin-top: 15px; letter-spacing: 3px; text-transform: uppercase; text-align: center;
+}
+@keyframes glowText { from { text-shadow: 0 0 10px rgba(251, 191, 36, 0.2); } to { text-shadow: 0 0 30px rgba(251, 191, 36, 0.6); } }
+
+/* Dignified Developer Request */
+#developer-request {
+    border: 1px solid var(--brand-gold);
+    background: linear-gradient(180deg, rgba(251, 191, 36, 0.05) 0%, rgba(0,0,0,0.4) 100%);
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.1);
+}
+#developer-request .card-header {
+    justify-content: center; border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+    padding-bottom: 15px; margin-bottom: 20px; font-family: 'Amiri', serif; font-size: 1.2rem;
+}
+
 
 </style>
 </head>
 <body>
+    <div id="bismillah-screen">
+    <div class="bismillah-text">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+    <div class="bismillah-eng">In the Name of Allah, the Most Gracious, the Most Merciful</div>
+</div>
 
     <nav>
         <div class="brand-lockup">
@@ -1067,14 +1114,26 @@ button:active {
         <span class="brand-deen">Deen</span>
     </div>
 </div>
-        <div class="nav-menu">
-            <button class="nav-btn active" onclick="switchTab('home', this)">Home</button>
-            <button class="nav-btn" onclick="switchTab('qibla', this)">Qibla</button>
-            <button class="nav-btn" onclick="switchTab('quran', this)">Quran</button>
-            <button class="nav-btn" onclick="switchTab('adhkar', this)">Adhkar</button>
-            <button class="nav-btn" onclick="switchTab('serenity', this)">Serenity</button>
-            <button class="nav-btn" onclick="switchTab('settings', this)">Settings</button>
-        </div>
+       <div class="nav-menu">
+    <button class="nav-btn active" onclick="switchTab('home', this)">
+        <i class="fas fa-home"></i> <span class="nav-label">Home</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('qibla', this)">
+        <i class="fas fa-compass"></i> <span class="nav-label">Qibla</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('quran', this)">
+        <i class="fas fa-book-open"></i> <span class="nav-label">Quran</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('adhkar', this)">
+        <i class="fas fa-fingerprint"></i> <span class="nav-label">Adhkar</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('serenity', this)">
+        <i class="fas fa-cloud-moon"></i> <span class="nav-label">Serenity</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('settings', this)">
+        <i class="fas fa-cog"></i> <span class="nav-label">Settings</span>
+    </button>
+</div>
         <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
     </nav>
 
@@ -1284,7 +1343,7 @@ button:active {
     </div>
 </div>
 
-<div class="card" style="grid-column: 1 / -1; border-color: rgba(251, 191, 36, 0.4); background: linear-gradient(180deg, var(--bg-card) 0%, rgba(251, 191, 36, 0.08) 100%);">
+<div class="card" id="developer-request" style="grid-column: 1 / -1;">
     
     <div class="card-header" style="justify-content: center; color: var(--brand-gold); text-align:center;">
         <i class="fas fa-heart" style="margin-right:8px;"></i> A Personal Request from the Developer
@@ -1552,6 +1611,44 @@ button:active {
 
 
     <script>
+
+     window.addEventListener('load', () => {
+    /* --- 1. START THE APP LOGIC (This was missing!) --- */
+    console.log("App Starting..."); // Debug message
+    updateAtmosphere();
+    updateGregorianDate();
+    loadDailyVerse();
+    loadDailyHadith();
+    initChecklist();
+    generateDailyContent();
+
+    /* --- 2. LOAD LOCATION & PRAYERS --- */
+    const savedCity = localStorage.getItem('city');
+    
+    if(savedCity && savedCity !== "GPS Location") {
+        // Case A: User saved a city manually
+        document.getElementById('set-city').value = savedCity;
+        loadPrayers(savedCity, localStorage.getItem('country') || "");
+        
+    } else if (localStorage.getItem('lat') && localStorage.getItem('long')) {
+        // Case B: User saved GPS coordinates
+        loadPrayersByGPS(localStorage.getItem('lat'), localStorage.getItem('long'));
+        
+    } else {
+        // Case C: First time opening (Default to Makkah)
+        loadPrayers("Makkah", "Saudi Arabia");
+        document.getElementById('set-city').value = "Makkah";
+    }
+
+    /* --- 3. REMOVE BISMILLAH SCREEN --- */
+    setTimeout(() => {
+        const screen = document.getElementById('bismillah-screen');
+        if(screen) {
+            screen.style.opacity = '0'; // Fade out
+            setTimeout(() => screen.style.display = 'none', 1500); // Remove
+        }
+    }, 1500); 
+});
         // --- THEME LOGIC ---
         function toggleTheme() {
             document.body.classList.toggle('light-theme');
@@ -1913,32 +2010,81 @@ function toggleNameDua() {
             }
         }
 
-        async function loadPrayers(city, country) {
-            const container = document.getElementById('prayer-list-render');
-            container.innerHTML = '<div class="spinner"></div>';
-            try {
-                const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=2`);
-                document.getElementById('active-city-label').innerText = city;
-                const data = await res.json();
-                const t = data.data.timings;
-                startCountdown(t);
-                const h = data.data.date.hijri;
+        /* --- 1. SPECIAL EVENTS LOGIC (Hijri Check) --- */
+function checkSpecialEvents(hijriData) {
+    const day = parseInt(hijriData.day);
+    const month = parseInt(hijriData.month.number); 
+    const greetingEl = document.querySelector('.greeting'); 
 
-                document.getElementById('hijri-date').innerText = `${h.day} ${h.month.en} ${h.year}`;
-                
-                // Store coords for Qibla
-                localStorage.setItem('lat', data.data.meta.latitude);
-                localStorage.setItem('long', data.data.meta.longitude);
+    let eventName = "";
 
-                container.innerHTML = `
-                    <div class="prayer-row"><span>Fajr</span><span>${t.Fajr}</span></div>
-                    <div class="prayer-row"><span>Dhuhr</span><span>${t.Dhuhr}</span></div>
-                    <div class="prayer-row"><span>Asr</span><span>${t.Asr}</span></div>
-                    <div class="prayer-row"><span>Maghrib</span><span>${t.Maghrib}</span></div>
-                    <div class="prayer-row"><span>Isha</span><span>${t.Isha}</span></div>
-                `;
-            } catch(e) { container.innerHTML = "Error loading times. Check City name."; }
-        }
+    // Sunni Tradition Significant Dates
+    if (month === 1 && day === 10) eventName = "Yawm al-Ashura";
+    else if (month === 9) eventName = "Ramadan Mubarak";
+    else if (month === 10 && day === 1) eventName = "Eid al-Fitr";
+    else if (month === 12 && day === 9) eventName = "Day of Arafah";
+    else if (month === 12 && day === 10) eventName = "Eid al-Adha";
+    else if (month === 8 && day === 15) eventName = "Laylatul Bara'ah"; 
+    else if (month === 7 && day === 27) eventName = "Isra wal Mi'raj"; 
+
+    // Update the greeting if it's a special day
+    if (eventName && greetingEl) {
+        greetingEl.innerText = eventName;
+        greetingEl.style.color = "var(--brand-gold)";
+        greetingEl.style.textShadow = "0 0 20px var(--brand-gold-glow)";
+    }
+}
+
+/* --- 2. CENTRAL UI UPDATER (Used by both GPS and Search) --- */
+function updatePrayerUI(timings, hijri) {
+    const container = document.getElementById('prayer-list-render');
+    
+    // Start the countdown
+    startCountdown(timings);
+    
+    // Update Date & Check Events
+    if(hijri && document.getElementById('hijri-date')) {
+        document.getElementById('hijri-date').innerText = `${hijri.day} ${hijri.month.en} ${hijri.year}`;
+        checkSpecialEvents(hijri);
+    }
+    
+    // Render the list
+    if(container) {
+        container.innerHTML = `
+            <div class="prayer-row"><span>Fajr</span><span>${timings.Fajr}</span></div>
+            <div class="prayer-row"><span>Dhuhr</span><span>${timings.Dhuhr}</span></div>
+            <div class="prayer-row"><span>Asr</span><span>${timings.Asr}</span></div>
+            <div class="prayer-row"><span>Maghrib</span><span>${timings.Maghrib}</span></div>
+            <div class="prayer-row"><span>Isha</span><span>${timings.Isha}</span></div>
+        `;
+    }
+}
+
+async function loadPrayers(city, country) {
+    const container = document.getElementById('prayer-list-render');
+    container.innerHTML = '<div class="spinner"></div>';
+    
+    try {
+        const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=2`);
+        if (!res.ok) throw new Error("Network error");
+        
+        const data = await res.json();
+        const t = data.data.timings;
+        
+        document.getElementById('active-city-label').innerText = city;
+        
+        // *** THIS IS THE KEY CHANGE ***
+        updatePrayerUI(t, data.data.date.hijri); 
+        // ******************************
+
+        // Save for Qibla
+        localStorage.setItem('lat', data.data.meta.latitude);
+        localStorage.setItem('long', data.data.meta.longitude);
+
+    } catch(e) { 
+        container.innerHTML = "Error loading. Check City Name."; 
+    }
+}
         
         // Initial Load
         const userCity = localStorage.getItem('city');
@@ -2252,38 +2398,45 @@ function startCountdown(timings) {
         updateRamadanUI(true);
     }
    /* --- OPTIMIZED DAILY VERSE (Saves for 24h) --- */
+/* --- UPDATED AUDIO VERSE LOADER --- */
 async function loadDailyVerse() {
-    const todayStr = new Date().toDateString(); // e.g. "Mon Dec 29 2025"
-    const savedDate = localStorage.getItem('daily_verse_date');
-    const savedData = localStorage.getItem('daily_verse_data');
-
-    // 1. CHECK CACHE: If we have data from today, use it!
-    if (savedDate === todayStr && savedData) {
-        const data = JSON.parse(savedData);
-        renderVerse(data);
-        return; // Stop here, no API call needed!
-    }
-
-    // 2. FETCH NEW: If no cache, or old date, fetch from API
     try {
-        const randomID = Math.floor(Math.random() * 6236) + 1;
-        const res = await fetch(`https://api.alquran.cloud/v1/ayah/${randomID}/editions/quran-uthmani,en.asad`);
-        const apiData = await res.json();
+        const id = Math.floor(Math.random() * 6236) + 1;
         
-        // 3. SAVE TO CACHE
-        const verseData = {
-            ar: apiData.data[0].text,
-            en: apiData.data[1].text,
-            ref: `${apiData.data[0].surah.englishName} : ${apiData.data[0].numberInSurah}`
-        };
+        // Fetch 3 Editions: Arabic Text, English Text, and Audio (Mishary Alafasy)
+        const res = await fetch(`https://api.alquran.cloud/v1/ayah/${id}/editions/quran-uthmani,en.asad,ar.alafasy`);
+        const d = await res.json();
         
-        localStorage.setItem('daily_verse_data', JSON.stringify(verseData));
-        localStorage.setItem('daily_verse_date', todayStr);
+        // 1. Set Texts
+        document.getElementById('verse-ar').innerText = d.data[0].text;
+        document.getElementById('verse-en').innerText = d.data[1].text;
         
-        renderVerse(verseData);
+        // 2. Set Reference
+        const refText = `${d.data[0].surah.englishName} : ${d.data[0].numberInSurah}`;
+        const refEl = document.getElementById('verse-ref');
+        refEl.innerText = refText;
+        
+        // 3. Add Audio Player Button
+        const audioUrl = d.data[2].audio;
+        
+        // Check if button already exists, remove it to prevent duplicates
+        const oldBtn = document.getElementById('verse-play-btn');
+        if(oldBtn) oldBtn.remove();
 
-    } catch(e) {
-        document.getElementById('verse-en').innerText = "Tap refresh to load verse.";
+        // Create Audio Element
+        const playerHTML = `
+            <audio id="verse-player" src="${audioUrl}"></audio>
+            <button id="verse-play-btn" onclick="document.getElementById('verse-player').play()" 
+                style="display:block; margin:15px auto 0 auto; background:rgba(251, 191, 36, 0.15); border:1px solid var(--brand-gold); color:var(--brand-gold); padding:8px 25px; border-radius:50px; cursor:pointer; font-size:0.9rem; transition:0.3s;">
+                <i class="fas fa-play"></i> Listen to Recitation
+            </button>
+        `;
+        
+        // Insert Player after reference
+        refEl.insertAdjacentHTML('afterend', playerHTML);
+
+    } catch(e){ 
+        console.log("Verse load fail"); 
     }
 }
 
@@ -2401,29 +2554,20 @@ async function loadPrayersByGPS(lat, long) {
     container.innerHTML = '<div class="spinner"></div>';
     
     try {
-        // Fetch data using Coordinates
         const res = await fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${long}&method=2`);
-        const data = await res.json();
-        
-        // 1. Update Date & Location Text
-        const t = data.data.timings;
-        const h = data.data.date.hijri;
-        
-        startCountdown(t); // Start the timer
-        document.getElementById('hijri-date').innerText = `${h.day} ${h.month.en} ${h.year}`;
-        document.getElementById('active-city-label').innerText = "Current Location";
+        if (!res.ok) throw new Error("Network error");
 
-        // 2. Render the Prayer List (This part was missing in your old code!)
-        container.innerHTML = `
-            <div class="prayer-row"><span>Fajr</span><span>${t.Fajr}</span></div>
-            <div class="prayer-row"><span>Dhuhr</span><span>${t.Dhuhr}</span></div>
-            <div class="prayer-row"><span>Asr</span><span>${t.Asr}</span></div>
-            <div class="prayer-row"><span>Maghrib</span><span>${t.Maghrib}</span></div>
-            <div class="prayer-row"><span>Isha</span><span>${t.Isha}</span></div>
-        `;
-    } catch(e) { 
-        container.innerHTML = "Error loading data."; 
-        console.error(e); 
+        const data = await res.json();
+        const t = data.data.timings;
+        
+        document.getElementById('active-city-label').innerText = "Current Location";
+        
+        // *** REUSE THE SAME LOGIC ***
+        updatePrayerUI(t, data.data.date.hijri);
+        // ****************************
+
+    } catch(e) {
+        container.innerHTML = "Error loading GPS data.";
     }
 }
 
@@ -2515,7 +2659,10 @@ else {
     }
 
     // Initialize with Study Mode
-   
+    setTimeout(() => {
+        const firstCard = document.querySelector('.mood-card');
+        if(firstCard) playMood('study', firstCard);
+    }, 1000);
 
     // Simple Clock for Serenity Tab
     setInterval(() => {
@@ -2690,24 +2837,57 @@ function bookmarkApp() {
     toast.style.display = "block";
     setTimeout(() => toast.style.display = "none", 4000);
 }
-/* --- 100x ATMOSPHERE LOGIC --- */
 function updateAtmosphere() {
-    const hour = new Date().getHours();
-    const body = document.body;
-    
-    // Remove old classes
-    body.classList.remove('time-fajr', 'time-day', 'time-maghrib', 'time-night');
+        const date = new Date();
+        const hour = date.getHours();
+        const day = date.getDay(); // 5 = Friday
+        const greetingEl = document.querySelector('.hero-dua');
+        const body = document.body;
+        const subheading = document.querySelector('.hero-tagline'); // We will use this too
+        
+        // 1. Reset Background Classes
+        body.classList.remove('time-fajr', 'time-day', 'time-maghrib', 'time-night');
+        
+        let spiritualMsg = "";
+        let subMsg = "Your Daily Companion"; // Default
 
-    if (hour >= 4 && hour < 7) {
-        body.classList.add('time-fajr'); // 4 AM - 7 AM
-    } else if (hour >= 7 && hour < 17) {
-        body.classList.add('time-day'); // 7 AM - 5 PM
-    } else if (hour >= 17 && hour < 20) {
-        body.classList.add('time-maghrib'); // 5 PM - 8 PM
-    } else {
-        body.classList.add('time-night'); // 8 PM - 4 AM
+        // 2. JUMMAH CHECK (Sunni Tradition)
+        // If it is Thursday Night (after Maghrib) OR Friday before Maghrib
+        const isJummah = (day === 4 && hour >= 18) || (day === 5 && hour < 18);
+
+        if (isJummah) {
+            spiritualMsg = "Jummah Mubarak. Illuminate your heart with Surah Al-Kahf.";
+            subMsg = "Send abundant Salawat upon the Prophet ﷺ today.";
+            // Keep the colors based on time, but maybe force a specific glow? 
+            // Let's stick to time colors to keep it dynamic.
+        } 
+        
+        // 3. Time Logic (Overrides message if NOT Jummah, or sets background)
+        if (hour >= 4 && hour < 7) {
+            body.classList.add('time-fajr');
+            if(!isJummah) spiritualMsg = "The Lord descends to the lowest heaven. Ask, and you shall receive.";
+        } else if (hour >= 7 && hour < 17) {
+            body.classList.add('time-day');
+            if(!isJummah) spiritualMsg = "Oh Allah, bless my early morning hours.";
+        } else if (hour >= 17 && hour < 20) {
+            body.classList.add('time-maghrib');
+            if(!isJummah) spiritualMsg = "The sun sets, but the light of Allah never fades.";
+        } else {
+            body.classList.add('time-night');
+            if(!isJummah) spiritualMsg = "Sleep with Wudu, and your soul prostrates under the Throne.";
+        }
+
+        // 4. Update Texts
+        if(greetingEl && greetingEl.innerText !== `"${spiritualMsg}"`) {
+            greetingEl.style.opacity = 0;
+            setTimeout(() => {
+                greetingEl.innerText = `"${spiritualMsg}"`;
+                greetingEl.style.opacity = 1;
+                // Also update the sub-header for special events
+                if(subheading) subheading.innerText = subMsg;
+            }, 500);
+        }
     }
-}
 
 // Run on load and every minute
 updateAtmosphere();
@@ -3043,6 +3223,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
     </script>
+    <script>
+    // This runs independently to guarantee the screen clears
+    window.onload = function() {
+        setTimeout(function() {
+            var screen = document.getElementById('bismillah-screen');
+            if (screen) {
+                screen.style.opacity = '0';
+                setTimeout(function() { 
+                    screen.style.display = 'none'; 
+                }, 1500);
+            }
+        }, 1500); // Wait 1.5s then fade
+    };
+</script>
 </body>
 </html>
