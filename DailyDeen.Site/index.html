@@ -12,7 +12,7 @@
     <meta name="theme-color" content="#0f172a">
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://your-website-url.com/">
+    <meta property="og:url" content="https://dailydeen.site/">
     <meta property="og:title" content="Daily Deen | Your Digital Sanctuary">
     <meta property="og:description" content="Accurate Prayer Times, Quran, and Mindfulness for the modern Muslim. Ad-free and privacy-focused.">
     <meta property="og:image" content="https://your-website-url.com/preview-image.jpg">
@@ -20,8 +20,9 @@
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="Daily Deen">
     <meta property="twitter:description" content="Accurate Prayer Times, Quran, and Mindfulness for the modern Muslim.">
-
+    <link rel="apple-touch-icon" href="icon(2).png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="canonical" href="https://dailydeen.site/">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -31,31 +32,34 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
 <script src="https://unpkg.com/split-type"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
-    /* =========================================
-       1. THEME ENGINE (CSS VARIABLES)
-       ========================================= */
-    :root {
-    /* Refined Dark Mode */
-    --bg-body: #09090b; /* Darker, richer black */
-    --bg-card: rgba(24, 24, 27, 0.6); /* Zinc tone */
-    --bg-nav: rgba(9, 9, 11, 0.85);
-    --border: rgba(255, 255, 255, 0.1);
+/* =========================================
+   1. THEME ENGINE (BRIGHTER DARK MODE)
+   ========================================= */
+:root {
+    /* Refined Dark Mode Backgrounds */
+    --bg-body: #09090b; 
+    --bg-card: rgba(24, 24, 27, 0.6); 
+    --bg-nav: rgba(9, 9, 11, 0.9);
+    --border: rgba(255, 255, 255, 0.15); /* Slightly clearer borders */
     
-    --text-primary: #ffffff;
-    --text-secondary: #a1a1aa;
+    /* 🔴 TEXT COLORS (BRIGHTENED) */
+    --text-primary: #ffffff;       /* Pure White (Unchanged) */
+    --text-secondary: #e2e8f0;     /* WAS #a1a1aa (Gray) -> NOW Silver (Much Brighter) */
     
-    /* Elegant Gold */
-    --brand-gold: #fbbf24; 
-    --brand-gold-glow: rgba(251, 191, 36, 0.25);
+    /* 🔴 GOLD ACCENT (MORE VIBRANT) */
+    --brand-gold: #f59e0b;        
+    --brand-gold-glow: rgba(245, 158, 11, 0.35);
     
     /* Serenity Green */
-    --brand-green: #34d399;
-    --brand-green-glow: rgba(52, 211, 153, 0.2);
+    --brand-green: #6ee7b7;        /* Brighter Mint Green */
+    --brand-green-glow: rgba(110, 231, 183, 0.25);
     
     --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-}
+}    
+
     /* RAMADAN THEME OVERRIDES */
     body.ramadan-mode {
         --bg-body: #2e1065; /* Deep Purple */
@@ -93,16 +97,28 @@
     .ramadan-btn.active { background: var(--brand-gold); color: #000; }
 
     /* --- VISIBLE RAMADAN BADGE --- */
+/* REPLACE YOUR EXISTING .ramadan-widget CSS WITH THIS */
 .ramadan-widget {
-    position: absolute; top: 20px; right: 20px; z-index: 50;
-    display: flex; flex-direction: column; align-items: flex-end;
-    background: rgba(0, 0, 0, 0.6); /* Dark Glass */
+    /* Layout & Centering */
+    position: relative;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; /* Centers content inside */
+    width: fit-content;
+    margin: 25px auto 0 auto; /* Top margin separates it from dates */
+    
+    /* Visuals */
+    background: rgba(0, 0, 0, 0.4); 
     backdrop-filter: blur(10px);
-    padding: 10px 15px;
-    border-radius: 16px;
+    padding: 10px 25px;
+    border-radius: 50px; 
     border: 1px solid var(--brand-gold);
     box-shadow: 0 0 15px var(--brand-gold-glow);
-    transition: transform 0.3s;
+    z-index: 10;
+    
+    /* IMPORTANT: Removing 'top' and 'right' so it stays dead center */
+    top: auto; 
+    right: auto;
 }
 .ramadan-widget:hover { transform: scale(1.02); }
 .ramadan-btn.active { background: var(--brand-gold); color: #000;}
@@ -116,25 +132,39 @@
     text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
 }
 
-    /* LIGHT MODE OVERRIDES */
-    body.light-theme {
-        --bg-body: #f1f5f9;
-        --bg-card: rgba(255, 255, 255, 0.8);
-        --bg-nav: rgba(255, 255, 255, 0.85);
-        --border: rgba(0, 0, 0, 0.06);
-        
-        --text-primary: #1e293b;
-        --text-secondary: #64748b;
-        
-        --brand-gold: #b45309; /* Darker Gold for contrast */
-        --brand-gold-glow: rgba(180, 83, 9, 0.15);
-        
-        --brand-green: #059669; /* Darker Green for contrast */
-        --brand-green-glow: rgba(5, 150, 105, 0.15);
-        
-        --shadow-card: 0 10px 40px -10px rgba(0,0,0,0.08);
-        --input-bg: #fff;
-    }
+   
+/* --- WARM GLASS LIGHT MODE (The "Brown" Theme) --- */
+body.light-theme {
+    /* 1. Background: Warm Sandy/Beige Tone (Restores the "Brown" feel) */
+    --bg-body: #f5f0e6; 
+    
+    /* 2. THE GLASS EFFECT: 60% Opacity Warm White */
+    /* This allows the sandy background to blur through */
+    --bg-card: rgba(255, 252, 245, 0.6); 
+    
+    /* 3. Navigation: Slightly more solid for readability */
+    --bg-nav: rgba(255, 252, 245, 0.8);
+    
+    /* 4. Borders: A subtle "Coffee" outline to define the glass */
+    --border: rgba(120, 80, 40, 0.1);
+    
+    /* 5. Text Colors: Dark Brown instead of Black/Grey */
+    --text-primary: #3e2723;   /* Deep Coffee */
+    --text-secondary: #795548; /* Milk Chocolate */
+    
+    /* 6. Accents: Deep Amber/Bronze */
+    --brand-gold: #b45309; 
+    --brand-gold-glow: rgba(180, 83, 9, 0.15);
+    
+    --brand-green: #15803d; /* Forest Green */
+    --brand-green-glow: rgba(21, 128, 61, 0.15);
+    
+    /* 7. Shadows: Soft Warm Shadows */
+    --shadow-card: 0 10px 30px -5px rgba(62, 39, 35, 0.08);
+    
+    --input-bg: rgba(255, 255, 255, 0.7);
+}
+
 
     * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.4s ease, color 0.3s ease, border-color 0.3s ease; }
 
@@ -172,31 +202,19 @@ body {
 
 /* Time-Based Overrides (More Distinct) */
 body.time-fajr { background: linear-gradient(300deg, #0f172a, #0d9488, #0f172a); } /* Teal glow */
-body.time-day { background: linear-gradient(300deg, #0369a1, #38bdf8, #0284c7); } /* Sky blue motion */
+body.time-day { background: linear-gradient(300deg, #0369a1, #38bdf8, #0284c7); } /* Sky blue 
+motion */
+/* Afternoon / Asr (Golden Hour) */
+body.time-asr { 
+    background: linear-gradient(300deg, #b45309, #d97706, #f59e0b) !important; 
+}
 body.time-maghrib { background: linear-gradient(300deg, #4c0519, #be123c, #7c2d12); } /* Red/Sunset motion */
 body.time-night { background: linear-gradient(300deg, #0f172a, #312e81, #000000); } /* Deep Indigo */
 
-/* NIGHT: Uses the default defined in :root */
-
-/* The Grain Texture (Kept, but refined) */
-body::before {
-    content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: -1;
-}
 
 
 
-/* This must be SEPARATE, not inside body {} */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: -1;
-    opacity: 0.4;
-}
+
 
     /* =========================================
        2. NAVIGATION BAR
@@ -355,33 +373,43 @@ body::before {
     /* --- NEW HERO STYLES --- */
     .hero-content {
         padding: 20px 0;
+       
     }
     
-    .hero-arabic {
+  .hero-arabic {
     font-family: 'Amiri', serif;
-    font-size: 3.5rem;
+    font-size: 2.8rem; /* Slightly smaller to fit the long greeting on one line */
     font-weight: 700;
     
-    /* 1. The Gradient */
-    background-image: linear-gradient(135deg, var(--brand-gold) 20%, #fff 80%);
-    
-    /* 2. THE FIX: Standard Syntax for Firefox */
-    background-clip: text; 
-    
-    /* 3. Webkit Syntax for Chrome/Mobile */
+    /* 1. LAYOUT FIXES */
+    display: inline-block; 
+    line-height: 1.6; /* Increased to prevent clipping top/bottom diacritics */
+    padding: 0 10px; /* Prevents side-clipping of long words */
+    width: auto;
+    max-width: 95%; /* Ensures it doesn't break layout on mobile */
+    text-align: center;
+
+    /* 2. GRADIENT & CLIPPING */
+    background: linear-gradient(135deg, #fcd34d 0%,  #ffffff 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     
-    /* 4. Make text transparent */
-    color: transparent;
+    /* 3. VISIBILITY FALLBACKS */
+    color: #fbbf24; 
     -webkit-text-fill-color: transparent;
     
-    /* 5. Essential layout fix */
-    display: inline-block; 
-    line-height: 1.2;
+    /* 4. DEPTH */
+    filter: drop-shadow(0 0 15px rgba(252, 211, 77, 0.4));
     
-    /* Glow Effect */
-    filter: drop-shadow(0 0 15px var(--brand-gold-glow));
-    animation: heroFade 1s ease-out;
+    animation: heroFade 1.2s ease-out;
+}
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .hero-arabic {
+        font-size: 1.8rem; /* Shrink for small screens to prevent disappearing */
+        line-height: 1.8;
+    }
 }
     .hero-dua {
         font-size: 1.2rem;
@@ -409,105 +437,146 @@ body::before {
     @keyframes heroFade { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     @keyframes slideUpFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* --- SERENITY TAB STYLES (New) --- */
-    #serenity {
-        /* Deep Peaceful Gradient */
-        background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
-        border-radius: 24px;
-        padding: 40px 20px;
-        min-height: 85vh;
-        color: #fff;
-        text-align: center;
-        box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
-    }
-
-    .serenity-header { margin-bottom: 40px; }
+   #serenity {
+    /* Keep your existing shadow and radius, but simplify the background */
+    background: linear-gradient(to bottom, #0f2027, #152a32); /* Darker, more aesthetic */
+    border-radius: 24px;
+    padding: 60px 20px;
+    min-height: 85vh;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
     
-    .serenity-title {
-        font-family: 'Amiri', serif;
-        font-size: 3.5rem;
-        color: #a8d8b9; /* Soft Sage Green */
-        text-shadow: 0 0 25px rgba(168, 216, 185, 0.2);
-        margin-bottom: 10px;
-    }
+    flex-direction: column;
+    align-items: center;
+
+    /* 1. CENTRAL CLOCK STYLING */
+#serenity-clock {
+    margin-bottom: 50px;
+    font-family: 'Amiri', serif;
+}
+
+#clock-time {
+    font-size: clamp(6rem, 20vw, 12rem); /* Larger for the center-piece feel */
+    color: var(--brand-gold);
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+    line-height: 0.9;
+    font-weight: 700;
     
-    .serenity-caption {
-        font-size: 1.1rem;
-        color: #dbece5;
-        font-weight: 300;
-        opacity: 0.9;
-        letter-spacing: 0.5px;
-    }
-
-    /* Mood Cards Grid */
-    .mood-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 20px;
-        max-width: 800px;
-        margin: 0 auto 40px auto;
-    }
-
-    .mood-card {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 25px 15px;
-        border-radius: 20px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .mood-card:hover, .mood-card.active {
-        background: rgba(168, 216, 185, 0.15);
-        border-color: #a8d8b9;
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
-
-    .mood-icon { font-size: 2.5rem; display: block; margin-bottom: 15px; }
-    .mood-name { font-weight: 600; font-size: 0.95rem; letter-spacing: 1px; color: #fff; }
-
-    /* Player Box */
-    .player-container {
-        background: rgba(0, 0, 0, 0.25);
-        border-radius: 24px;
-        padding: 25px;
-        max-width: 750px;
-        margin: 0 auto;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .iframe-container {
-        position: relative;
-        padding-bottom: 56.25%; /* 16:9 Ratio */
-        height: 0;
-        overflow: hidden;
-        border-radius: 16px;
-        background: #000;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-    }
+    /* AESTHETIC GOLD GRADIENT */
+    background: linear-gradient(to bottom, #fbbf24, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     
-    .iframe-container iframe {
-        position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
-        border: none;
-    }
+    /* SOFT GLOW */
+    filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.3));
+    font-family: 'Outfit', sans-serif; /* Clean modern font */
+}
+}
 
-    .now-playing {
-        font-family: 'Outfit', sans-serif;
-        font-size: 1.2rem;
-        color: #a8d8b9;
-        margin-bottom: 15px;
-        font-weight: 500;
-    }
-    
-    #serenity-clock {
-        font-weight: 700;
-        color: #fff;
-        margin-left: 8px;
-    }
+#clock-date {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin-top: 10px;
+}
+
+/* 2. AUDIO & REFLECTION CARDS */
+.serenity-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+/* 3. REFLECTION TEXTAREA */
+#reflection-input {
+    width: 100%;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: #fff;
+    padding: 15px;
+    font-family: 'Outfit', sans-serif;
+    resize: none;
+    margin-top: 15px;
+}
+
+#reflection-input:focus {
+    border-color: var(--brand-gold);
+    outline: none;
+}
+
+.serenity-audio-card {
+  padding: 25px;
+  text-align: center;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+  height: 500px; /* 🔴 FIXED HEIGHT forces internal scrolling */
+    display: flex;
+    flex-direction: column;
+    padding: 0 !important; /* Removes padding to let header fit */
+    overflow: hidden; /* Hides anything spilling out */
+    border: 1px solid var(--border);
+}
+
+#playlist-container {
+    flex: 1; /* Fills remaining space */
+    overflow-y: auto; /* 🔴 ENABLE SCROLL HERE */
+    background: rgba(0,0,0,0.2);
+    /* Custom Scrollbar for style */
+    scrollbar-width: thin;
+    scrollbar-color: var(--brand-gold) transparent;
+}
+
+.serenity-audio-icon {
+  color: var(--brand-gold);
+  margin-bottom: 10px;
+}
+
+.serenity-audio-title {
+  margin-bottom: 15px;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.serenity-audio-card audio {
+  width: 100%;
+  height: 35px;
+}
+
+.audio-list {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.audio-list button {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  color: rgba(255,255,255,0.8);
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.audio-list button:hover {
+  border-color: var(--brand-gold);
+  color: var(--brand-gold);
+}
+
+
+
     /* --- NEW FEATURES CSS --- */
 
 /* 1. Accessibility Font Sizing */
@@ -540,11 +609,41 @@ html.font-extra { font-size: 22px; }
 .sadaqah-badge { background: #000; border: 2px solid var(--brand-gold); color: var(--brand-gold); padding: 12px 30px; border-radius: 50px; font-weight: 800; font-size: 0.9rem; letter-spacing: 1px; box-shadow: 0 0 25px rgba(251, 191, 36, 0.4); animation: goldPulse 3s infinite; text-transform: uppercase; font-family: 'Outfit', sans-serif; }
 @keyframes goldPulse { 0% { box-shadow: 0 0 25px rgba(251, 191, 36, 0.4); transform: scale(1); } 50% { box-shadow: 0 0 40px rgba(251, 191, 36, 0.7); transform: scale(1.05); } 100% { box-shadow: 0 0 25px rgba(251, 191, 36, 0.4); transform: scale(1); } }
 
-.ticker-container { background: rgba(255, 255, 255, 0.03); border-top: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 15px 0; margin-bottom: 30px; overflow: hidden; white-space: nowrap; }
-.ticker-text { display: inline-block; padding-left: 100%; animation: tickerScroll 40s linear infinite; font-family: 'Amiri', serif; font-size: 1.1rem; color: #e2e8f0; }
-.ticker-text b { color: var(--brand-green); }
-.ticker-text .dot { color: var(--brand-gold); margin: 0 20px; }
-@keyframes tickerScroll { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+/* --- BREATHING FOOTER DUA --- */
+#footer-dua-wrapper {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+    padding: 20px;
+    min-height: 80px; /* Keeps footer stable */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.02); /* Subtle box */
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+#footer-dua-text {
+    font-family: 'Amiri', serif;
+    font-size: 1.4rem;
+    color: #e2e8f0;
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    opacity: 1;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* The "Fade Out" State */
+#footer-dua-text.fade-out {
+    opacity: 0;
+    transform: translateY(10px); /* Subtle slide down */
+}
+
+.highlight-gold {
+    color: var(--brand-gold);
+    font-weight: 700;
+}
 
 .footer-grid { display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto; padding: 0 20px; flex-wrap: wrap; gap: 30px; }
 .footer-title { font-family: 'Amiri', serif; font-size: 2.5rem; color: var(--brand-gold); margin-bottom: 10px; }
@@ -1143,58 +1242,61 @@ body::before {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
     opacity: 0.07; pointer-events: none; z-index: 9999; mix-blend-mode: overlay;
 }
+/* --- 2. UNIVERSAL CARD FIX (Clean Version) --- */
 
-/* --- 2. SWIPE LAYOUT (Horizontal Scroll) --- */
-/* --- 2. PERFECT SNAP CARDS (Fixed) --- */
-.horizontal-scroll { display: contents; } /* Desktop: Normal Grid */
+/* === DEFAULT: LAPTOP & TABLET === */
+.horizontal-scroll {
+    display: flex !important;       /* Force Row Layout */
+    flex-direction: row !important; 
+    justify-content: space-between !important; /* Spread them out */
+    align-items: stretch !important; /* Make them same height */
+    gap: 20px !important;
+    width: 100% !important;
+    margin-top: 15px;
+    overflow: visible !important;   /* No scrolling on laptop */
+}
 
+.swipe-card {
+    flex: 1 1 0px !important;       /* Magic Rule: Forces all 3 to be equal width */
+    width: 100% !important;
+    min-width: 250px !important;    /* Never let them get smaller than this */
+    max-width: none !important;     /* Remove size limits */
+    margin: 0 !important;
+    height: auto !important;
+}
+
+/* === MOBILE OVERRIDE (Phones Only) === */
 @media (max-width: 768px) {
     .horizontal-scroll {
-        display: flex;
-        overflow-x: auto;
-        gap: 15px;
-        padding: 10px 20px 20px 20px; /* Padding for shadow breathing room */
-        margin: 0 -15px; /* Bleed to edge */
-        
-        /* The "Magnetic" Snap */
-        scroll-snap-type: x mandatory; 
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        
-        /* Alignment helper */
-        align-items: stretch; 
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;    /* Turn scrolling BACK ON for phone */
+        gap: 15px !important;
+        padding: 10px 20px 30px 20px !important;
+        margin: 0 -20px !important;
+        scroll-snap-type: x mandatory;
+        justify-content: flex-start !important; /* Align to start for scrolling */
     }
-    .horizontal-scroll::-webkit-scrollbar { display: none; }
     
+    /* Hide scrollbar on phone */
+    .horizontal-scroll::-webkit-scrollbar { display: none; } 
+
     .swipe-card {
-        /* Force single card focus */
-        min-width: 88vw; 
-        max-width: 88vw;
-        
-        /* FIXED HEIGHT (Crucial for clean look) */
-        height: 280px; 
-        display: flex; 
-        flex-direction: column;
-        
-        /* Snap Logic */
+        flex: 0 0 auto !important;      /* Stop stretching */
+        width: 85vw !important;         /* 85% of phone screen width */
+        min-width: 85vw !important;
+        max-width: 85vw !important;
+        height: 280px !important;
         scroll-snap-align: center;
-        scroll-snap-stop: always; /* Forces it to stop on a card */
-        flex-shrink: 0;
         
-        /* Visuals */
-        margin: 0;
-        background: var(--bg-card); 
+        /* Internal Scroll for Long Text */
+        display: flex !important;
+        flex-direction: column !important;
     }
 
-    /* Handle Long Text (Scroll inside the card) */
-    .swipe-card .card-header {
-        flex-shrink: 0; /* Header stays at top */
-    }
     .swipe-card > div:not(.card-header) {
-        overflow-y: auto; /* Scroll text if too long */
-        padding-right: 5px; /* Space for scrollbar */
-        justify-content: flex-start !important; /* Align text to top */
-        padding-top: 10px;
+        overflow-y: auto !important;
+        flex-grow: 1;
     }
 }
 
@@ -1208,11 +1310,672 @@ body::before {
     background-size: 200% 200%; animation: borderFlow 4s ease infinite;
 }
 @keyframes borderFlow { 0% { background-position: 0% 50%; } 100% { background-position: 0% 50%; } }
+/* --- TOOLTIP SYSTEM --- */
+.tooltip-trigger {
+    position: relative;
+    cursor: help;
+    margin-left: 5px;
+    color: var(--brand-gold);
+    font-size: 0.8rem;
+}
+
+.tooltip-content {
+    visibility: hidden;
+    width: 180px;
+    background-color: #1e293b;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1001;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    border: 1px solid var(--brand-gold);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+    pointer-events: none;
+}
+
+.tooltip-trigger:hover .tooltip-content {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+/* --- INFO HUB STYLES --- */
+.info-tab-content { display: none; text-align: left; margin-top: 20px; font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary); }
+.info-tab-content.active { display: block; }
+
+.info-nav {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 15px;
+}
+
+.info-nav-btn {
+    background: none; border: none; color: var(--text-secondary);
+    padding: 5px 15px; cursor: pointer; white-space: nowrap; font-weight: 600;
+}
+
+.info-nav-btn.active { color: var(--brand-gold); border-bottom: 2px solid var(--brand-gold); }
+
+/* Fix for small screens */
+@media (max-width: 768px) {
+    .onboard-card { padding: 20px; }
+}
+
+/* --- GAME-STYLE TUTORIAL OVERLAY --- */
+#tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85); /* Dark background */
+    z-index: 2000;
+    display: none; /* Hidden by default */
+    cursor: pointer;
+}
+
+/* The Explainer Box */
+#tutorial-box {
+    position: fixed; /* Fixed so it floats on top */
+    background: var(--bg-card);
+    border: 1px solid var(--brand-gold);
+    color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    width: 300px;
+    z-index: 2002;
+    box-shadow: 0 0 50px var(--brand-gold-glow);
+    display: none;
+    transition: all 0.3s ease;
+}
+
+#tutorial-box h3 {
+    color: var(--brand-gold);
+    font-family: 'Amiri', serif;
+    margin-bottom: 10px;
+}
+
+#tutorial-box button {
+    margin-top: 15px;
+    background: var(--brand-gold);
+    color: #000;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    float: right;
+}
+
+/* The "Spotlight" Class - We add this to elements dynamically */
+.tutorial-spotlight {
+    position: relative !important;
+    z-index: 2001 !important;
+    background: var(--bg-card) !important; /* Ensure it's not transparent */
+    box-shadow: 0 0 0 5px var(--brand-gold), 0 0 100px rgba(0,0,0,0.5) !important;
+    transform: scale(1.05); /* Slight pop effect */
+    transition: all 0.3s ease;
+    pointer-events: none; /* User can't click the button, only look at it */
+}
+
+/* Add this to your CSS */
+.center-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    width: 100%; /* Forces it to span full width */
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+/* --- FORCE VERTICAL STACKING --- */
+.hero-content {
+    display: flex !important;
+    flex-direction: column !important; /* Forces vertical stacking */
+    align-items: center !important;    /* Centers everything horizontally */
+    justify-content: flex-start !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+/* Fix the Date Row specifically */
+.date-row, 
+.hero-content > div[style*="display:flex"] {
+    display: flex !important;
+    flex-direction: row !important; /* Dates stay side-by-side */
+    justify-content: center !important;
+    width: 100% !important;
+    margin-bottom: 20px !important;
+}
+
+/* Ensure Widget has space */
+.ramadan-widget {
+    margin-top: 10px !important;
+    margin-bottom: 30px !important;
+}
+
+/* --- SEARCH HIGHLIGHT EFFECT --- */
+@keyframes flashGold {
+    0% { background: rgba(251, 191, 36, 0.4); transform: scale(1.02); }
+    100% { background: rgba(251, 191, 36, 0.1); transform: scale(1); }
+}
+
+.highlight-ayah {
+    animation: flashGold 1.5s ease-out forwards;
+    border: 2px solid var(--brand-gold) !important;
+    border-radius: 15px;
+    padding: 20px !important;
+    scroll-margin-top: 100px; /* Leaves space for the header when scrolling */
+}
+
+/* --- SERENITY PLAYLIST STYLES --- */
+.playlist-tab {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-right: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 12px 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.playlist-tab:last-child { border-right: none; }
+.playlist-tab:hover, .playlist-tab.active {
+    background: rgba(251, 191, 36, 0.1);
+    color: var(--brand-gold);
+}
+
+.track-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: 0.2s;
+}
+.track-item:hover { background: rgba(255,255,255,0.05); }
+
+.track-item.playing {
+    background: rgba(251, 191, 36, 0.1); /* Gold Highlight */
+    border-left: 3px solid var(--brand-gold);
+}
+
+.track-icon { margin-right: 15px; color: var(--text-secondary); font-size: 1rem; }
+.track-item.playing .track-icon { color: var(--brand-gold); animation: pulseIcon 1.5s infinite; }
+
+.track-info { flex: 1; text-align: left; }
+.track-name { font-size: 0.9rem; color: var(--text-primary); display: block; font-weight: 500; }
+.track-meta { font-size: 0.75rem; color: var(--text-secondary); }
+
+@keyframes pulseIcon { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+/* --- AUDIO CONTROL BUTTONS --- */
+.audio-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+}
+
+.audio-btn:hover {
+    background: var(--brand-gold);
+    color: #000;
+    transform: scale(1.1);
+}
+
+/* Active Loop State */
+.audio-btn.active {
+    border-color: var(--brand-gold);
+    color: var(--brand-gold);
+    background: rgba(251, 191, 36, 0.1);
+    box-shadow: 0 0 10px var(--brand-gold-glow);
+}
+
+/* --- HABIT HEATMAP --- */
+.heatmap-container {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+.heat-box {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.1);
+    transition: 0.3s;
+}
+.heat-box.active {
+    background: var(--brand-gold);
+    box-shadow: 0 0 5px var(--brand-gold-glow);
+}
+.heat-label {
+    font-size: 0.7rem; color: var(--text-secondary); 
+    text-align: center; margin-top: 5px; letter-spacing: 1px;
+}
+
+/* --- HEATMAP FIX FOR LIGHT MODE --- */
+/* In Dark Mode, they are white (already set). */
+/* In Light Mode, we make them Darker so they show up against the bright paper. */
+
+body.light-theme .heat-box {
+    background: rgba(60, 40, 30, 0.1); /* Subtle Brown Fill */
+    border: 1px solid rgba(60, 40, 30, 0.2); /* Defines the edges */
+}
+
+/* Ensure the "Active" Gold box still glows in Light Mode */
+body.light-theme .heat-box.active {
+    background: var(--brand-gold);
+    border-color: var(--brand-gold);
+    box-shadow: 0 0 5px var(--brand-gold-glow);
+}
+
+/* --- FIXED SHARE CARD TEMPLATE (Instagram Ready) --- */
+#share-card-template {
+    position: fixed; 
+    left: -9999px; 
+    top: 0;
+    width: 1080px; 
+    height: 1080px; /* Standard Square */
+    
+    /* 1. Background & Border */
+    background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+    border: 30px solid #fbbf24; /* Thicker Gold Border */
+    
+    /* 2. Flex Layout to prevent overlapping */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: space-between; /* Pushes content apart */
+    
+    /* 3. Padding (The Safe Zone) */
+    padding: 100px 80px; 
+    box-sizing: border-box;
+    text-align: center;
+    color: #fff;
+}
+
+/* The Title (Daily Inspiration) */
+#share-card-header {
+    font-size: 2.5rem; 
+    color: #94a3b8; 
+    text-transform: uppercase; 
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+}
+
+/* The Content Container (Holds Verse + Translation) */
+#share-card-body {
+    flex: 1; /* Takes up all available middle space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers text vertically */
+    align-items: center;
+    gap: 40px; /* Space between Arabic and English */
+    width: 100%;
+}
+
+/* Arabic Text (Responsive) */
+#share-card-ar {
+    font-family: 'Amiri', serif; 
+    font-size: 3.8rem; /* Reduced from 5rem to fit better */
+    line-height: 1.5; 
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(0,0,0,0.5);
+    max-height: 450px; /* Cap height */
+    overflow: hidden; /* Prevent spillover */
+}
+
+/* English Text */
+#share-card-en {
+    font-size: 1.8rem; /* Reduced from 2.5rem */
+    color: #cbd5e1; 
+    font-style: italic; 
+    line-height: 1.4;
+    max-width: 90%;
+}
+
+/* The Reference (Surah Name) */
+#share-card-ref {
+    font-size: 2rem; 
+    color: #fbbf24; 
+    font-weight: bold;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* The Logo (Pinned to Bottom) */
+#share-card-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+#share-card-logo i {
+    font-size: 3rem; 
+    color: #fbbf24;
+}
+
+#share-card-logo span {
+    font-family: 'Amiri', serif; 
+    color: #fbbf24; 
+    font-size: 3.5rem; 
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* --- ZAKAT & TOOLS STYLES --- */
+.tool-card {
+    background: rgba(255,255,255,0.03); 
+    border: 1px solid var(--border); 
+    padding: 20px; 
+    border-radius: 15px; 
+    margin-bottom: 20px;
+}
+.calc-row {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;
+}
+.calc-input {
+    background: rgba(0,0,0,0.3); border: 1px solid var(--border); 
+    color: #fff; padding: 8px; border-radius: 8px; width: 100px; text-align: center;
+}
+.result-box {
+    background: var(--brand-gold); color: #000; padding: 15px; 
+    border-radius: 12px; text-align: center; font-weight: bold; margin-top: 15px;
+    display: none; /* Hidden until calculated */
+}
+
+/* --- SLEEP SUNNAH MODE (Red Shift) --- */
+body.sleep-mode {
+    filter: sepia(100%) hue-rotate(-50deg) contrast(1.1) brightness(0.8);
+    background: #000; /* Deep black for OLED saving */
+    transition: filter 1s ease, background 1s ease;
+}
+body.sleep-mode nav, 
+body.sleep-mode .nav-menu {
+    opacity: 0; /* Hide distractions */
+    pointer-events: none;
+}
+#sleep-exit-btn {
+    position: fixed; top: 20px; right: 20px; z-index: 9999;
+    background: #fff; color: #000; padding: 10px 20px; border-radius: 50px;
+    display: none; cursor: pointer; font-weight: bold;
+}
+body.sleep-mode #sleep-exit-btn { display: block; }
+
+/* --- QADA TRACKER --- */
+.qada-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;
+}
+.qada-item {
+    background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px;
+    display: flex; flex-direction: column; align-items: center;
+}
+.qada-btn {
+    width: 30px; height: 30px; border-radius: 50%; border: none; 
+    cursor: pointer; font-weight: bold; margin: 0 5px;
+}
+.qada-count { font-size: 1.2rem; font-weight: bold; color: var(--brand-gold); margin: 5px 0; }
+
+/* --- TAZKIYAH CARD --- */
+.tazkiyah-badge {
+    background: var(--brand-green); color: #000; padding: 5px 10px; 
+    border-radius: 20px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase;
+}
+
+/* --- FIX: NEXT PRAYER VISIBILITY --- */
+/* Force the text inside the main prayer card to always be light, 
+   even if the rest of the app is in Light Mode (Brown text) */
+
+#next-prayer-container, 
+.next-prayer-highlight {
+    color: #ffffff !important; /* Force White Text */
+}
+
+/* Make the Timer (00:28:03) pop */
+#time-remaining {
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Subtle shadow for readability */
+}
+
+/* Make the Prayer Name (DHUHR) Gold */
+#next-prayer-name {
+    color: var(--brand-gold) !important;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+}
+
+/* Ensure the small label "NEXT PRAYER" is visible too */
+.next-label {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* --- FIX: FORCE ALL TEXT IN PRAYER CARD TO BE VISIBLE --- */
+
+/* 1. Target the Container (The Brown Box) */
+#next-prayer-container,
+.next-prayer-highlight,
+.prayer-hero-card {
+    color: #ffffff !important; /* Base color White */
+}
+
+/* 2. Target EVERY element inside the box */
+#next-prayer-container *,
+.next-prayer-highlight * {
+    color: inherit !important; /* Forces them to use the White from above */
+}
+
+/* 3. Make the "NEXT: DHUHR" label stand out */
+/* If it's a paragraph or small text */
+#next-prayer-container p,
+.next-prayer-highlight p,
+.next-prayer-label {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* 4. Make the specific prayer name (DHUHR) Gold if it has its own ID */
+#next-prayer-name,
+.current-prayer-name {
+    color: var(--brand-gold) !important;
+    text-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* 5. The Big Timer */
+#time-remaining {
+    color: #ffffff !important;
+    font-weight: 700;
+}
+
+/* --- E-CODE CHECKER STYLES --- */
+.ecode-result {
+    margin-top: 15px; padding: 15px; border-radius: 10px; font-weight: bold; text-align: center; display: none;
+}
+.ecode-halal { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid #6ee7b7; }
+.ecode-haram { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid #fca5a5; }
+.ecode-mushbooh { background: rgba(251, 191, 36, 0.2); color: #fcd34d; border: 1px solid #fcd34d; }
+
+/* --- RABBANA DUAS GRID --- */
+/* --- FIXED RABBANA GRID (Scrollable Window) --- */
+.rabbana-grid {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    
+    /* 1. LIMIT HEIGHT & ENABLE SCROLL */
+    max-height: 600px;       /* Keeps the list short on the screen */
+    overflow-y: auto;        /* Adds a scrollbar inside this box */
+    
+    /* 2. VISUAL POLISH */
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2); /* Darker background to separate it */
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    
+    /* 3. CUSTOM SCROLLBAR (Gold) */
+    scrollbar-width: thin;
+    scrollbar-color: var(--brand-gold) rgba(255,255,255,0.05);
+}
+
+/* Chrome/Safari Scrollbar Styling */
+.rabbana-grid::-webkit-scrollbar {
+    width: 8px;
+}
+.rabbana-grid::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+}
+.rabbana-grid::-webkit-scrollbar-thumb {
+    background-color: var(--brand-gold);
+    border-radius: 4px;
+    border: 2px solid rgba(0,0,0,0.2);
+}
+.rabbana-card {
+    background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; border: 1px solid var(--border);
+}
+.rabbana-arabic { font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--brand-gold); margin-bottom: 10px; }
+.rabbana-ref { font-size: 0.75rem; color: var(--text-secondary); margin-top: 10px; text-align: right; }
+
+#rabbana-section {
+    max-width: 800px;       /* Matches the width of other cards */
+    margin: 30px auto;      /* Centers it on the screen */
+}
+
+.rabbana-card {
+    width: 100%;            /* Forces full width */
+    background: rgba(255,255,255,0.03); 
+    padding: 25px; 
+    border-radius: 12px; 
+    border: 1px solid var(--border);
+    text-align: center;     /* Centers the Arabic text beautifully */
+    transition: transform 0.2s;
+}
+
+.rabbana-card:hover {
+    transform: scale(1.01);
+    background: rgba(255,255,255,0.05);
+    border-color: var(--brand-gold);
+}
+
+/* 4. Improve Text Readability */
+.rabbana-arabic {
+    font-family: 'Amiri', serif; 
+    font-size: 1.8rem;      /* Larger Arabic text */
+    line-height: 2;         /* More breathing room */
+    color: var(--brand-gold); 
+    margin-bottom: 15px;
+}
+
+
+/* --- 1. LIGHT MODE (Force Override) --- */
+body.light-theme {
+    /* 🔴 CRITICAL FIX: Use !important to kill the atmosphere gradient */
+    background: #f5f0e6 !important; 
+    animation: none !important; /* Stop the moving colors */
+    
+    /* Variables */
+    --bg-body: #f5f0e6; 
+    --bg-card: rgba(255, 252, 245, 0.6); 
+    --bg-nav: rgba(255, 252, 245, 0.8);
+    --border: rgba(120, 80, 40, 0.1);
+    
+    --text-primary: #3e2723;   
+    --text-secondary: #795548; 
+    
+    --brand-gold: #b45309; 
+    --brand-gold-glow: rgba(180, 83, 9, 0.15);
+    
+    --brand-green: #15803d; 
+    --brand-green-glow: rgba(21, 128, 61, 0.15);
+    
+    --shadow-card: 0 10px 30px -5px rgba(62, 39, 35, 0.08);
+    --input-bg: rgba(255, 255, 255, 0.7);
+}
+
+/* --- 2. RAMADAN MODE (Force Override) --- */
+body.ramadan-mode {
+    /* 🔴 CRITICAL FIX: Force the Purple Background */
+    background: radial-gradient(at 50% 0%, rgba(192, 132, 252, 0.3) 0, #2e1065 100%) !important;
+    background-color: #2e1065 !important;
+    animation: none !important; /* Stop the atmosphere */
+
+    --bg-body: #2e1065; 
+    --bg-card: rgba(88, 28, 135, 0.5);
+    --bg-nav: rgba(19, 7, 36, 0.95);
+    --brand-gold: #fbbf24;
+    --brand-green: #d8b4fe; 
+    --text-secondary: #e9d5ff;
+}
+
+
+/* --- ASR TIME SPECIFIC COLORS (High Contrast) --- */
+/* Only triggers when the background is Gold/Orange */
+
+body.time-asr .greeting {
+    /* 1. Turn off the default gradient text */
+    background: none !important;
+    -webkit-text-fill-color: initial !important; 
+    
+    /* 2. Set a Deep Brown Color */
+    color: #3e2723 !important; /* Dark Coffee */
+    text-shadow: 0 1px 0 rgba(255,255,255,0.4); /* Slight white highlight for depth */
+}
+
+/* Fix the Date Badge */
+body.time-asr .date-badge {
+    background: rgba(62, 39, 35, 0.1) !important; /* Darker tint background */
+    color: #3e2723 !important; /* Dark Text */
+    border-color: rgba(62, 39, 35, 0.3) !important;
+}
+
+/* Optional: Make the small tagline readable too */
+body.time-asr .hero-tagline, 
+body.time-asr .hero-dua {
+    color: #5d4037 !important; /* Slightly lighter brown */
+    font-weight: 600;
+}
+
+
 
 
 </style>
 </head>
 <body>
+    <div id="tutorial-overlay"></div>
+
+<div id="tutorial-box">
+    <h3 id="tut-title">Title</h3>
+    <p id="tut-text">Description goes here.</p>
+    <div style="margin-top:10px; font-size:0.8rem; color:#aaa;">Step <span id="tut-step">1</span> of 7</div>
+    <button onclick="nextTutorialStep()">Next <i class="fas fa-arrow-right"></i></button>
+    <button onclick="endTutorial()" style="background:transparent; color:#aaa; float:left; margin-right:10px;">Skip</button>
+</div>
+   
     <div id="bismillah-screen">
     <div class="bismillah-text">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
     <div class="bismillah-eng">In the Name of Allah, the Most Gracious, the Most Merciful</div>
@@ -1250,6 +2013,9 @@ body::before {
     <button class="nav-btn" onclick="switchTab('serenity', this)">
         <i class="fas fa-cloud-moon"></i> <span class="nav-label">Serenity</span>
     </button>
+    <button class="nav-btn" onclick="switchTab('info', this)">
+    <i class="fas fa-info-circle"></i> <span class="nav-label">Info</span>
+</button>
     <button class="nav-btn" onclick="switchTab('settings', this)">
         <i class="fas fa-cog"></i> <span class="nav-label">Settings</span>
     </button>
@@ -1257,30 +2023,25 @@ body::before {
         <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
     </nav>
 
-    <div class="container">
-        <div class="ramadan-widget">
-        <button class="ramadan-btn" id="ramadan-toggle" onclick="toggleRamadanMode()">
-            <i class="fas fa-moon"></i> Ramadan Mode: OFF
-        </button>
-        <div id="ramadan-countdown-text" class="ramadan-days-left">
-            Loading...
-        </div>
-    </div>
+    
         
 
         <section id="home" class="view-section active">
+
+       
            <div class="hero">
     <div class="hero-content">
-        
+       
 
-        <div class="hero-arabic" style="font-size: 2.5rem; line-height: 1.4;">
-            ٱلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ ٱللَّٰهِ وَبَرَكَاتُهُ
-        </div>
-        <div style="font-family: 'Amiri', serif; font-size: 1.8rem; color: var(--text-secondary); margin-bottom: 5px; opacity: 0.9;">
-            أَهْلًا وَسَهْلًا
-        </div>
+       <div class="hero-arabic">
+    ٱلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ ٱللَّٰهِ وَبَرَكَاتُهُ
+</div>
+
+<div style="font-family: 'Amiri', serif; font-size: 1.8rem; color: var(--text-secondary); margin-top: 5px; opacity: 0.9; text-align: center;">
+    أَهْلًا وَسَهْلًا
+</div>
         
-        <div class="hero-tagline">Your Daily Companion for Prayer, Remembrance & Reflection</div>
+        <div class="hero-tagline">Welcome to Daily Deen <br> Your Daily Companion for Prayer, Remembrance & Reflection</div>
         
         <div class="hero-dua">"May Allah place light in your heart"</div>
         
@@ -1291,6 +2052,15 @@ body::before {
             <div class="date-badge" id="hijri-date">
                 Loading Date...
             </div>
+        </div>
+           <div class="ramadan-widget">
+    <button class="ramadan-btn" id="ramadan-toggle" onclick="toggleRamadanMode()">
+        <i class="fas fa-moon"></i> Ramadan Mode: OFF
+    </button>
+    <div id="ramadan-countdown-text" class="ramadan-days-left">
+        Loading...
+    </div>
+</div> 
         </div>
     </div>
 </div>
@@ -1327,6 +2097,26 @@ body::before {
     <div class="card-header"><i class="fas fa-list-check"></i> Daily Checklist</div>
     <div id="sunnah-list" class="checklist-container"></div>
     <p style="text-align:center; font-size:0.75rem; color:var(--text-secondary); margin-top:10px;">*Resets automatically at midnight</p>
+
+    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed var(--border);">
+    <div class="heat-label">30-DAY CONSISTENCY</div>
+    <div id="habit-heatmap" class="heatmap-container">
+        </div>
+</div>
+</div>
+
+<div class="card" style="border-left: 4px solid var(--brand-green);">
+    <div class="card-header">
+        <i class="fas fa-seedling" style="color: var(--brand-green);"></i> Weekly Character Challenge
+        <span class="tazkiyah-badge">Week <span id="tazkiyah-week">1</span></span>
+    </div>
+    <div style="text-align: center;">
+        <h3 id="tazkiyah-title" style="color: #fff; font-family: 'Amiri', serif; margin-bottom: 5px;">Loading...</h3>
+        <p id="tazkiyah-desc" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 15px;">Loading...</p>
+        <div style="background: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 8px; font-size: 0.8rem; color: var(--brand-green);">
+            <i class="fas fa-check-circle"></i> <b>Mission:</b> <span id="tazkiyah-task">...</span>
+        </div>
+    </div>
 </div>
             <div class="grid">
                 <div class="card">
@@ -1386,7 +2176,15 @@ body::before {
                     </div>
                 </div>
 
-<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:-15px; padding: 0 5px; opacity:0.7;">
+</div>
+   <div class="card" style="margin-top: 25px;">
+    <div class="card-header"><i class="fas fa-history"></i> Qada (Missed) Prayers</div>
+    <p style="font-size: 0.8rem; color: var(--text-secondary); text-align: center;">Track prayers you need to make up.</p>
+    
+    <div class="qada-grid">
+        </div>
+</div>
+ <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:-15px; padding: 0 5px; opacity:0.7;">
         <span style="font-size:0.7rem; font-weight:600; letter-spacing:1px;">DAILY INSPIRATION</span>
         <span style="font-size:0.7rem;"><i class="fas fa-chevron-right"></i></span>
     </div>
@@ -1399,6 +2197,9 @@ body::before {
                 <p id="verse-en" style="font-size:0.95rem; color:var(--text-secondary); text-align:center; font-style:italic;">...</p>
                 <p id="verse-ref" style="text-align:center; color:var(--brand-gold); font-size:0.8rem; margin-top:10px; font-weight:bold;"></p>
             </div>
+            <button onclick="shareVerseImage()" style="margin-top:15px; background:transparent; border:none; color:var(--text-secondary); cursor:pointer; font-size:0.8rem; display:flex; align-items:center; gap:5px; margin: 10px auto;">
+    <i class="fas fa-share-nodes"></i> Save as Image and Share this Verse
+</button>
         </div>
 
         <div class="card swipe-card">
@@ -1508,6 +2309,10 @@ body::before {
         </section>
 
         <section id="qibla" class="view-section">
+<button onclick="findMosques()" class="btn-action" style="margin-top:20px; width:100%; background:rgba(255,255,255,0.1);">
+    <i class="fas fa-mosque"></i> Find Mosques Near Me
+</button>
+
             <div class="hero">
                 <h1 class="greeting">Qibla Finder</h1>
                 <p style="color:var(--text-secondary)">Align the arrow with the degree shown below on a compass app.</p>
@@ -1525,27 +2330,47 @@ body::before {
 </div>
         </section>
 
-        <section id="quran" class="view-section">
-            <div class="hero">
-                <h1 class="greeting">Noble Quran</h1>
-                <p style="color:var(--text-secondary)">Select a Surah to read</p>
-            </div>
-            
-            <div id="surah-list-view" class="surah-list">
-                <div class="spinner"></div>
-            </div>
+<section id="quran" class="view-section">
+    <div class="hero">
+        <h1 class="greeting">Noble Quran</h1>
+        <p style="color:var(--text-secondary)">Search, Read, and Reflect</p>
+    </div>
 
-            <div id="surah-read-view" style="display:none;">
-                <button onclick="closeSurah()" style="background:none; border:none; color:var(--brand-gold); cursor:pointer; margin-bottom:20px; font-size:1rem; display:flex; align-items:center; gap:8px;">
-                    <i class="fas fa-arrow-left"></i> Back to List
-                </button>
-                <div class="card">
-                    <h2 id="read-title" style="text-align:center; margin-bottom:30px; color:var(--brand-gold);">Surah</h2>
-                    <div id="ayah-container"></div>
-                </div>
-            </div>
-        </section>
+    <div class="card" style="margin-bottom: 25px; padding: 20px;">
+    <div class="card-header" style="margin-bottom: 15px;"><i class="fas fa-bullseye"></i> Khatam Planner</div>
+    <div style="display: flex; gap: 10px; align-items: center;">
+        <input type="number" id="khatam-days" class="styled-input" placeholder="Days (e.g. 30)" style="width: 120px;">
+        <button onclick="calcKhatam()" class="btn-action" style="width: auto; padding: 10px 20px;">Plan</button>
+    </div>
+    <div id="khatam-result" style="margin-top: 10px; font-size: 0.9rem; color: var(--brand-gold); display: none;">
+        Read <b><span id="khatam-pages">20</span> pages</b> per day to finish.
+    </div>
+</div>
+    
+    <div style="max-width: 500px; margin: 0 auto 25px auto; position: relative;">
+        <input type="text" id="quran-search" 
+               onkeyup="handleSearch(event)" 
+               onkeydown="checkForEnter(event)" 
+               placeholder="Search Surah (e.g. 'Mulk' or '36:3')..." 
+               class="styled-input" 
+               style="width: 100%; padding-left: 45px; border-radius: 50px; background: rgba(0,0,0,0.2);">
+        <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--brand-gold);"></i>
+    </div>
 
+    <div id="surah-list-view" class="surah-list">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="surah-read-view" style="display:none;">
+        <button onclick="closeSurah()" style="background:none; border:none; color:var(--brand-gold); cursor:pointer; margin-bottom:20px; font-size:1rem; display:flex; align-items:center; gap:8px;">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </button>
+        <div class="card">
+            <h2 id="read-title" style="text-align:center; margin-bottom:10px; color:var(--brand-gold);">Surah</h2>
+            <div id="ayah-container"></div>
+        </div>
+    </div>
+</section>
         <section id="adhkar" class="view-section">
     <div class="hero">
         <h1 class="greeting">Dhikr & Remembrance</h1>
@@ -1569,56 +2394,370 @@ body::before {
     </button>
 
 </section>
+<section id="serenity" class="view-section">
 
-       <section id="serenity" class="view-section">
+  <button onclick="toggleSleepMode()" style="margin: 0 auto 30px auto; display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid var(--border); padding: 8px 20px; border-radius: 20px; color: var(--text-secondary); cursor: pointer;">
+    <i class="fas fa-bed"></i> Sleep Sunnah Mode
+</button>
+
+<button id="sleep-exit-btn" onclick="toggleSleepMode()">
+    <i class="fas fa-sun"></i> Wake Up
+</button>
+
+    <div id="serenity-clock">
+        <div id="clock-time">00:00</div>
+        <div id="clock-date">WEDNESDAY, 14 JAN</div>
+    </div>
+
+    <div style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px;">
+        
+      <div class="card serenity-audio-card" style="padding:0; overflow:hidden; border: 1px solid var(--border); height: 500px; display:flex; flex-direction:column;">
     
-    <div class="serenity-header">
-        <h1 class="serenity-title">Serenity Station</h1>
-        <p class="serenity-caption">Your space for studying, sleeping, or just relaxation with peace.</p>
+    <div style="background: rgba(0,0,0,0.3); padding: 25px; text-align: center; border-bottom: 1px solid var(--border);">
+        <i class="fas fa-headphones-alt" style="color: var(--brand-gold); font-size: 1.5rem; margin-bottom: 10px;"></i>
+        <h4 id="player-title" style="margin-bottom: 5px; color: #fff; font-weight:600;">Select a Track</h4>
+        <p id="player-category" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 15px;">Serenity Station</p>
+
+        <div style="display:flex; justify-content:center; align-items:center; gap:20px; margin-bottom:15px;">
+        <button onclick="playPreviousTrack()" class="audio-btn" title="Previous">
+            <i class="fas fa-step-backward"></i>
+        </button>
+        
+        <button onclick="toggleLoop()" id="loop-btn" class="audio-btn" title="Loop Track">
+            <i class="fas fa-repeat"></i>
+        </button>
+
+        <button onclick="playNextTrack()" class="audio-btn" title="Next">
+            <i class="fas fa-step-forward"></i>
+        </button>
+    </div>
+        
+        <audio id="main-audio" controls style="width: 100%; height: 40px; border-radius: 20px;">
+            <source src="" type="audio/mpeg">
+        </audio>
     </div>
 
-    <div class="mood-grid">
-        <div class="mood-card active" onclick="playMood('study', this)">
-            <span class="mood-icon">📚</span>
-            <span class="mood-name">Study / Lofi</span>
-        </div>
-        <div class="mood-card" onclick="playMood('sleep', this)">
-            <span class="mood-icon">🌙</span>
-            <span class="mood-name">Deep Sleep</span>
-        </div>
-        <div class="mood-card" onclick="playMood('nasheed', this)">
-            <span class="mood-icon">🎤</span>
-            <span class="mood-name">Soft Nasheed</span>
-        </div>
-        <div class="mood-card" onclick="playMood('nature', this)">
-            <span class="mood-icon">🌧️</span>
-            <span class="mood-name">Rain & Quran</span>
-        </div>
+    <div style="display:flex; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02);">
+        <button onclick="filterPlaylist('all')" class="playlist-tab active" id="tab-all">All</button>
+        <button onclick="filterPlaylist('quran')" class="playlist-tab" id="tab-quran">Quran</button>
+        <button onclick="filterPlaylist('nasheed')" class="playlist-tab" id="tab-nasheed">Nasheeds</button>
+        <button onclick="filterPlaylist('nature')" class="playlist-tab" id="tab-nature">Nature</button>
     </div>
-
-    <div class="player-container">
-        <div id="playing-label" class="now-playing">Select a mood to begin...</div>
-        <div class="iframe-container">
-            <iframe id="serenity-player" src="" title="Serenity Player"
-            frameborder="0"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div id="playlist-container" style="flex:1; overflow-y: auto; background: rgba(0,0,0,0.2);">
         </div>
+</div>
 
-        <div style="text-align:center; margin-top:10px;">
-    <button onclick="updateVideoID()" style="background:none; border:none; color:rgba(255,255,255,0.5); font-size:0.75rem; cursor:pointer; text-decoration:underline;">
-        Video broken? Click to set new ID
+        <div class="card" style="padding: 25px; border: 1px solid var(--border); background: rgba(255,255,255,0.02);">
+    <h4 style="color: var(--brand-gold); font-weight: 500; margin-bottom: 5px; font-size: 0.9rem;">Reflection Journal</h4>
+    
+    <p id="reflection-prompt" style="color: var(--text-secondary); font-size: 0.85rem; font-style: italic; margin-bottom: 15px; min-height:40px;">
+        Loading prompt...
+    </p>
+
+    <textarea id="reflection-input" placeholder="Start writing here..." 
+        style="width: 100%; height: 100px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: #fff; padding: 12px; border-radius: 8px; font-size: 0.85rem; resize: none;"></textarea>
+    
+    <button onclick="saveReflection()" class="btn-action" style="width: 100%; margin-top: 10px; font-size: 0.7rem; border: 1px solid var(--brand-gold); background: transparent; color: var(--brand-gold);">
+        SAVE REFLECTION
     </button>
+
+    <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border);">
+        <h5 style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 1px;">PREVIOUS ENTRIES</h5>
+        <div id="reflection-history" style="display: flex; flex-direction: column; gap: 15px;"></div>
+    </div>
+</div>
+    </div>
+</section>
+
+<section id="info" class="view-section">
+    <div class="hero">
+        <h1 class="greeting">Information Hub</h1>
+    </div>
+
+    <div class="card" style="max-width:900px; margin:0 auto;">
+        <div class="info-nav">
+            <button class="info-nav-btn active" onclick="switchInfoTab('about', this)">
+                <i class="fas fa-info-circle"></i> About
+            </button>
+            <button class="info-nav-btn" onclick="switchInfoTab('tools', this)">
+        <i class="fas fa-calculator"></i> Tools </button>
+            <button class="info-nav-btn" onclick="switchInfoTab('resources', this)">
+                <i class="fas fa-book-atlas"></i> Library
+            </button>
+            <button class="info-nav-btn" onclick="switchInfoTab('newmuslim', this)"><i class="fas fa-seedling"></i> New to islam?</button>
+            <button class="info-nav-btn" onclick="switchInfoTab('contribute', this)">
+                <i class="fas fa-hand-holding-heart"></i> Contribute
+            </button>
+            <button class="info-nav-btn" onclick="switchInfoTab('contact', this)">
+                <i class="fas fa-envelope"></i> Contact
+            </button>
+        </div>
+
+       <div id="about" class="info-tab-content active" style="padding: 10px;">
+    
+    <div style="text-align: center; margin-bottom: 20px;">
+        <p style="font-family: 'Amiri', serif; font-size: 1.5rem; color: var(--brand-gold); margin-bottom: 5px;">سُبْحَانَ اللهِ وَبِحَمْدِهِ</p>
+        <p style="font-size: 0.75rem; color: var(--text-secondary); letter-spacing: 1px; text-transform: uppercase;">Glory be to Allah and Praise is His</p>
+    </div>
+
+    <h3 style="color:var(--brand-gold); font-family: 'Amiri', serif; font-size: 1.8rem; margin-bottom: 10px;">Our Goal</h3>
+    <p style="line-height: 1.6; margin-bottom: 15px; color: var(--text-primary);">
+        We built Daily Deen to be a quiet, beautiful corner of the internet for you. Life gets busy, and it’s easy to get distracted. We wanted to create a place where you can check prayer times, read the Quran, or just find a moment of peace without ads or clutter.
+    </p>
+
+    <h3 style="color:var(--brand-gold); font-family: 'Amiri', serif; font-size: 1.8rem; margin-bottom: 10px;">Private and Free</h3>
+    <p style="line-height: 1.6; margin-bottom: 20px; color: var(--text-primary);">
+        This app is 100% free and will stay that way. We don't track you or save your personal data on any servers. It is our gift (<b>Sadaqah Jariyah</b>) to the community.
+    </p>
+
+    <h3 style="color:var(--brand-gold); font-family: 'Amiri', serif; font-size: 1.8rem; margin-bottom: 10px;">A Simple Request</h3>
+    <p style="line-height: 1.6; margin-bottom: 20px; color: var(--text-primary);">
+        If this app helps you even a little bit, please remember us in your prayers (Duas). That is the only payment we ask for.
+    </p>
+
+    <div style="background: rgba(251, 191, 36, 0.05); border: 1px solid var(--brand-gold-glow); padding: 20px; border-radius: 15px; margin-top: 10px;">
+        <h4 style="color: var(--brand-gold); text-align: center; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;">
+            <i class="fas fa-heart"></i> Wall of Appreciation
+        </h4>
+        <p style="font-size: 0.9rem; line-height: 1.6; text-align: center; color: var(--text-secondary);">
+            This project wouldn't be possible without the inspiration and help of others:
+        </p>
+        
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 15px;">
+            <span style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--border);">
+                ✨ The woman who inspires my heart
+            </span>
+            <span style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--border);">
+                <i class="fab fa-reddit"></i> r/MuslimDevs & Reddit
+            </span>
+            <span style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--border);">
+                <i class="fab fa-github"></i> Open Source Community
+            </span>
+            <span style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--border);">
+                 Your kind Duas
+            </span>
+        </div>
+    </div>
+
+    <p style="text-align: center; margin-top: 30px; font-family: 'Amiri', serif; font-size: 1.2rem; color: var(--brand-green);">
+        May Allah accept it from us all.
+    </p>
+</div>
+
+<div id="tools" class="info-tab-content">
+    <h3 style="color:var(--brand-gold); margin-bottom:20px; text-align:center;">Islamic Toolkit</h3>
+    
+    <div class="tool-card">
+        <div class="card-header"><i class="fas fa-hand-holding-usd"></i> Zakat Calculator (2.5%)</div>
+        
+        <div class="calc-row">
+            <span>💰 Cash Savings:</span>
+            <input type="number" id="zak-cash" class="calc-input" placeholder="0">
+        </div>
+        <div class="calc-row">
+            <span>✨ Gold (Value):</span>
+            <input type="number" id="zak-gold" class="calc-input" placeholder="0">
+        </div>
+        <div class="calc-row">
+            <span>⚪ Silver (Value):</span>
+            <input type="number" id="zak-silver" class="calc-input" placeholder="0">
+        </div>
+        
+        <button onclick="calcZakat()" class="btn-action" style="background: var(--brand-gold); color: #000;">Calculate</button>
+        
+        <div id="zak-result" class="result-box"></div>
+    </div>
+
+    <div class="tool-card">
+    <div class="card-header"><i class="fas fa-calendar-alt"></i> Date Converter to Hijri Calendar</div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <input type="date" id="gregorian-input" class="styled-input" onchange="convertDate()">
+        <button onclick="convertDate()" class="btn-action" style="width:auto; padding:0 20px;">Convert</button>
+    </div>
+    <div id="hijri-result" class="result-box" style="background:rgba(255,255,255,0.1); color:#fff; border:1px solid var(--border);">
+        Select a date above...
+    </div>
+</div>
+
+<div class="tool-card">
+    <div class="card-header"><i class="fas fa-search-plus"></i> Halal E-Code Checker</div>
+    <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:10px;">Check ingredients (e.g. E120, E471) status.</p>
+    <div style="display:flex; gap:10px;">
+        <input type="text" id="ecode-input" class="styled-input" placeholder="Enter Code (e.g. E120)">
+        <button onclick="checkEcodeAPI()" class="btn-action" style="width:auto;"><i class="fas fa-search"></i></button>
+    </div>
+    <div id="ecode-result" class="ecode-result"></div>
+    <div id="api-loading" style="display:none; text-align:center; margin-top:10px;"><i class="fas fa-spinner fa-spin"></i> Checking Database...</div>
 </div>
 
 
+</div>
+
+<div id="resources" class="info-tab-content">
+    <h3 style="color:var(--brand-gold); margin-bottom:20px; font-family: 'Amiri', serif; font-size: 1.8rem; text-align: center;">Knowledge Library</h3>
+    
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
         
-        <div style="margin-top:15px; font-family:'Outfit'; opacity:0.7;">
-            <i class="far fa-clock"></i> Local Time: <span id="serenity-clock">--:--</span>
+        <div class="card" style="padding:25px; text-align:center; border: 1px solid var(--border); background: rgba(255,255,255,0.02);">
+            <i class="fas fa-book-open" style="font-size:1.5rem; color:var(--brand-gold); margin-bottom:15px;"></i>
+            <h4 style="color:var(--text-primary); font-weight: 500; letter-spacing: 0.5px;">Quran & Meaning</h4>
+            <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:20px; line-height: 1.5;">Access translations and deep tafsir of the Holy Quran.</p>
+            <a href="https://quran.com" target="_blank" class="btn-action" style="font-size:0.7rem; letter-spacing: 1px; text-transform: uppercase; background: transparent; border: 1px solid var(--brand-gold); color: var(--brand-gold);">Open Quran.com</a>
         </div>
+
+        <div class="card" style="padding:25px; text-align:center; border: 1px solid var(--border); background: rgba(255,255,255,0.02);">
+            <i class="fas fa-feather-alt" style="font-size:1.5rem; color:var(--brand-gold); margin-bottom:15px;"></i>
+            <h4 style="color:var(--text-primary); font-weight: 500; letter-spacing: 0.5px;">Sunnah & Hadith</h4>
+            <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:20px; line-height: 1.5;">Explore the authenticated sayings and habits of the Prophet ﷺ.</p>
+            <a href="https://sunnah.com" target="_blank" class="btn-action" style="font-size:0.7rem; letter-spacing: 1px; text-transform: uppercase; background: transparent; border: 1px solid var(--brand-gold); color: var(--brand-gold);">Open Sunnah.com</a>
+        </div>
+
+        <div class="card" style="max-width: 800px; margin: 0 auto; padding: 30px; border: 1px solid var(--border); background: rgba(255,255,255,0.01);">
+    
+    <div style="text-align: center; margin-bottom: 25px;">
+        <i class="fas fa-book-open" style="font-size: 1.8rem; color: var(--brand-gold); margin-bottom: 10px;"></i>
+        <h3 style="color:var(--brand-gold); font-family: 'Amiri', serif; font-size: 1.8rem; margin-bottom: 5px;">Knowledge Library</h3>
+        <p style="font-size: 0.8rem; color: var(--text-secondary);">Your essential guide for Ramadan & Spiritual Wellness</p>
     </div>
 
+    <div class="aesthetic-accordion" style="margin-bottom: 25px;">
+        
+        <details style="margin-bottom: 12px; border: 1px solid var(--border); border-radius: 12px; background: rgba(255,255,255,0.02);">
+            <summary style="padding: 18px; color: var(--brand-gold); cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                <span><i class="far fa-star"></i> Virtues of Ramadan</span>
+                <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
+            </summary>
+            <div style="padding: 0 18px 18px 18px; font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary);">
+                [cite_start]• <b>Spiritual Elevation:</b> This month allows the force of good to supercede evil forces[cite: 24].<br>
+                [cite_start]• <b>Forgiveness:</b> Fasting "burns" our sins[cite: 31]. [cite_start]For every Sajdah performed in Tarawih, 1,500 good deeds are recorded[cite: 51].<br>
+                [cite_start]• <b>Open Doors:</b> The doors of the Heavens are opened on the first night and never closed until the last night[cite: 50].
+            </div>
+        </details>
+
+        <details style="margin-bottom: 12px; border: 1px solid var(--border); border-radius: 12px; background: rgba(255,255,255,0.02);">
+            <summary style="padding: 18px; color: var(--brand-gold); cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                <span><i class="far fa-clock"></i> Sunnah of Suhur & Iftar</span>
+                <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
+            </summary>
+            <div style="padding: 0 18px 18px 18px; font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary);">
+                [cite_start]• <b>Suhur Barakah:</b> Verily, Allah and His angels send mercy upon those who eat Suhur[cite: 76, 169].<br>
+                [cite_start]• <b>Hasten Iftar:</b> People remain prosperous as long as they hasten with Iftaar (break fast immediately at sunset)[cite: 191, 192].<br>
+                [cite_start]• <b>Wellness:</b> Use a Miswaak to clean the teeth during the day[cite: 221, 277].
+            </div>
+        </details>
+
+        <details style="margin-bottom: 12px; border: 1px solid var(--border); border-radius: 12px; background: rgba(255,255,255,0.02);">
+            <summary style="padding: 18px; color: var(--brand-gold); cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                <span><i class="fas fa-leaf"></i> Spiritual Wellness Routine</span>
+                <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
+            </summary>
+            <div style="padding: 0 18px 18px 18px; font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary);">
+                [cite_start]• <b>Tahajjud:</b> Wake up early to perform at least 4-8 rak'at of Tahajjud before Suhur[cite: 494].<br>
+                [cite_start]• <b>Dhuha (Chaasht):</b> Perform 2 rak'aat of Dhuha salaah in the morning for extra charity[cite: 503].<br>
+                [cite_start]• <b>Rest:</b> Have a short rest (Qaylulah) after Zuhr with the intention of following the Sunnah[cite: 504].
+            </div>
+        </details>
+    </div>
+
+    <div style="padding: 20px; text-align: center; border-top: 1px dashed var(--border); background: rgba(255,255,255,0.01);">
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 15px;">
+            [cite_start]For detailed rulings on moon sighting, Tarawih, and Sadaqatul-Fitr, read our full 46-page community manual [cite: 1-14].
+        </p>
+        <a href="ramadan-guide.pdf" target="_blank" class="btn-action" style="background: transparent; border: 1px solid var(--brand-gold); color: var(--brand-gold); text-transform: uppercase; letter-spacing: 1px; font-size: 0.7rem; padding: 10px 25px; text-decoration: none; display: inline-block;">
+            <i class="far fa-file-pdf"></i> View Full Guide (PDF)
+        </a>
+    </div>
+</div>
+<div id="rabbana-section">
+    <h3 style="color:var(--brand-gold); margin:30px 0 15px 0; text-align:center; font-family:'Amiri', serif; letter-spacing:1px;">
+        <i class="fas fa-praying-hands"></i> The 40 Rabbana Duas
+    </h3>
+    
+    <div id="rabbana-container" class="rabbana-grid">
+        </div>
+</div>
+
+<div class="card" style="max-width: 800px; margin: 20px auto; padding: 25px; text-align: center; border: 1px solid var(--border); background: rgba(255,255,255,0.02);">
+    
+    <i class="fas fa-university" style="font-size: 1.5rem; color: var(--brand-gold); margin-bottom: 15px;"></i>
+    
+    <h4 style="color:var(--text-primary); font-weight: 500; letter-spacing: 0.5px; margin-bottom: 10px;">Deepen Your Knowledge</h4>
+    
+    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
+        Yaqeen Institute has amazing links and resources. Read these to increase your knowledge and gain deeper spiritual peace.
+    </p>
+    
+    <a href="https://yaqeeninstitute.org" target="_blank" class="btn-action" style="font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; background: transparent; border: 1px solid var(--brand-gold); color: var(--brand-gold); text-decoration: none; display: inline-block; padding: 10px 30px;">
+        Explore Yaqeen Institute
+    </a>
+</div>
+
+    </div>
+</div>
+
+ <div id="newmuslim" class="info-tab-content">
+    <div style="text-align:center; padding:20px;">
+        <i class="fas fa-lamp" style="font-size:3rem; color:var(--brand-gold); margin-bottom:15px;"></i>
+        <h3 style="color:#fff; margin-bottom:10px;">Welcome to the Fold</h3>
+        <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:25px;">
+            If you are new to Islam, everything might feel overwhelming. <br>
+            We have curated the best step-by-step guides for you.
+        </p>
+
+        <a href="https://www.newmuslimguide.com/" target="_blank" style="text-decoration:none;">
+            <div class="card" style="border:1px solid var(--brand-green); margin-bottom:15px; transition:0.2s;">
+                <div style="display:flex; align-items:center; gap:15px;">
+                    <div style="background:rgba(16, 185, 129, 0.2); width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                        <i class="fas fa-book-reader" style="color:var(--brand-green); font-size:1.2rem;"></i>
+                    </div>
+                    <div style="text-align:left;">
+                        <h4 style="color:#fff; margin:0;">The New Muslim Guide</h4>
+                        <span style="font-size:0.8rem; color:var(--text-secondary);">Comprehensive, pictorial guide to Wudu, Salah, and Beliefs.</span>
+                    </div>
+                    <i class="fas fa-external-link-alt" style="margin-left:auto; color:var(--text-secondary);"></i>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://www.whyislam.org/" target="_blank" style="text-decoration:none;">
+    <div class="card" style="border:1px solid var(--brand-gold); margin-bottom:15px; transition:0.2s;">
+        <div style="display:flex; align-items:center; gap:15px;">
+            <div style="background:rgba(251, 191, 36, 0.2); width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                <i class="fas fa-question" style="color:var(--brand-gold); font-size:1.2rem;"></i>
+            </div>
+            <div style="text-align:left;">
+                <h4 style="color:#fff; margin:0;">Why Islam?</h4>
+                <span style="font-size:0.8rem; color:var(--text-secondary);">Clear answers, facts, and guides for beginners.</span>
+            </div>
+            <i class="fas fa-external-link-alt" style="margin-left:auto; color:var(--text-secondary);"></i>
+        </div>
+    </div>
+</a>
+    </div>
+</div>
+
+        <div id="contribute" class="info-tab-content">
+            <h3 style="color:var(--brand-gold); margin-bottom:10px;">Community Contribution</h3>
+            <p style="margin-bottom:20px; color:var(--text-secondary);">Do you have a beautiful Dua, a Hadith, or a Good Deed idea? Submit it below to help build this app for everyone.</p>
+            
+            <textarea id="contribution-input" class="styled-input" rows="5" 
+                placeholder="Share your wisdom here..." style="width:100%; resize:none; margin-bottom:15px;"></textarea>
+            
+            <button id="submit-contrib-btn" class="btn-action" onclick="submitToFormspree()">
+                <i class="fas fa-paper-plane"></i> Submit to Developer
+            </button>
+        </div>
+
+        <div id="contact" class="info-tab-content">
+            <h3 style="color:var(--brand-gold); margin-bottom:10px;">Get in Touch</h3>
+            <p>For support, bugs, or business inquiries, reach out to us at:</p>
+            <p style="margin-top:15px; font-weight:bold; color:var(--brand-gold); font-size:1.2rem; text-align:center;">
+                dailydeen.web@gmail.com
+            </p>
+        </div>
+    </div>
 </section>
+
 
         <section id="settings" class="view-section">
             <div class="hero">
@@ -1636,6 +2775,20 @@ body::before {
                     <input type="text" id="set-city" class="styled-input" placeholder="City (e.g. Toronto)">
                     <input type="text" id="set-country" class="styled-input" placeholder="Country" style="max-width:100px;">
                 </div>
+<div class="card">
+    <div class="card-header"><i class="fas fa-calculator"></i> Calculation Method</div>
+    <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:10px;">Adjust this if prayer times are different from your local mosque.</p>
+    <select id="calc-method" onchange="updateCalcMethod()" class="styled-input" style="width:100%;">
+        <option value="MWL">Muslim World League (Europe/Far East)</option>
+        <option value="ISNA">ISNA (North America)</option>
+        <option value="Egypt">Egyptian General Authority (Africa/Syria)</option>
+        <option value="Makkah">Umm al-Qura (Makkah)</option>
+        <option value="Karachi">Karachi (Pakistan/India)</option>
+        <option value="Tehran">Tehran (Iran)</option>
+        <option value="Jafari">Jafari / Shia Ithna-Ashari</option>
+    </select>
+</div>
+
                 <div style="margin-top: 20px; margin-bottom: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
     <div style="font-weight:600; margin-bottom:10px; color:var(--text-secondary);"><i class="fas fa-glasses"></i> Text Size</div>
     <div style="display:flex; gap:10px; justify-content:center;">
@@ -1644,6 +2797,12 @@ body::before {
         <button onclick="changeFontSize('extra')" style="padding:10px 20px; border-radius:10px; border:1px solid var(--brand-gold); background:var(--bg-nav); color:var(--brand-gold); font-size:1.5rem; font-weight:bold;">A++</button>
     </div>
 </div>
+<div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border); text-align: center;">
+    <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 10px;">Need to see the intro again?</p>
+    <button onclick="startTutorial()" style="background:transparent; border:1px solid var(--border); color:var(--text-secondary); padding:8px 20px; border-radius:15px; cursor:pointer; font-size:0.8rem;">
+        <i class="fas fa-redo"></i> Reset Tutorial
+    </button>
+</div>
                 <button class="btn-action" onclick="saveSettings()">Save Changes</button>
                 <p id="save-msg" style="text-align:center; color:var(--brand-green); margin-top:15px; display:none;">Saved Successfully!</p>
                 <div style="margin-top: 20px; text-align: center; opacity: 0.7;">
@@ -1651,6 +2810,10 @@ body::before {
         <i class="fas fa-lock" style="color: var(--brand-gold); margin-right: 5px;"></i>
         Your settings are stored in your browser's <b>Local Storage</b>. No data is sent to any external server.
     </p>
+</div>
+<div class="card-header"><i class="fas fa-heart"></i> My Favorite Verses</div>
+<div id="favorites-list-container" style="max-height: 300px; overflow-y: auto; padding: 10px 0;">
+    <p style="text-align:center; color:var(--text-secondary); font-size:0.85rem;">No favorite verses yet.</p>
 </div>
             </div>
         </section>
@@ -1670,21 +2833,11 @@ body::before {
         </div>
     </div>
 
-    <div class="ticker-container">
-        <div class="ticker-text">
-            <span> <b>O Allah</b>, help our brothers and sisters in Palestine. Keep them safe and give them victory.</span>
-            <span class="dot">✦</span>
-            <span><b>O Allah</b>, You are the Healer. Please cure everyone who is in pain today.</span>
-            <span class="dot">✦</span>
-            <span><b>O Allah</b>, forgive those who have passed away. Fill their graves with light and give them Paradise.</span>
-            <span class="dot">✦</span>
-            <span><b>O Allah</b>, fix our broken hearts. Replace our sadness with peace and calm.</span>
-            <span class="dot">✦</span>
-            <span><b>O Allah</b>, feed the hungry and give homes to the homeless everywhere.</span>
-            <span class="dot">✦</span>
-            <span><b>O Allah</b>, forgive all my mistakes, the big ones and the small ones.</span>
-        </div>
-    </div>
+    <div id="footer-dua-wrapper">
+    <p id="footer-dua-text">
+        <span class="highlight-gold">O Allah</span>, help our brothers and sisters in Palestine.
+    </p>
+</div>
 
     <div class="footer-grid">
         <div class="footer-col">
@@ -1731,7 +2884,79 @@ body::before {
 </div>
 
 
+<div id="share-card-template">
+    
+    <div id="share-card-header">Daily Inspiration</div>
+    
+    <div id="share-card-body">
+        <div id="share-card-ar"></div>
+        <div>
+            <div id="share-card-en"></div>
+            <div id="share-card-ref"></div>
+        </div>
+    </div>
+    
+    <div id="share-card-logo">
+        <i class="fas fa-moon"></i>
+        <span>Daily Deen</span>
+    </div>
+</div>
+
+
     <script>
+        // A curated list of 50 impactful, complete-meaning standalone verses
+const impactfulVerses = [
+    262,   // 2:255 (Ayatul Kursi - Protection)
+    293,   // 2:286 (Allah does not burden a soul...)
+    332,   // 3:139 (Do not lose heart or grieve...)
+    1721,  // 13:28 (Hearts find rest in remembrance...)
+    2019,  // 16:128 (Allah is with those who do good...)
+    5151,  // 65:3  (Whoever trusts Allah, He is sufficient...)
+    6105,  // 93:7  (He found you lost and guided you...)
+    6149,  // 94:5  (With hardship comes ease...)
+    6150,  // 94:6  (Surely with hardship comes ease...)
+    4140,  // 39:53 (Do not despair of Allah's mercy...)
+    195,   // 2:186 (I am indeed near...)
+    160,   // 2:152 (Remember Me; I will remember you...)
+    161,   // 2:153 (Seek help through patience and prayer...)
+    6,     // 1:6   (Guide us to the straight path...)
+    4066,  // 39:10 (The patient will be given reward without measure...)
+    4649,  // 50:16 (We are closer to him than his jugular vein...)
+    194,   // 2:185 (Allah intends for you ease...)
+    165,   // 2:156 (To Him we shall return...)
+    1719,  // 13:26 (Allah provides abundantly for whom He wills...)
+    2373,  // 20:25 (My Lord, expand for me my chest...)
+    3385,  // 29:45 (Prayer prevents indecency and evil...)
+    4243,  // 40:60 (Call upon Me; I will answer you...)
+    910,   // 7:56  (The mercy of Allah is near to the doers of good...)
+    2052,  // 17:23 (Be kind to your parents...)
+    90,    // 2:83  (Speak to people with good words...)
+    2918,  // 25:63 (Walk upon the earth in humility...)
+    4622,  // 49:10 (The believers are but brothers...)
+    677,   // 5:8   (Be just; that is nearer to righteousness...)
+    5243,  // 67:2  (He created life and death to test you...)
+    6189,  // 103:3 (Counsel one another to truth and patience...)
+    425,   // 3:92  (You will not attain piety until you spend from what you love)
+    594,   // 4:110 (Whoever does evil... then asks for forgiveness, will find Allah Forgiving)
+    723,   // 5:54  (He loves them and they love Him)
+    1152,  // 7:199 (Take what is given, enjoin what is good, and turn away from the ignorant)
+    1246,  // 8:70  (If Allah knows any good in your hearts, He will give you better)
+    1344,  // 9:129 (Sufficient for me is Allah; there is no deity except Him)
+    1443,  // 10:107 (If Allah touches you with adversity, none can remove it but Him)
+    1498,  // 11:61 (Indeed, my Lord is near and responsive)
+    1582,  // 11:115 (And be patient, for indeed, Allah does not allow the reward of the doers of good to be lost)
+    1615,  // 12:67 (The decision is only for Allah; upon Him I have relied)
+    1635,  // 12:87 (Despair not of relief from Allah)
+    1810,  // 15:49 (Inform My servants that it is I who am the Forgiving, the Merciful)
+    1925,  // 16:30 (For those who do good in this world is good)
+    2103,  // 17:80 (My Lord, cause me to enter a sound entrance and exit a sound exit)
+    2113,  // 17:110 (To Him belong the best names)
+    2190,  // 18:10 (Our Lord, grant us from Yourself mercy and prepare for us from our affair right guidance)
+    2382,  // 20:46 (Do not be afraid; indeed, I am with you both; I hear and I see)
+    2615,  // 22:11 (Allah knows what you do)
+    2744,  // 24:35 (Allah is the Light of the heavens and the earth)
+    6210   // 110:3 (Exalt Him with praise of your Lord and ask forgiveness of Him)
+];
         /* --- REGISTER SERVICE WORKER (Required for Install Prompt) --- */
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js')
@@ -2138,11 +3363,11 @@ function toggleNameDua() {
         }
 
         /* --- 1. SPECIAL EVENTS LOGIC (Hijri Check) --- */
+/* --- FIXED: SHOW BOTH EVENT & GREETING --- */
 function checkSpecialEvents(hijriData) {
     const day = parseInt(hijriData.day);
     const month = parseInt(hijriData.month.number); 
-    const greetingEl = document.querySelector('.greeting'); 
-
+    
     let eventName = "";
 
     // Sunni Tradition Significant Dates
@@ -2154,11 +3379,38 @@ function checkSpecialEvents(hijriData) {
     else if (month === 8 && day === 15) eventName = "Laylatul Bara'ah"; 
     else if (month === 7 && day === 27) eventName = "Isra wal Mi'raj"; 
 
-    // Update the greeting if it's a special day
-    if (eventName && greetingEl) {
-        greetingEl.innerText = eventName;
-        greetingEl.style.color = "var(--brand-gold)";
-        greetingEl.style.textShadow = "0 0 20px var(--brand-gold-glow)";
+    // TARGET THE HOME HERO SECTION
+    const heroContainer = document.querySelector('#home .hero-content');
+
+    if (eventName && heroContainer) {
+        // 1. Check if we already added the event badge (to prevent duplicates)
+        let existingBadge = document.getElementById('special-event-badge');
+        
+        if (!existingBadge) {
+            // 2. Create a NEW Element for the Event
+            const badge = document.createElement('div');
+            badge.id = 'special-event-badge';
+            badge.innerHTML = `<i class="fas fa-star-and-crescent"></i> ${eventName}`;
+            
+            // 3. Style it to look like a Premium Banner
+            badge.style.color = "var(--brand-gold)";
+            badge.style.fontFamily = "'Amiri', serif";
+            badge.style.fontSize = "1.8rem";
+            badge.style.fontWeight = "bold";
+            badge.style.marginTop = "15px";
+            badge.style.marginBottom = "5px";
+            badge.style.textShadow = "0 0 20px var(--brand-gold-glow)";
+            badge.style.animation = "fadeInUp 1s ease";
+            
+            // 4. Insert it BEFORE the "Welcome" tagline
+            // (So you see: Arabic -> Event Name -> Welcome Tagline)
+            const tagline = document.querySelector('#home .hero-tagline');
+            if (tagline) {
+                heroContainer.insertBefore(badge, tagline);
+            } else {
+                heroContainer.appendChild(badge);
+            }
+        }
     }
 }
 
@@ -2187,12 +3439,32 @@ function updatePrayerUI(timings, hijri) {
     }
 }
 
+/* --- HELPER: GET CALCULATION METHOD ID --- */
+function getMethodID() {
+    const saved = localStorage.getItem('prayerMethod') || "MWL";
+    switch(saved) {
+        case "Karachi": return 1;
+        case "ISNA": return 2;
+        case "MWL": return 3;
+        case "Makkah": return 4;
+        case "Egypt": return 5;
+        case "Tehran": return 7;
+        case "Jafari": return 0;
+        case "Singapore": return 11;
+        case "Turkey": return 13;
+        default: return 3; // Default to Muslim World League
+    }
+}
+
 async function loadPrayers(city, country) {
     const container = document.getElementById('prayer-list-render');
     container.innerHTML = '<div class="spinner"></div>';
     
     try {
-        const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=2`);
+        // 🔴 FIX: Get the correct Method ID dynamically
+        const methodID = getMethodID(); 
+        const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=${methodID}`);
+        
         if (!res.ok) throw new Error("Network error");
         
         const data = await res.json();
@@ -2200,9 +3472,7 @@ async function loadPrayers(city, country) {
         
         document.getElementById('active-city-label').innerText = city;
         
-        // *** THIS IS THE KEY CHANGE ***
         updatePrayerUI(t, data.data.date.hijri); 
-        // ******************************
 
         // Save for Qibla
         localStorage.setItem('lat', data.data.meta.latitude);
@@ -2242,39 +3512,45 @@ async function loadPrayers(city, country) {
                 document.querySelector('.kaaba-pointer').style.transform = `rotate(${dir}deg)`;
             }
         }
+/* =========================================
+   MASTER QURAN ENGINE
+   (List + Search + Deep Link + Scroll + Cache)
+   ========================================= */
 
-        // --- QURAN LOGIC ---
-        /* --- OPTIMIZED SURAH LIST (Caches Forever) --- */
+// 1. INITIAL LOAD (Gets the list of 114 Surahs)
 async function loadSurahs() {
     const list = document.getElementById('surah-list-view');
-    
-    // 1. CHECK CACHE
-    const savedSurahs = localStorage.getItem('quran_surah_list');
-    if (savedSurahs) {
-        renderSurahList(JSON.parse(savedSurahs));
+    // Try to load from memory first
+    const saved = localStorage.getItem('quran_surah_list');
+
+    if (saved) {
+        renderSurahList(JSON.parse(saved));
         return;
     }
 
-    // 2. FETCH NEW
     try {
         const res = await fetch('https://api.alquran.cloud/v1/surah');
         const data = await res.json();
-        
-        // 3. SAVE CACHE
+        // Save to memory for next time
         localStorage.setItem('quran_surah_list', JSON.stringify(data.data));
         renderSurahList(data.data);
-        
     } catch(e) { 
-        list.innerHTML = "Error loading list."; 
+        list.innerHTML = "<div class='card' style='text-align:center'>Check your internet connection.</div>"; 
     }
 }
 
+// 2. RENDER THE LIST (Displays the 114 cards)
 function renderSurahList(surahs) {
     const list = document.getElementById('surah-list-view');
     list.innerHTML = '';
+    
     surahs.forEach(s => {
         const item = document.createElement('div');
         item.className = 'surah-item';
+        // IMPORTANT: We set these so the Search Bar can find them
+        item.setAttribute('data-name', s.englishName.toLowerCase());
+        item.setAttribute('data-number', s.number);
+        
         item.innerHTML = `
             <div style="display:flex;align-items:center;gap:10px;">
                 <div class="surah-num">${s.number}</div>
@@ -2284,76 +3560,163 @@ function renderSurahList(surahs) {
                 </div>
             </div>
             <div style="font-family:'Amiri';color:var(--brand-gold)">${s.name}</div>`;
+            
+        // Clicking a card opens the Surah normally (starts at verse 1)
         item.onclick = () => readSurah(s.number, s.englishName);
         list.appendChild(item);
     });
 }
-       /* --- OPTIMIZED SURAH READER (Caches Content) --- */
-async function readSurah(num, name) {
-    // 1. Switch View immediately
-    document.getElementById('surah-list-view').style.display = 'none';
-    document.getElementById('surah-read-view').style.display = 'block';
-    document.getElementById('read-title').innerText = name;
-    
-    const container = document.getElementById('ayah-container');
-    container.innerHTML = '<div class="spinner"></div>';
-    
-    // 2. CHECK CACHE: Do we already have this Surah saved?
-    const cacheKey = `surah_content_${num}`;
-    const cachedData = localStorage.getItem(cacheKey);
 
-    if (cachedData) {
-        renderSurahContent(JSON.parse(cachedData));
-        return; // Stop here, instant load!
+// 3. SEARCH: FILTER LIST (Typing names like "Mulk" or "67")
+function handleSearch(e) {
+    const val = e.target.value.toLowerCase();
+    const items = document.querySelectorAll('.surah-item');
+
+    // If empty, show everything
+    if(val === "") {
+        items.forEach(el => el.style.display = 'flex');
+        return;
     }
 
-    // 3. FETCH NEW (If not in cache)
-    try {
-        const res = await fetch(`https://api.alquran.cloud/v1/surah/${num}/editions/quran-uthmani,en.asad`);
-        const data = await res.json();
+    items.forEach(item => {
+        const name = item.getAttribute('data-name');
+        const num = item.getAttribute('data-number');
         
-        // 4. SAVE TO CACHE (Try/Catch in case memory is full)
-        try {
-            localStorage.setItem(cacheKey, JSON.stringify(data));
-        } catch (e) {
-            console.warn("Phone memory full, couldn't save Surah offline.");
+        // Show if matches Name OR Number
+        if (name.includes(val) || num.includes(val)) {
+            item.style.display = "flex";
+        } else {
+            item.style.display = "none";
         }
+    });
+}
 
-        renderSurahContent(data);
+// 4. SEARCH: DEEP LINK (Hitting Enter on "36:3")
+async function checkForEnter(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault(); // STOP page reload
         
-    } catch(e) {
-        container.innerHTML = `<p style="text-align:center; color:var(--brand-gold)">
-            Error loading Surah. Please check your internet.
-        </p>`;
+        const val = e.target.value.trim();
+        // Regex looks for "Number:Number" pattern
+        const versePattern = /^(\d+)[:.](\d+)$/;
+        const match = val.match(versePattern);
+
+        if (match) {
+            e.target.blur(); // Close mobile keyboard
+            const surahNum = match[1];
+            const ayahNum = match[2];
+            
+            // MAGIC: Open Surah AND tell it to scroll to ayahNum
+            await readSurah(surahNum, null, ayahNum); 
+        }
     }
 }
 
-// Helper to render the text (Used by both Cache and API)
-function renderSurahContent(data) {
-    const ar = data.data[0].ayahs;
-    const en = data.data[1].ayahs;
+// 5. READ SURAH (The core reader function)
+// 5. READ SURAH (Fixed API Path)
+async function readSurah(num, name, highlightAyah = null) {
+    // Switch UI to Reader View
+    document.getElementById('surah-list-view').style.display = 'none';
+    document.getElementById('surah-read-view').style.display = 'block';
+    
+    const titleEl = document.getElementById('read-title');
+    titleEl.innerText = name || "Loading..."; 
+    
     const container = document.getElementById('ayah-container');
     
+    // Only clear if we aren't just highlighting (keeps UI smooth)
+    if(!highlightAyah) container.innerHTML = '<div class="spinner"></div>';
+    
+    // CHECK CACHE
+    const cacheKey = `surah_full_v2_${num}`;
+    const cached = localStorage.getItem(cacheKey);
+
+    if (cached) {
+        const data = JSON.parse(cached);
+        // 🔴 FIX 1: Removed '.surah'
+        if(!name) titleEl.innerText = data.data[0].englishName; 
+        renderFullSurah(data, highlightAyah);
+        return;
+    }
+
+    // FETCH NEW
+    try {
+        const res = await fetch(`https://api.alquran.cloud/v1/surah/${num}/editions/quran-uthmani,en.asad,en.transliteration`);
+        const data = await res.json();
+        
+        try { localStorage.setItem(cacheKey, JSON.stringify(data)); } catch(e) {}
+
+        // 🔴 FIX 2: Removed '.surah'
+        if(!name) titleEl.innerText = data.data[0].englishName;
+        
+        renderFullSurah(data, highlightAyah);
+        
+    } catch(e) {
+        console.error(e); // Helps debug if something else is wrong
+        container.innerHTML = "<p style='text-align:center; padding:20px;'>Error loading Surah. Check internet.</p>";
+    }
+}
+
+// 6. RENDER & SCROLL TO VERSE
+function renderFullSurah(data, highlightAyah = null) {
+    const ar = data.data[0].ayahs;
+    const en = data.data[1].ayahs;
+    const tr = data.data[2].ayahs;
+    
+    const container = document.getElementById('ayah-container');
     let html = '';
-    // Loop through Ayahs
+
     ar.forEach((ayah, i) => {
+        // Check if this is the verse we searched for
+        const isTarget = (ayah.numberInSurah == highlightAyah);
+        
+        // Add ID="ayah-X" so we can scroll to it
+        // Add class "highlight-ayah" if it matches (for the Gold Flash)
         html += `
-        <div class="ayah-box">
-            <p class="ayah-arabic">${ayah.text}</p>
-            <p class="ayah-trans">
-                <span style="color:var(--brand-gold);font-weight:bold;">${ayah.numberInSurah}.</span> 
+        <div id="ayah-${ayah.numberInSurah}" class="ayah-box ${isTarget ? 'highlight-ayah' : ''}" style="margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+            <p class="ayah-arabic" style="margin-bottom: 10px;">${ayah.text}</p>
+            
+            <p style="color:var(--brand-gold); font-size:0.95rem; margin-bottom:8px; line-height:1.6; font-weight:500;">
+                ${tr[i].text}
+            </p>
+
+            <p class="ayah-trans" style="font-size:0.9rem;">
+                <span style="background:var(--bg-nav); padding:2px 8px; border-radius:4px; font-size:0.7rem; margin-right:5px; border:1px solid var(--border);">
+                    ${ayah.numberInSurah}
+                </span> 
                 ${en[i].text}
             </p>
         </div>`;
     });
     
     container.innerHTML = html;
-    window.scrollTo(0, 0); // Scroll to top
+
+    // SCROLL LOGIC
+    if (highlightAyah) {
+        // Wait 300ms for HTML to render, then scroll
+        setTimeout(() => {
+            const target = document.getElementById(`ayah-${highlightAyah}`);
+            if(target) {
+                target.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+        }, 300);
+    } else {
+        // If just opening Surah normally, scroll to top
+        window.scrollTo(0, 0);
+    }
 }
-        function closeSurah() {
-            document.getElementById('surah-read-view').style.display = 'none';
-            document.getElementById('surah-list-view').style.display = 'grid';
-        }
+
+// 7. CLOSE BUTTON (Back to List)
+function closeSurah() {
+    document.getElementById('surah-read-view').style.display = 'none';
+    document.getElementById('surah-list-view').style.display = 'grid';
+    // Clear the search bar so the full list shows again
+    const searchInput = document.getElementById('quran-search');
+    if(searchInput) {
+        searchInput.value = "";
+        handleSearch({ target: searchInput }); // Trigger filter reset
+    }
+}
         // --- QUICK SEARCH LOGIC ---
 function quickSearch() {
     const city = document.getElementById('quick-city').value;
@@ -2525,47 +3888,83 @@ function startCountdown(timings) {
         updateRamadanUI(true);
     }
    /* --- OPTIMIZED DAILY VERSE (Saves for 24h) --- */
-/* --- UPDATED AUDIO VERSE LOADER --- */
+
+/* --- UPDATED VERSE LOADER WITH FAVORITES --- */
 async function loadDailyVerse() {
+    const container = document.getElementById('verse-ar');
+    const trans = document.getElementById('verse-en');
+    const ref = document.getElementById('verse-ref');
+
     try {
-        const id = Math.floor(Math.random() * 6236) + 1;
+        const randomIndex = Math.floor(Math.random() * impactfulVerses.length);
+        const id = impactfulVerses[randomIndex];
         
-        // Fetch 3 Editions: Arabic Text, English Text, and Audio (Mishary Alafasy)
         const res = await fetch(`https://api.alquran.cloud/v1/ayah/${id}/editions/quran-uthmani,en.asad,ar.alafasy`);
         const d = await res.json();
         
-        // 1. Set Texts
-        document.getElementById('verse-ar').innerText = d.data[0].text;
-        document.getElementById('verse-en').innerText = d.data[1].text;
-        
-        // 2. Set Reference
+        container.innerText = d.data[0].text;
+        trans.innerText = d.data[1].text;
         const refText = `${d.data[0].surah.englishName} : ${d.data[0].numberInSurah}`;
-        const refEl = document.getElementById('verse-ref');
-        refEl.innerText = refText;
-        
-        // 3. Add Audio Player Button
-        const audioUrl = d.data[2].audio;
-        
-        // Check if button already exists, remove it to prevent duplicates
-        const oldBtn = document.getElementById('verse-play-btn');
-        if(oldBtn) oldBtn.remove();
+        ref.innerText = refText;
 
-        // Create Audio Element
-        const playerHTML = `
-            <audio id="verse-player" src="${audioUrl}"></audio>
-            <button id="verse-play-btn" onclick="document.getElementById('verse-player').play()" 
-                style="display:block; margin:15px auto 0 auto; background:rgba(251, 191, 36, 0.15); border:1px solid var(--brand-gold); color:var(--brand-gold); padding:8px 25px; border-radius:50px; cursor:pointer; font-size:0.9rem; transition:0.3s;">
-                <i class="fas fa-play"></i> Listen to Recitation
-            </button>
-        `;
-        
-        // Insert Player after reference
-        refEl.insertAdjacentHTML('afterend', playerHTML);
+        // Clean up old buttons
+        const oldControls = document.getElementById('verse-controls');
+        if(oldControls) oldControls.remove();
 
-    } catch(e){ 
-        console.log("Verse load fail"); 
+        // Create new controls wrapper
+        const controlsHTML = `
+            <div id="verse-controls" style="display:flex; justify-content:center; gap:10px; margin-top:15px;">
+                <audio id="verse-player" src="${d.data[2].audio}"></audio>
+                <button onclick="document.getElementById('verse-player').play()" class="pop-btn share-btn" style="padding: 10px 20px;">
+                    <i class="fas fa-play"></i> Listen
+                </button>
+                <button id="fav-btn-${id}" onclick="toggleFavorite(${id}, '${refText}')" class="pop-btn bookmark-btn" style="padding: 10px 20px;">
+                    <i class="${isFavorite(id) ? 'fas' : 'far'} fa-heart"></i>
+                </button>
+            </div>`;
+        
+        ref.insertAdjacentHTML('afterend', controlsHTML);
+
+    } catch(e) {
+        console.error("Verse loading error:", e);
     }
 }
+// Check if a verse is already favorited
+function isFavorite(id) {
+    const favorites = JSON.parse(localStorage.getItem('fav_verses') || "[]");
+    return favorites.some(fav => fav.id === id);
+}
+
+// Add or Remove from favorites
+function toggleFavorite(id, reference) {
+    let favorites = JSON.parse(localStorage.getItem('fav_verses') || "[]");
+    const index = favorites.findIndex(fav => fav.id === id);
+    const btnIcon = document.querySelector(`#fav-btn-${id} i`);
+
+    if (index === -1) {
+        // Add to favorites
+        favorites.push({ id, ref: reference });
+        btnIcon.className = 'fas fa-heart';
+        showToast("Verse added to Favorites!");
+    } else {
+        // Remove from favorites
+        favorites.splice(index, 1);
+        btnIcon.className = 'far fa-heart';
+        showToast("Removed from Favorites");
+    }
+
+    localStorage.setItem('fav_verses', JSON.stringify(favorites));
+    renderFavoritesList(); // Refresh the list in settings/info
+}
+
+// Helper to show a quick toast message
+function showToast(msg) {
+    const toast = document.getElementById('toast-box');
+    toast.innerText = msg;
+    toast.style.display = "block";
+    setTimeout(() => toast.style.display = "none", 2000);
+}
+
 
 // Helper to display the text
 function renderVerse(data) {
@@ -2681,7 +4080,10 @@ async function loadPrayersByGPS(lat, long) {
     container.innerHTML = '<div class="spinner"></div>';
     
     try {
-        const res = await fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${long}&method=2`);
+        // 🔴 FIX: Get the correct Method ID dynamically
+        const methodID = getMethodID();
+        const res = await fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${long}&method=${methodID}`);
+        
         if (!res.ok) throw new Error("Network error");
 
         const data = await res.json();
@@ -2689,15 +4091,12 @@ async function loadPrayersByGPS(lat, long) {
         
         document.getElementById('active-city-label').innerText = "Current Location";
         
-        // *** REUSE THE SAME LOGIC ***
         updatePrayerUI(t, data.data.date.hijri);
-        // ****************************
 
     } catch(e) {
         container.innerHTML = "Error loading GPS data.";
     }
 }
-
 // --- FIXED: INITIAL LOAD LOGIC ---
 // This runs immediately when the page opens
 const savedCity = localStorage.getItem('city');
@@ -2740,72 +4139,123 @@ else {
 
     // Call it immediately
     updateRamadanCountdown();
+/* --- NEW SERENITY LOGIC --- */
 
- // --- SERENITY TAB LOGIC (FIXED & VERIFIED) ---
+// 1. Massive Clock & Date Updater
+function updateSerenityClock() {
+    const now = new Date();
     
-    // Verified Embed-Friendly IDs (2025)
-    const moods = {
-        study: {
-            // Zikrullah TV: Calm Lofi Recitation (Verified Working)
-            id: "Cv4AnKiiB1s", 
-            label: "Study Mode: Gentle Lofi Recitation"
-        },
-        sleep: {
-            // Zikrullah TV: Deep Sleep & Protection
-            id: "ymuOMJebI9I", 
-            label: "Sleep Mode: Deep Tranquility"
-        },
-        nasheed: {
-            // Vocals Only Ramadan Vibes (No Music)
-            id: "0IvGeSRioAM", 
-            label: "Relaxation: Soft Vocals (No Music)"
-        },
-        nature: {
-            // Study With Anwar: Rain + Quran (Pomodoro Style)
-            id: "dJ2hYHoO0Bw", 
-            label: "Nature: Rain & Recitation"
-        }
+    // Massive Time (e.g., 14:30)
+    const timeStr = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+    
+    // Full Date (e.g., WEDNESDAY, 14 JAN)
+    const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short' }).toUpperCase();
+    
+    const timeEl = document.getElementById('clock-time');
+    const dateEl = document.getElementById('clock-date');
+    
+    if (timeEl) timeEl.innerText = timeStr;
+    if (dateEl) dateEl.innerText = dateStr;
+}
+
+/* --- NEW REFLECTION LOGIC (With History) --- */
+
+// 1. Save Logic
+function saveReflection() {
+    const input = document.getElementById('reflection-input');
+    const text = input.value.trim();
+    
+    if (!text) {
+        alert("Please write something first.");
+        return;
+    }
+
+    // Create the entry object
+    const entry = {
+        id: Date.now(), // Unique ID
+        text: text,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
     };
 
-    function playMood(mood, cardElement) {
-        // 1. Highlight the selected card
-        document.querySelectorAll('.mood-card').forEach(c => c.classList.remove('active'));
-        if(cardElement) cardElement.classList.add('active');
-
-        // 2. Update Player
-        const player = document.getElementById('serenity-player');
-        const label = document.getElementById('playing-label');
-        const data = moods[mood];
-
-        // 3. Construct URL (With strict origin policy fix)
-        // We use 'embed' URL with specific parameters to prevent errors
-        const src = `https://www.youtube.com/embed/${data.id}?autoplay=1&controls=1&modestbranding=1&rel=0&origin=${window.location.origin}`;
-
-        player.src = src;
-        label.innerText = data.label;
-    }
-
-    // Initialize with Study Mode
-    setTimeout(() => {
-        const firstCard = document.querySelector('.mood-card');
-        if(firstCard) playMood('study', firstCard);
-    }, 1000);
-
-    // Simple Clock for Serenity Tab
-    setInterval(() => {
-        const clock = document.getElementById('serenity-clock');
-        if(clock) {
-            const now = new Date();
-            clock.innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        }
-    }, 1000);
-
-    function updateVideoID() {
-    const newID = prompt("Paste the new YouTube Video ID (e.g., dJ2hYHoO0Bw):");
-    if(newID) {
-        document.getElementById('serenity-player').src = `https://www.youtube.com/embed/${newID}?autoplay=1`;
-    }
+    // Get existing history from storage (or create empty list)
+    const history = JSON.parse(localStorage.getItem('reflection_history') || "[]");
+    
+    // Add new entry to the TOP of the list
+    history.unshift(entry);
+    
+    // Save back to storage
+    localStorage.setItem('reflection_history', JSON.stringify(history));
+    
+    // Clear input and reload list
+    input.value = "";
+    renderReflections();
+    
+    if (typeof showToast === "function") showToast("Reflection Saved!");
 }
+
+// 2. Load & Display Logic
+function renderReflections() {
+    const historyContainer = document.getElementById('reflection-history');
+    const history = JSON.parse(localStorage.getItem('reflection_history') || "[]");
+    
+    if (!historyContainer) return;
+
+    if (history.length === 0) {
+        historyContainer.innerHTML = '<p style="text-align:center; color:var(--text-secondary); font-size:0.8rem; font-style:italic;">No reflections yet. Start writing...</p>';
+        return;
+    }
+
+    // Build HTML for each entry
+    historyContainer.innerHTML = history.map(item => `
+        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; border-left: 2px solid var(--brand-gold);">
+            <p style="font-size: 0.9rem; line-height: 1.5; color: #fff; margin-bottom: 8px;">${item.text}</p>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size: 0.7rem; color: var(--text-secondary);">
+                    <i class="far fa-calendar-alt"></i> ${item.date} • ${item.time}
+                </span>
+                <button onclick="deleteReflection(${item.id})" style="background:none; border:none; color: #ef4444; font-size: 0.8rem; cursor: pointer;">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// 3. Delete Logic
+function deleteReflection(id) {
+    if(!confirm("Delete this entry?")) return;
+    
+    let history = JSON.parse(localStorage.getItem('reflection_history') || "[]");
+    // Filter out the one we want to delete
+    history = history.filter(item => item.id !== id);
+    
+    localStorage.setItem('reflection_history', JSON.stringify(history));
+    renderReflections();
+}
+
+// 4. Initialize on Page Load
+window.addEventListener('DOMContentLoaded', () => {
+    renderReflections(); // Load the list when app starts
+    
+    // Start Serenity Clock (Keep your existing clock code too)
+    if(typeof updateSerenityClock === "function") {
+        updateSerenityClock();
+        setInterval(updateSerenityClock, 1000);
+    }
+});
+// 3. Initialize on Load
+window.addEventListener('DOMContentLoaded', () => {
+    // Load saved reflection
+    const saved = localStorage.getItem('serenity_reflection');
+    const input = document.getElementById('reflection-input');
+    if (saved && input) input.value = saved;
+
+    // Start Clock
+    updateSerenityClock();
+    setInterval(updateSerenityClock, 1000);
+});
+ 
 /* --- NEW FEATURES LOGIC --- */
 
 // 1. Accessibility Logic (Text Size)
@@ -2964,57 +4414,75 @@ function bookmarkApp() {
     toast.style.display = "block";
     setTimeout(() => toast.style.display = "none", 4000);
 }
+/* --- FIXED ATMOSPHERE ENGINE (Restores Your Heart Dua) --- */
 function updateAtmosphere() {
-        const date = new Date();
-        const hour = date.getHours();
-        const day = date.getDay(); // 5 = Friday
-        const greetingEl = document.querySelector('.hero-dua');
-        const body = document.body;
-        const subheading = document.querySelector('.hero-tagline'); // We will use this too
-        
-        // 1. Reset Background Classes
-        body.classList.remove('time-fajr', 'time-day', 'time-maghrib', 'time-night');
-        
-        let spiritualMsg = "";
-        let subMsg = "Your Daily Companion"; // Default
+    const date = new Date();
+    const hour = date.getHours();
+    const day = date.getDay(); // 5 = Friday
+    
+    const greetingEl = document.querySelector('.hero-dua');
+    const subheading = document.querySelector('.hero-tagline'); 
+    const body = document.body;
+    
+    // 1. Reset Background Classes
+    body.classList.remove('time-fajr', 'time-day', 'time-maghrib', 'time-night');
+    
+    // 🔴 FIX: Set your preferred text as the DEFAULT variable
+    let spiritualMsg = "May Allah place light in your heart"; 
+    
+    // Keep the Welcome Message safe too
+    let subMsg = "Welcome to Daily Deen <br> Your Daily Companion for Prayer, Remembrance & Reflection"; 
 
-        // 2. JUMMAH CHECK (Sunni Tradition)
-        // If it is Thursday Night (after Maghrib) OR Friday before Maghrib
-        const isJummah = (day === 4 && hour >= 18) || (day === 5 && hour < 18);
+    // 2. JUMMAH CHECK
+    const isJummah = (day === 4 && hour >= 18) || (day === 5 && hour < 18);
 
-        if (isJummah) {
-            spiritualMsg = "Jummah Mubarak. Illuminate your heart with Surah Al-Kahf.";
-            subMsg = "Send abundant Salawat upon the Prophet ﷺ today.";
-            // Keep the colors based on time, but maybe force a specific glow? 
-            // Let's stick to time colors to keep it dynamic.
-        } 
-        
-        // 3. Time Logic (Overrides message if NOT Jummah, or sets background)
-        if (hour >= 4 && hour < 7) {
-            body.classList.add('time-fajr');
-            if(!isJummah) spiritualMsg = "The Lord descends to the lowest heaven. Ask, and you shall receive.";
-        } else if (hour >= 7 && hour < 17) {
-            body.classList.add('time-day');
-            if(!isJummah) spiritualMsg = "Oh Allah, bless my early morning hours.";
-        } else if (hour >= 17 && hour < 20) {
-            body.classList.add('time-maghrib');
-            if(!isJummah) spiritualMsg = "The sun sets, but the light of Allah never fades.";
-        } else {
-            body.classList.add('time-night');
-            if(!isJummah) spiritualMsg = "Sleep with Wudu, and your soul prostrates under the Throne.";
-        }
-
-        // 4. Update Texts
-        if(greetingEl && greetingEl.innerText !== `"${spiritualMsg}"`) {
-            greetingEl.style.opacity = 0;
-            setTimeout(() => {
-                greetingEl.innerText = `"${spiritualMsg}"`;
-                greetingEl.style.opacity = 1;
-                // Also update the sub-header for special events
-                if(subheading) subheading.innerText = subMsg;
-            }, 500);
-        }
+    if (isJummah) {
+        spiritualMsg = "Jummah Mubarak. Illuminate your heart with Surah Al-Kahf.";
+        subMsg = "Send abundant Salawat upon the Prophet ﷺ today.";
+    } 
+    
+    // 3. Time Logic 
+    // (We only overwrite spiritualMsg if it's a specific special time like Fajr/Maghrib)
+    
+    if (hour >= 4 && hour < 7) {
+        body.classList.add('time-fajr');
+        if(!isJummah) spiritualMsg = "The Lord descends to the lowest heaven. Ask, and you shall receive.";
+    } 
+    else if (hour >= 7 && hour < 15) {
+        body.classList.add('time-day');
+        // 🔴 CHANGE: We keep your "Light in your heart" text for the main part of the day
+        if(!isJummah) spiritualMsg = "May Allah place light in your heart"; 
     }
+    else if (hour >= 15 && hour < 17) { 
+        body.classList.add('time-asr'); // NEW: Gold (3 PM to 5 PM)
+        if(!isJummah) spiritualMsg = "Asr time approaches. Success comes to those who pray.";
+    } 
+    else if (hour >= 17 && hour < 20) {
+        body.classList.add('time-maghrib');
+        if(!isJummah) spiritualMsg = "The sun sets, but the light of Allah never fades.";
+    } 
+    else {
+        body.classList.add('time-night');
+        // Optional: You can keep the Night Dua, or remove this line to keep "Light in your heart" at night too
+        if(!isJummah) spiritualMsg = "Sleep with Wudu, and your soul prostrates under the Throne.";
+    }
+
+    // 4. Update Texts
+    if(greetingEl && greetingEl.innerText !== `"${spiritualMsg}"`) {
+        greetingEl.style.opacity = 0;
+        
+        setTimeout(() => {
+            greetingEl.innerText = `"${spiritualMsg}"`;
+            greetingEl.style.opacity = 1;
+            
+            if(subheading) {
+                if(subheading.innerHTML !== subMsg) {
+                    subheading.innerHTML = subMsg;
+                }
+            }
+        }, 500);
+    }
+}
 
 // Run on load and every minute
 updateAtmosphere();
@@ -3022,7 +4490,7 @@ setInterval(updateAtmosphere, 60000);
 /* --- ADHKAR DASHBOARD SYSTEM --- */
 
 // 1. The Database
-const dhikrData = [
+const defaultDhikr = [
     { id: 'subhan', cat: 'general', title: "SubhanAllah", ar: "سُبْحَانَ ٱللَّٰهِ", target: 33 },
     { id: 'alham', cat: 'general', title: "Alhamdulillah", ar: "ٱلْحَمْدُ لِلَّٰهِ", target: 33 },
     { id: 'allahu', cat: 'general', title: "Allahu Akbar", ar: "ٱللَّٰهُ أَكْبَرُ", target: 34 },
@@ -3046,6 +4514,11 @@ const dhikrData = [
     { id: 's_lailaha', cat: 'salah', title: "Final Dua", ar: "لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ...", target: 1 }
 ];
 
+let dhikrData = JSON.parse(localStorage.getItem('my_dhikr_list')) || defaultDhikr;
+
+// Safety Check: If list is empty (first load glitch), force defaults
+if(dhikrData.length === 0) dhikrData = defaultDhikr;
+
 let activeFilter = 'all';
 
 // 2. Initialize Dashboard
@@ -3053,7 +4526,7 @@ function initAdhkarGrid() {
     renderAdhkar(activeFilter);
 }
 
-// 3. Render Cards
+/* --- UPDATED RENDER FUNCTION (With Delete Button) --- */
 function renderAdhkar(filter) {
     const grid = document.getElementById('adhkar-grid');
     grid.innerHTML = '';
@@ -3065,15 +4538,17 @@ function renderAdhkar(filter) {
         const current = parseInt(localStorage.getItem(`cnt_${item.id}`) || 0);
         const percent = Math.min((current / item.target) * 100, 100);
         const isDone = current >= item.target;
+        
+        // CHECK: Is this a custom card?
+        const isCustom = item.id.toString().startsWith('custom_');
 
         const card = document.createElement('div');
         card.className = `dhikr-card ${isDone ? 'completed' : ''}`;
         card.style.setProperty('--progress', `${percent}%`);
         
-        // Click to count (Tap anywhere on card)
+        // Click to count (Tap anywhere except buttons)
         card.onclick = (e) => {
-            // Don't count if clicking reset button
-            if(e.target.closest('.reset-dhikr-btn')) return;
+            if(e.target.closest('button')) return; // Ignore button clicks
             incrementCard(item.id, item.target);
         };
 
@@ -3083,11 +4558,21 @@ function renderAdhkar(filter) {
                     <div class="dhikr-title">${item.title}</div>
                     <div class="dhikr-cat-tag">${item.cat}</div>
                 </div>
-                <button class="reset-dhikr-btn" onclick="resetCard('${item.id}')">
-                    <i class="fas fa-redo-alt" style="font-size:0.8rem;"></i>
-                </button>
+                
+                <div style="display:flex; gap: 5px;">
+                    ${isCustom ? `
+                    <button onclick="deleteCustomDhikr('${item.id}')" style="background:rgba(239, 68, 68, 0.2); border:none; width:35px; height:35px; border-radius:50%; color:#ef4444; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+                        <i class="fas fa-trash"></i>
+                    </button>` : ''}
+
+                    <button class="reset-dhikr-btn" onclick="resetCard('${item.id}')">
+                        <i class="fas fa-redo-alt" style="font-size:0.8rem;"></i>
+                    </button>
+                </div>
             </div>
+            
             <div class="dhikr-arabic">${item.ar}</div>
+            
             <div class="dhikr-controls">
                 <div>
                     <span class="dhikr-count" id="count-${item.id}">${current}</span>
@@ -3099,7 +4584,6 @@ function renderAdhkar(filter) {
         grid.appendChild(card);
     });
 }
-
 // 4. Increment Logic
 function incrementCard(id, target) {
     let current = parseInt(localStorage.getItem(`cnt_${id}`) || 0);
@@ -3142,21 +4626,45 @@ function filterAdhkar(cat, btn) {
     renderAdhkar(cat);
 }
 
-// 7. Custom Dhikr (Simple Implementation)
+/* --- ADD CUSTOM DHIKR (Persisted) --- */
 function addCustomDhikr() {
     const title = prompt("Enter Name of Dhikr:");
     if(!title) return;
     const target = prompt("Enter Target Number:", "33");
     
-    // Add to array (temporary for session) or create a persistent way
-    // For now, let's push to the array and re-render
-    dhikrData.push({
+    // Create new object
+    const newDhikr = {
         id: 'custom_' + Date.now(),
         cat: 'general',
         title: title,
-        ar: "Your Custom Dhikr",
+        ar: "Your Custom Dhikr", // You could ask for Arabic too if you want
         target: parseInt(target) || 33
-    });
+    };
+
+    // Add to list
+    dhikrData.push(newDhikr);
+
+    // SAVE TO STORAGE
+    localStorage.setItem('my_dhikr_list', JSON.stringify(dhikrData));
+
+    // Refresh UI
+    renderAdhkar(activeFilter);
+}
+
+/* --- DELETE CUSTOM DHIKR (Persisted) --- */
+function deleteCustomDhikr(id) {
+    if(!confirm("Delete this Dhikr permanently?")) return;
+
+    // Remove from array
+    dhikrData = dhikrData.filter(item => item.id !== id);
+
+    // SAVE TO STORAGE
+    localStorage.setItem('my_dhikr_list', JSON.stringify(dhikrData));
+
+    // Also clear the count from storage to keep it clean
+    localStorage.removeItem(`cnt_${id}`);
+
+    // Refresh UI
     renderAdhkar(activeFilter);
 }
 
@@ -3239,47 +4747,7 @@ function openThankYouModal() {
     });
 }
 
-/* --- CORRECTED SEND LOGIC --- */
-window.openThankYouModal = function() {
-    const input = document.getElementById('feedback-input');
-    const text = input ? input.value.trim() : "";
 
-    // 1. VALIDATION CHECK
-    // If text is empty, stop here and do not open the modal
-    if (!text) {
-        alert("Please write a suggestion first!");
-        input.focus(); // Highlights the box so they know where to type
-        return; 
-    }
-
-    // 2. SHOW LOADING STATE (Optional Visual Feedback)
-    const btn = document.querySelector('.card button.btn-action'); // Finds the send button
-    let originalText = "";
-    
-    if(btn) {
-        originalText = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        btn.disabled = true; // Prevent double clicking
-    }
-
-    // 3. SIMULATE NETWORK DELAY (1 Second)
-    setTimeout(() => {
-        // Reset the button
-        if(btn) {
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }
-
-        // Clear the input box (so they don't send the same thing twice)
-        if(input) input.value = "";
-
-        // NOW Open the Modal
-        const modal = document.getElementById('thank-you-modal');
-        if (modal) {
-            modal.classList.add('show');
-        }
-    }, 1000); 
-};
 /* --- SAY AMEEN BUTTON LOGIC --- */
 function sayAmeen(btn) {
     // 1. Visual Change
@@ -3350,36 +4818,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-/* --- INSTALL APP LOGIC --- */
-let deferredPrompt;
-const installBtn = document.getElementById('install-btn');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent Chrome 67 and earlier from automatically showing the prompt
-    e.preventDefault();
-    // Stash the event so it can be triggered later.
-    deferredPrompt = e;
-    // Show the install button
-    if(installBtn) installBtn.style.display = 'block';
-});
-
-if(installBtn) {
-    installBtn.addEventListener('click', (e) => {
-        // Hide the app provided install promotion
-        installBtn.style.display = 'none';
-        // Show the install prompt
-        if(deferredPrompt) {
-            deferredPrompt.prompt();
-            // Wait for the user to respond to the prompt
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the A2HS prompt');
-                }
-                deferredPrompt = null;
-            });
-        }
-    });
-}
 
 /* --- CINEMATIC ANIMATION ENGINE --- */
 document.addEventListener('DOMContentLoaded', () => {
@@ -3411,6 +4850,1120 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         );
     });
+});
+
+// 5. Info Hub Tab Switching
+function switchInfoTab(id, btn) {
+    document.querySelectorAll('.info-tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.info-nav-btn').forEach(b => b.classList.remove('active'));
+    
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+}
+function renderFavoritesList() {
+    const listContainer = document.getElementById('favorites-list-container');
+    const favorites = JSON.parse(localStorage.getItem('fav_verses') || "[]");
+
+    if (favorites.length === 0) {
+        listContainer.innerHTML = '<p style="text-align:center; color:var(--text-secondary); font-size:0.85rem;">No favorite verses yet.</p>';
+        return;
+    }
+
+    listContainer.innerHTML = favorites.map(fav => `
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; border-bottom:1px solid var(--border);">
+            <span style="font-size:0.9rem; color:var(--text-primary); cursor:pointer;" onclick="readSurahByID(${fav.id})">
+                ${fav.ref}
+            </span>
+            <button onclick="toggleFavorite(${fav.id}, '${fav.ref}')" style="background:none; border:none; color:var(--brand-gold); cursor:pointer;">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </div>
+    `).join('');
+}
+
+// Call this once on load
+document.addEventListener('DOMContentLoaded', renderFavoritesList);
+/* --- INFO HUB: TAB SWITCHER --- */
+function switchInfoTab(tabId, btn) {
+    // 1. Hide all content divs
+    document.querySelectorAll('.info-tab-content').forEach(content => {
+        content.classList.remove('active');
+        content.style.display = 'none';
+    });
+
+    // 2. Remove active class from all info buttons
+    document.querySelectorAll('.info-nav-btn').forEach(b => b.classList.remove('active'));
+
+    // 3. Show the selected content and activate button
+    const targetContent = document.getElementById(tabId);
+    if(targetContent) {
+        targetContent.style.display = 'block';
+        targetContent.classList.add('active');
+    }
+    btn.classList.add('active');
+}
+
+/* --- COMMUNITY: FORMSPREE SUBMISSION --- */
+async function submitToFormspree() {
+    const input = document.getElementById('contribution-input');
+    const btn = document.getElementById('submit-contrib-btn');
+    const suggestion = input.value.trim();
+    
+    if(!suggestion) {
+        showToast("Please enter a suggestion first!");
+        return;
+    }
+
+    // Visual feedback: Loading state
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    btn.disabled = true;
+
+    try {
+        const response = await fetch("https://formspree.io/f/mgooegzn", {
+            method: "POST",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+                type: "Contribution",
+                message: suggestion,
+                timestamp: new Date().toLocaleString()
+            })
+        });
+
+        if (response.ok) {
+            showToast("JazakAllah Khair! Submitted successfully.");
+            input.value = ""; // Clear the box
+        } else {
+            throw new Error("Submission failed");
+        }
+    } catch (error) {
+        showToast("Oops! There was an error. Try again later.");
+    } finally {
+        // Reset button
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+    }
+}
+function playAudio(src, title) {
+    const audio = document.getElementById("serenity-audio");
+    const source = audio.querySelector("source");
+
+    source.src = src;
+    audio.load();
+    audio.play();
+
+    document.getElementById("audio-title").textContent = title;
+}
+
+/* --- GAME-STYLE TUTORIAL SYSTEM --- */
+
+let currentStep = 0;
+
+// Define the steps of your tour
+const tutorialSteps = [
+    {
+        // Step 1: Home
+        target: '.nav-btn[onclick*="home"]', 
+        tab: 'home',
+        title: "Home Screen",
+        text: "Start here. You can check your Prayer Times, read the Daily Verse, Daily hadith, Daily Reminder, Track your missed Prayers and Reflect on your journey and mark your daily tasks."
+    },
+    {
+        // Step 2: Qibla
+        target: '.nav-btn[onclick*="qibla"]', 
+        tab: 'qibla',
+        title: "Qibla Finder",
+        text: "Need to know where to pray? This shows you exactly which way to face for the Kaaba."
+    },
+    {
+        // Step 3: Quran
+        target: '.nav-btn[onclick*="quran"]', 
+        tab: 'quran',
+        title: "The Quran",
+        text: "Read all 114 chapters here. We included English translations and transliterations so it is easy to understand and recite ."
+    },
+    {
+        // Step 4: Adhkar
+        target: '.nav-btn[onclick*="adhkar"]', 
+        tab: 'adhkar',
+        title: "Digital Counter",
+        text: "Count your Dhikr easily. You can use the buttons to count, or add your own personal prayers."
+    },
+    {
+        // Step 5: Serenity
+        target: '.nav-btn[onclick*="serenity"]', 
+        tab: 'serenity',
+        title: "Relax & Peace",
+        text: "A quiet place to rest your mind. Listen to peaceful sounds and take a break from the noise."
+    },
+    {
+        // Step 6: Info & Library
+        target: '.nav-btn[onclick*="info"]', 
+        tab: 'info',
+        title: "Useful Info",
+        text: "Learn more about this app, contact us, or find helpful links and tools such as zakat calculator and many more for your Islamic journey we also added a new to islam corner where you can find useful resources and websites to start your journey of deen!."
+    },
+    {
+        // Step 7: Settings
+        target: '.nav-btn[onclick*="settings"]', 
+        tab: 'settings',
+        title: "Settings",
+        text: "Change your City for prayer times, Change your Prayer time Calculation Method so that it matches with your local Mosque,  make the text bigger, Reset your Tutorial, or look at your Saved Verses here."
+    }
+];
+function startTutorial() {
+    currentStep = 0;
+    document.getElementById('tutorial-overlay').style.display = 'block';
+    document.getElementById('tutorial-box').style.display = 'block';
+    showStep(0);
+}
+
+function showStep(index) {
+    // 1. Clear previous highlights
+    document.querySelectorAll('.tutorial-spotlight').forEach(el => el.classList.remove('tutorial-spotlight'));
+
+    if (index >= tutorialSteps.length) {
+        endTutorial();
+        return;
+    }
+
+    const step = tutorialSteps[index];
+
+    // 2. SWITCH THE TAB (Take user there)
+    if (step.tab) {
+        // We find the button that switches this tab and click it logically
+        const btn = document.querySelector(`.nav-btn[onclick*="${step.tab}"]`);
+        if(btn) switchTab(step.tab, btn);
+    }
+
+    // 3. Highlight the Target Button
+    const targetEl = document.querySelector(step.target);
+    if (targetEl) {
+        targetEl.classList.add('tutorial-spotlight');
+        
+        // 4. Move the Box near the element
+        const rect = targetEl.getBoundingClientRect();
+        const box = document.getElementById('tutorial-box');
+        
+        // Simple logic: Place box above or below the button based on screen space
+        // If on mobile (bottom nav), place box ABOVE. If desktop (top nav), place BELOW.
+        if (window.innerWidth < 768) {
+            // Mobile: Box goes above button
+            box.style.bottom = (window.innerHeight - rect.top + 20) + 'px';
+            box.style.top = 'auto';
+            box.style.left = '50%';
+            box.style.transform = 'translateX(-50%)';
+        } else {
+            // Desktop: Box goes below button
+            box.style.top = (rect.bottom + 20) + 'px';
+            box.style.bottom = 'auto';
+            box.style.left = (rect.left) + 'px';
+            box.style.transform = 'translateX(0)';
+        }
+    }
+
+    // 5. Update Text
+    document.getElementById('tut-title').innerText = step.title;
+    document.getElementById('tut-text').innerText = step.text;
+    document.getElementById('tut-step').innerText = index + 1;
+}
+
+function nextTutorialStep() {
+    currentStep++;
+    showStep(currentStep);
+}
+
+function endTutorial() {
+    document.getElementById('tutorial-overlay').style.display = 'none';
+    document.getElementById('tutorial-box').style.display = 'none';
+    document.querySelectorAll('.tutorial-spotlight').forEach(el => el.classList.remove('tutorial-spotlight'));
+    
+    // Optional: Save that they finished it
+    localStorage.setItem('tutorial_done', 'true');
+    
+    // Go back home
+    switchTab('home', document.querySelector('.nav-btn[onclick*="home"]'));
+}
+
+/* --- ULTIMATE AUDIO DATABASE (Dosari Special + Legends + Nasheeds) --- */
+/* --- ULTIMATE AUDIO DATABASE (30+ Tracks) --- */
+/* ============================================================
+   ULTIMATE SERENITY LIBRARY (50+ Tracks - Mac Certified)
+   ============================================================ */
+
+const audioTracks = [
+    // ============================================================
+    // 1. THE YASSER AL-DOSARI COLLECTION (20+ Tracks)
+    // ============================================================
+    { title: "Surah Al-Fatiha", category: "quran", src: "https://server11.mp3quran.net/yasser/001.mp3", meta: "Yasser Al-Dosari • The Opening" },
+    { title: "Surah Al-Kahf", category: "quran", src: "https://server11.mp3quran.net/yasser/018.mp3", meta: "Yasser Al-Dosari • Friday Light" },
+    { title: "Surah Maryam", category: "quran", src: "https://server11.mp3quran.net/yasser/019.mp3", meta: "Yasser Al-Dosari • Emotional" },
+    { title: "Surah Ta-Ha", category: "quran", src: "https://server11.mp3quran.net/yasser/020.mp3", meta: "Yasser Al-Dosari • Powerful" },
+    { title: "Surah Yasin", category: "quran", src: "https://server11.mp3quran.net/yasser/036.mp3", meta: "Yasser Al-Dosari • Heart of Quran" },
+    { title: "Surah Qaf", category: "quran", src: "https://server11.mp3quran.net/yasser/050.mp3", meta: "Yasser Al-Dosari • Reminder" },
+    { title: "Surah Ar-Rahman", category: "quran", src: "https://server11.mp3quran.net/yasser/055.mp3", meta: "Yasser Al-Dosari • The Merciful" },
+    { title: "Surah Al-Waqiah", category: "quran", src: "https://server11.mp3quran.net/yasser/056.mp3", meta: "Yasser Al-Dosari • Provision" },
+    { title: "Surah Al-Mulk", category: "quran", src: "https://server11.mp3quran.net/yasser/067.mp3", meta: "Yasser Al-Dosari • Protection" },
+    { title: "Surah Al-Jinn", category: "quran", src: "https://server11.mp3quran.net/yasser/072.mp3", meta: "Yasser Al-Dosari • Awe Inspiring" },
+    { title: "Surah Al-Qiyamah", category: "quran", src: "https://server11.mp3quran.net/yasser/075.mp3", meta: "Yasser Al-Dosari • Day of Rising" },
+    { title: "Surah Al-Insan", category: "quran", src: "https://server11.mp3quran.net/yasser/076.mp3", meta: "Yasser Al-Dosari • Soft" },
+    { title: "Surah An-Naba", category: "quran", src: "https://server11.mp3quran.net/yasser/078.mp3", meta: "Yasser Al-Dosari • The News" },
+    { title: "Surah An-Naziat", category: "quran", src: "https://server11.mp3quran.net/yasser/079.mp3", meta: "Yasser Al-Dosari • Soul Taking" },
+    { title: "Surah Al-Buruj", category: "quran", src: "https://server11.mp3quran.net/yasser/085.mp3", meta: "Yasser Al-Dosari • The Stars" },
+    { title: "Surah Al-A'la", category: "quran", src: "https://server11.mp3quran.net/yasser/087.mp3", meta: "Yasser Al-Dosari • Most High" },
+    { title: "Surah Al-Fajr", category: "quran", src: "https://server11.mp3quran.net/yasser/089.mp3", meta: "Yasser Al-Dosari • Dawn" },
+    { title: "Surah Ad-Duha", category: "quran", src: "https://server11.mp3quran.net/yasser/093.mp3", meta: "Yasser Al-Dosari • Morning Light" },
+    { title: "Surah Ash-Sharh", category: "quran", src: "https://server11.mp3quran.net/yasser/094.mp3", meta: "Yasser Al-Dosari • Ease" },
+    { title: "Surah Al-Qadr", category: "quran", src: "https://server11.mp3quran.net/yasser/097.mp3", meta: "Yasser Al-Dosari • Power Night" },
+    { title: "Surah Al-Mulk (Short Clip)", category: "quran", src: "https://server11.mp3quran.net/yasser/112.mp3", meta: "Yasser Al-Dosari • Ikhlas" },
+    { title: "3 Quls (Protection)", category: "quran", src: "https://server11.mp3quran.net/yasser/113.mp3", meta: "Yasser Al-Dosari • Falaq/Nas" },
+
+    // ============================================================
+    // 2. NASHEED LIBRARY (Vocals Only - Mac Friendly)
+    // ============================================================
+    { title: "Mawlaya Salli", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/maher-zain/maher-zain-mawlaya-vocals-only.mp3", meta: "Maher Zain" },
+    { title: "Hasbi Rabbi", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/sami-yusuf/sami-yusuf-hasbi-rabbi.mp3", meta: "Sami Yusuf" },
+    { title: "Ya Adheeman", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/ahmed-bukhatir/ahmed-bukhatir-ya-adheeman.mp3", meta: "Ahmed Bukhatir" },
+    { title: "Tala' al Badru 'Alayna", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/mishary-rashid-alafasy/nasheed/mishary-rashid-alafasy-nasheed-019-tala-al-badru.mp3", meta: "Mishary Alafasy" },
+    { title: "Assalamu Alayka", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/maher-zain/maher-zain-assalamu-alayka-vocals-only.mp3", meta: "Maher Zain" },
+    { title: "Ramadan (English)", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/maher-zain/maher-zain-ramadan-english-vocals-only.mp3", meta: "Maher Zain" },
+    { title: "Insha Allah", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/maher-zain/maher-zain-insha-allah-vocals-only.mp3", meta: "Maher Zain" },
+    { title: "The Chosen One", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/maher-zain/maher-zain-the-chosen-one-vocals-only.mp3", meta: "Maher Zain" },
+    { title: "For the Rest of My Life", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/maher-zain/maher-zain-for-the-rest-of-my-life-vocals-only.mp3", meta: "Maher Zain" },
+    { title: "Give Thanks to Allah", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/zain-bhikha/zain-bhikha-give-thanks-to-allah.mp3", meta: "Zain Bhikha" },
+    { title: "Mountains of Makkah", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/zain-bhikha/zain-bhikha-mountains-of-makkah.mp3", meta: "Zain Bhikha" },
+    { title: "Allah Knows", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/zain-bhikha/zain-bhikha-allah-knows.mp3", meta: "Zain Bhikha" },
+    { title: "A is for Allah", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/zain-bhikha/zain-bhikha-a-is-for-allah.mp3", meta: "Zain Bhikha" },
+    { title: "The Way of Tears", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/muhammad-al-muqit/muhammad-al-muqit-the-way-of-tears.mp3", meta: "Muhammad Al Muqit" },
+    { title: "Last Breath", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/ahmed-bukhatir/ahmed-bukhatir-last-breath.mp3", meta: "Ahmed Bukhatir" },
+    { title: "Rahman", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/mishary-rashid-alafasy/nasheed/mishary-rashid-alafasy-nasheed-001-rahman.mp3", meta: "Mishary Alafasy" },
+    { title: "A Whisper of Peace", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/dawud-wharnsby/dawud-wharnsby-a-whisper-of-peace.mp3", meta: "Dawud Wharnsby" },
+    { title: "Supplication", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/sami-yusuf/sami-yusuf-supplication.mp3", meta: "Sami Yusuf" },
+    { title: "Asma Allah", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/sami-yusuf/sami-yusuf-asma-allah.mp3", meta: "Sami Yusuf" },
+    { title: "Healing", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/sami-yusuf/sami-yusuf-healing.mp3", meta: "Sami Yusuf" },
+
+    // ============================================================
+    // 3. WORLD LEGENDS (The Classics)
+    // ============================================================
+    { title: "Ayatul Kursi", category: "quran", src: "https://server8.mp3quran.net/afs/002255.mp3", meta: "Mishary Alafasy • Focus" },
+    { title: "Surah Al-Baqarah", category: "quran", src: "https://server11.mp3quran.net/sds/002.mp3", meta: "Sudais • Makkah" },
+    { title: "Surah Yasin", category: "quran", src: "https://server12.mp3quran.net/maher/036.mp3", meta: "Maher Al Muaiqly" },
+    { title: "Surah Yusuf", category: "quran", src: "https://server10.mp3quran.net/ajm/012.mp3", meta: "Ahmed Al-Ajmi" },
+    { title: "Surah Maryam", category: "quran", src: "https://server6.mp3quran.net/qtm/019.mp3", meta: "Nasser Al Qatami" },
+
+    // ============================================================
+    // 4. NATURE (Mac Friendly MP3s)
+    // ============================================================
+    { title: "Heavy Rain", category: "nature", src: "https://archive.org/download/rain-sound-effect_202105/Rain%20Sound%20Effect.mp3", meta: "Sleep Aid" },
+    { title: "Ocean Waves", category: "nature", src: "https://archive.org/download/ocean-waves-sound-effect_202105/Ocean%20Waves%20Sound%20Effect.mp3", meta: "Calming" },
+    { title: "Forest Birds", category: "nature", src: "https://archive.org/download/forest-birds-sound-effect/Forest%20Birds%20Sound%20Effect.mp3", meta: "Morning Focus" },
+    { title: "Crackling Fire", category: "nature", src: "https://archive.org/download/fireplace-sound-effect_202105/Fireplace%20Sound%20Effect.mp3", meta: "Warmth" }
+];
+
+let currentPlaylist = audioTracks; 
+let currentTrackIndex = -1;
+let isLooping = false;
+const audioPlayer = document.getElementById('main-audio');
+
+// 3. INITIALIZE
+function initPlaylist() {
+    filterPlaylist('all'); 
+    
+    // SMART LOOP HANDLER
+    audioPlayer.addEventListener('ended', () => {
+        if(isLooping) {
+            audioPlayer.currentTime = 0;
+            audioPlayer.play();
+        } else {
+            playNextTrack();
+        }
+    });
+}
+
+// 4. PLAY TRACK (Fixed for Mac/iPhone)
+function playTrack(track) {
+    // Find exact index in the MASTER list (audioTracks)
+    currentTrackIndex = audioTracks.findIndex(t => t.src === track.src);
+    
+    document.getElementById('player-title').innerText = track.title;
+    document.getElementById('player-category').innerText = track.meta;
+    
+    audioPlayer.src = track.src;
+    audioPlayer.load(); // Forces Mac to refresh time
+    audioPlayer.play();
+
+    // Re-render list to show active gold border
+    renderPlaylistItems(currentPlaylist);
+}
+
+// 5. RENDER LIST
+function renderPlaylistItems(tracks) {
+    const container = document.getElementById('playlist-container');
+    container.innerHTML = '';
+
+    if(tracks.length === 0) {
+        container.innerHTML = '<p style="padding:20px; color:var(--text-secondary); text-align:center;">No tracks found.</p>';
+        return;
+    }
+
+    tracks.forEach((track) => {
+        // Check if this specific track is currently playing
+        // We compare source URLs to be safe
+        const isPlaying = (currentTrackIndex !== -1 && audioTracks[currentTrackIndex].src === track.src);
+        
+        let icon = 'fa-play-circle';
+        if(track.category === 'nature') icon = 'fa-cloud-rain';
+        if(track.category === 'quran') icon = 'fa-book-open';
+        if(track.category === 'nasheed') icon = 'fa-music';
+
+        const div = document.createElement('div');
+        div.className = `track-item ${isPlaying ? 'playing' : ''}`;
+        div.onclick = () => playTrack(track); 
+        
+        div.innerHTML = `
+            <i class="fas ${icon} track-icon"></i>
+            <div class="track-info">
+                <span class="track-name">${track.title}</span>
+                <span class="track-meta">${track.meta}</span>
+            </div>
+            ${isPlaying ? '<i class="fas fa-volume-up" style="color:var(--brand-gold)"></i>' : ''}
+        `;
+        container.appendChild(div);
+    });
+}
+
+// 6. FILTER LOGIC
+function filterPlaylist(category) {
+    // Update Tabs
+    document.querySelectorAll('.playlist-tab').forEach(btn => btn.classList.remove('active'));
+    const activeTab = document.getElementById(`tab-${category}`);
+    if(activeTab) activeTab.classList.add('active');
+
+    // Filter Data
+    if(category === 'all') {
+        currentPlaylist = audioTracks;
+    } else {
+        currentPlaylist = audioTracks.filter(t => t.category === category);
+    }
+    
+    renderPlaylistItems(currentPlaylist);
+}
+
+// 7. CONTROLS & NAVIGATION
+function toggleLoop() {
+    isLooping = !isLooping;
+    const btn = document.getElementById('loop-btn');
+
+    if(isLooping) {
+        btn.classList.add('active');
+        btn.innerHTML = '<i class="fas fa-repeat"></i><span style="font-size:0.6rem; margin-left:2px; font-weight:bold;">1</span>';
+    } else {
+        btn.classList.remove('active');
+        btn.innerHTML = '<i class="fas fa-repeat"></i>';
+    }
+}
+
+function playPreviousTrack() {
+    if(currentTrackIndex > 0) {
+        playTrack(audioTracks[currentTrackIndex - 1]);
+    } else {
+        playTrack(audioTracks[audioTracks.length - 1]); // Loop to end
+    }
+}
+
+function playNextTrack() {
+    if(currentTrackIndex < audioTracks.length - 1) {
+        playTrack(audioTracks[currentTrackIndex + 1]);
+    } else {
+        playTrack(audioTracks[0]); // Loop to start
+    }
+}
+
+// Start Engine
+document.addEventListener('DOMContentLoaded', initPlaylist);    
+
+/* --- BREATHING FOOTER ENGINE --- */
+const footerDuas = [
+    "O Allah, help our brothers and sisters in Palestine. Keep them safe and give them victory.",
+    "O Allah, You are the Healer. Please cure everyone who is in pain today.",
+    "O Allah, forgive those who have passed away. Fill their graves with light.",
+    "O Allah, fix our broken hearts. Replace our sadness with peace.",
+    "O Allah, feed the hungry and give homes to the homeless everywhere.",
+    "O Allah, forgive all my mistakes, the big ones and the small ones.",
+    "O Allah, guide us to the straight path and keep us steadfast."
+];
+
+let footerIndex = 0;
+
+function rotateFooterDua() {
+    const el = document.getElementById('footer-dua-text');
+    if(!el) return;
+
+    // 1. Fade Out
+    el.classList.add('fade-out');
+
+    // 2. Change Text (Wait 1 second for fade to finish)
+    setTimeout(() => {
+        footerIndex = (footerIndex + 1) % footerDuas.length;
+        
+        // Wrap "O Allah" in gold styling
+        const rawText = footerDuas[footerIndex];
+        const styledText = rawText.replace("O Allah", "<span class='highlight-gold'>O Allah</span>");
+        
+        el.innerHTML = styledText;
+
+        // 3. Fade In
+        el.classList.remove('fade-out');
+    }, 1000);
+}
+
+// Start the rotation (Every 6 seconds)
+document.addEventListener('DOMContentLoaded', () => {
+    setInterval(rotateFooterDua, 6000);
+});
+
+/* --- MISSING MODAL CLOSE LOGIC --- */
+
+function closeThankYouModal() {
+    const modal = document.getElementById('thank-you-modal');
+    if (modal) {
+        modal.classList.remove('show');
+    }
+}
+
+// BONUS: Close modal when clicking the dark background
+window.onclick = function(event) {
+    const modal = document.getElementById('thank-you-modal');
+    const tutorial = document.getElementById('tutorial-overlay');
+    
+    // Close Thank You Modal
+    if (event.target == modal) {
+        closeThankYouModal();
+    }
+    
+    // Close Tutorial if clicking background (Optional convenience)
+    if (event.target == tutorial) {
+        endTutorial();
+    }
+}
+
+/* =========================================
+   NEW FEATURES ENGINE: PROMPTS, HEATMAP, SHARING
+   ========================================= */
+
+// --- 1. GUIDED REFLECTION PROMPTS ---
+const reflectionPrompts = [
+    "What is one blessing you often take for granted?",
+    "Who is someone you need to forgive today, for the sake of Allah?",
+    "What is a fear you want to hand over to Allah?",
+    "If you could ask the Prophet ﷺ one question, what would it be?",
+    "What is one bad habit you want to replace with a Sunnah?",
+    "How can you be a better family member today?",
+    "What is one verse that touched your heart recently?",
+    "Recall a time Allah answered a Dua you made.",
+    "What does 'Success' look like to you in the Akhirah?",
+    "If today was your last day, what would you regret not doing?"
+];
+
+function loadReflectionPrompt() {
+    // Pick prompt based on Day of Year (so it stays same for 24h)
+    const date = new Date();
+    const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+    const index = dayOfYear % reflectionPrompts.length;
+    
+    const el = document.getElementById('reflection-prompt');
+    if(el) el.innerText = "Today's Prompt: " + reflectionPrompts[index];
+}
+
+// --- 2. HABIT CONSISTENCY HEATMAP ---
+function updateHeatmap() {
+    const container = document.getElementById('habit-heatmap');
+    if(!container) return;
+    
+    container.innerHTML = '';
+    const history = JSON.parse(localStorage.getItem('habit_history') || "{}");
+    const todayStr = new Date().toDateString();
+
+    // Generate last 30 days
+    for (let i = 29; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const dateKey = d.toDateString();
+        
+        const box = document.createElement('div');
+        box.className = 'heat-box';
+        
+        // If it's recorded in history as 'true' (completed)
+        if (history[dateKey]) {
+            box.classList.add('active');
+        }
+        
+        // Tooltip for date
+        box.title = dateKey;
+        container.appendChild(box);
+    }
+}
+
+// Hook into existing checklist logic
+// UPDATE your existing 'initChecklist' click handler to call this:
+function checkHabitCompletion() {
+    // 1. Check if all items are checked
+    const totalItems = document.querySelectorAll('.check-item').length;
+    const checkedItems = document.querySelectorAll('.check-item.checked').length;
+    
+    const todayStr = new Date().toDateString();
+    let history = JSON.parse(localStorage.getItem('habit_history') || "{}");
+
+    if (totalItems > 0 && totalItems === checkedItems) {
+        history[todayStr] = true;
+    } else {
+        delete history[todayStr]; // Remove if they uncheck something
+    }
+    
+    localStorage.setItem('habit_history', JSON.stringify(history));
+    updateHeatmap(); // Refresh visual
+}
+
+// --- 3. SHAREABLE VERSE CARDS ---
+// --- 3. SMART SOCIAL SHARING (Native Sheet) ---
+function shareVerseImage() {
+    // 1. Get Data
+    const arText = document.getElementById('verse-ar').innerText;
+    const enText = document.getElementById('verse-en').innerText;
+    const refText = document.getElementById('verse-ref').innerText;
+
+    // 2. Fill Template (Hidden)
+    document.getElementById('share-card-ar').innerText = arText;
+    document.getElementById('share-card-en').innerText = enText;
+    document.getElementById('share-card-ref').innerText = refText;
+
+    const template = document.getElementById('share-card-template');
+    
+    // Show Toast
+    if(typeof showToast === 'function') showToast("Preparing image...");
+
+    // 3. Generate Canvas
+    html2canvas(template, { scale: 2, useCORS: true }).then(canvas => {
+        
+        // Convert Canvas to a "Blob" (Real File)
+        canvas.toBlob(async (blob) => {
+            const file = new File([blob], "DailyDeen_Verse.png", { type: "image/png" });
+
+            // 4. CHECK: Can we share directly? (Mobile Feature)
+            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                try {
+                    await navigator.share({
+                        files: [file],
+                        title: 'Daily Deen Verse',
+                        text: 'Read this beautiful verse from Daily Deen.'
+                    });
+                    if(typeof showToast === 'function') showToast("Shared successfully!");
+                } catch (err) {
+                    console.log("Share cancelled or failed", err);
+                }
+            } else {
+                // 5. FALLBACK: Desktop or incompatible browser -> Download it
+                const link = document.createElement('a');
+                link.download = 'DailyDeen_Verse.png';
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+                if(typeof showToast === 'function') showToast("Image downloaded (Sharing not supported on this device)");
+            }
+        });
+    });
+}
+
+// --- INITIALIZE ALL ---
+document.addEventListener('DOMContentLoaded', () => {
+    loadReflectionPrompt();
+    updateHeatmap();
+    
+    // Attach habit checker to clicks
+    document.getElementById('sunnah-list').addEventListener('click', () => {
+        setTimeout(checkHabitCompletion, 100);
+    });
+});
+
+/* =========================================
+   5-FEATURE UPGRADE ENGINE
+   ========================================= */
+
+// --- 1. ZAKAT CALCULATOR ---
+function calcZakat() {
+    const cash = parseFloat(document.getElementById('zak-cash').value) || 0;
+    const gold = parseFloat(document.getElementById('zak-gold').value) || 0;
+    const silver = parseFloat(document.getElementById('zak-silver').value) || 0;
+    
+    const totalAssets = cash + gold + silver;
+    const zakatDue = totalAssets * 0.025;
+    
+    const resBox = document.getElementById('zak-result');
+    resBox.style.display = 'block';
+    
+    // Format currency nicely
+    const format = (num) => num.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    
+    resBox.innerHTML = `
+        Total Assets: <span style="font-weight:400">${format(totalAssets)}</span><br>
+        <span style="font-size:1.2rem; display:block; margin-top:5px;">You Owe: ${format(zakatDue)}</span>
+    `;
+}
+
+// --- 2. QURAN KHATAM PLANNER ---
+function calcKhatam() {
+    const days = parseInt(document.getElementById('khatam-days').value);
+    const res = document.getElementById('khatam-result');
+    
+    if(!days || days <= 0) {
+        alert("Please enter a valid number of days.");
+        return;
+    }
+    
+    const totalPages = 604;
+    const pagesPerDay = Math.ceil(totalPages / days);
+    
+    res.style.display = 'block';
+    document.getElementById('khatam-pages').innerText = pagesPerDay;
+}
+
+// --- 3. SLEEP SUNNAH MODE ---
+function toggleSleepMode() {
+    document.body.classList.toggle('sleep-mode');
+    const isActive = document.body.classList.contains('sleep-mode');
+    
+    if(isActive) {
+        // 1. Play Surah Al-Mulk (Protection from Grave)
+        // Find the Mulk track in your audio list
+        const mulkTrack = audioTracks.find(t => t.title.includes("Mulk"));
+        if(mulkTrack) playTrack(mulkTrack);
+        
+        // 2. Show Toast
+        if(typeof showToast === 'function') showToast("Sleep Mode: On. Reciting Mulk.");
+    } else {
+        // Stop Audio
+        const audio = document.getElementById('main-audio');
+        if(audio) audio.pause();
+    }
+}
+
+// --- 4. TAZKIYAH (CHARACTER) CHALLENGE ---
+const tazkiyahThemes = [
+    { title: "Anger Management", desc: "The strong is not the one who wrestles, but the one who controls himself in anger.", task: "Do not raise your voice today." },
+    { title: "Generosity", desc: "Charity does not decrease wealth.", task: "Give something away today (money or food)." },
+    { title: "Truthfulness", desc: "Truth leads to piety, and piety leads to Paradise.", task: "Do not tell a single lie, even jokingly." },
+    { title: "Kindness to Parents", desc: "Paradise lies beneath their feet.", task: "Kiss your mother/father's hand or call them." },
+    { title: "Gheebah (Backbiting)", desc: "Would you like to eat the flesh of your dead brother?", task: "Do not speak about anyone behind their back." }
+];
+
+function initTazkiyah() {
+    // Determine week number of the year
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    const diff = now - start;
+    const oneWeek = 1000 * 60 * 60 * 24 * 7;
+    const weekNum = Math.floor(diff / oneWeek);
+    
+    // Cycle through themes
+    const theme = tazkiyahThemes[weekNum % tazkiyahThemes.length];
+    
+    const titleEl = document.getElementById('tazkiyah-title');
+    if(titleEl) {
+        document.getElementById('tazkiyah-week').innerText = (weekNum % tazkiyahThemes.length) + 1;
+        titleEl.innerText = theme.title;
+        document.getElementById('tazkiyah-desc').innerText = theme.desc;
+        document.getElementById('tazkiyah-task').innerText = theme.task;
+    }
+}
+
+// --- 5. QADA (MISSED PRAYER) TRACKER ---
+const prayers = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+
+function initQadaTracker() {
+    const grid = document.querySelector('.qada-grid');
+    if(!grid) return;
+    
+    grid.innerHTML = '';
+    
+    prayers.forEach(p => {
+        // Load count
+        const count = localStorage.getItem(`qada_${p}`) || 0;
+        
+        const div = document.createElement('div');
+        div.className = 'qada-item';
+        div.innerHTML = `
+            <span style="font-size:0.8rem; color:var(--text-secondary)">${p}</span>
+            <span id="qada-val-${p}" class="qada-count">${count}</span>
+            <div>
+                <button class="qada-btn" style="background:var(--brand-green); color:#000;" onclick="modQada('${p}', -1)">-</button>
+                <button class="qada-btn" style="background:rgba(255,255,255,0.1); color:#fff;" onclick="modQada('${p}', 1)">+</button>
+            </div>
+        `;
+        grid.appendChild(div);
+    });
+}
+
+function modQada(prayer, val) {
+    const key = `qada_${prayer}`;
+    let current = parseInt(localStorage.getItem(key) || 0);
+    current += val;
+    if(current < 0) current = 0;
+    
+    localStorage.setItem(key, current);
+    document.getElementById(`qada-val-${prayer}`).innerText = current;
+    
+    if(val < 0 && navigator.vibrate) navigator.vibrate(50); // Haptic feedback on completion
+}
+
+// --- INITIALIZE ALL NEW FEATURES ---
+document.addEventListener('DOMContentLoaded', () => {
+    initTazkiyah();
+    initQadaTracker();
+});
+
+function findMosques() {
+    // Uses Google Maps Query
+    window.open('https://www.google.com/maps/search/mosques+near+me', '_blank');
+
+}
+
+function updateCalcMethod() {
+    const method = document.getElementById('calc-method').value;
+    localStorage.setItem('prayerMethod', method);
+    alert("Method updated to " + method + ". Please refresh to recalculate times.");
+    // In a real app, we would reload the adhan.js params here
+    location.reload(); 
+}
+
+// Ensure dropdown shows saved value on load
+const savedMethod = localStorage.getItem('prayerMethod') || "MWL";
+const methodDropdown = document.getElementById('calc-method');
+if(methodDropdown) methodDropdown.value = savedMethod;
+
+/* --- SMART PRAYER CALCULATOR (Uses Your Settings) --- */
+function getPrayerTimes(lat, lng) {
+    if (!lat || !lng) return null;
+
+    const coordinates = new adhan.Coordinates(lat, lng);
+    const date = new Date();
+    
+    // 1. GET USER'S SAVED METHOD (Default to Muslim World League if missing)
+    const savedMethod = localStorage.getItem('prayerMethod') || "MWL";
+    let params;
+
+    // 2. CHOOSE THE RIGHT FORMULA
+    switch(savedMethod) {
+        case "ISNA": 
+            params = adhan.CalculationMethod.NorthAmerica(); 
+            break;
+        case "Egypt": 
+            params = adhan.CalculationMethod.Egyptian(); 
+            break;
+        case "Karachi": 
+            params = adhan.CalculationMethod.Karachi(); 
+            break;
+        case "Makkah": 
+            params = adhan.CalculationMethod.UmmAlQura(); 
+            break;
+        case "Tehran": 
+            params = adhan.CalculationMethod.Tehran(); 
+            break;
+        case "Singapore": 
+            params = adhan.CalculationMethod.Singapore(); 
+            break;
+        case "Turkey": 
+            params = adhan.CalculationMethod.Turkey(); 
+            break;
+        default: 
+            params = adhan.CalculationMethod.MuslimWorldLeague(); // Standard Global
+    }
+
+    // Optional: Adjust for Hanafi (Asr is later)
+    // You can add a checkbox for this later if you want
+    // params.madhab = adhan.Madhab.Hanafi;
+
+    return new adhan.PrayerTimes(coordinates, date, params);
+}
+
+/* --- SMART INSTALL LOGIC (Handles iPhone/Safari) --- */
+let deferredPrompt;
+const installBtn = document.getElementById('install-btn');
+
+// 1. Listen for the install event (Chrome/Android only)
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if(installBtn) {
+        installBtn.style.display = 'block'; // Show button if browser supports it
+        installBtn.innerHTML = '<i class="fas fa-download"></i> Install App';
+    }
+});
+
+// 2. Handle Click
+if(installBtn) {
+    installBtn.addEventListener('click', (e) => {
+        // A. If standard install is available (Android/Chrome)
+        if(deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                deferredPrompt = null;
+                installBtn.style.display = 'none';
+            });
+        } 
+        // B. If iPhone/Safari (Manual Instructions)
+        else {
+            alert("To install on iPhone/Safari:\n1. Tap the 'Share' button below.\n2. Scroll down and tap 'Add to Home Screen'.");
+        }
+    });
+}
+
+// 3. FORCE BUTTON VISIBILITY FOR IPHONE USERS
+// Detect if user is on iOS but not yet installed
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+
+if (isIOS && !isStandalone && installBtn) {
+    installBtn.style.display = 'block';
+    installBtn.innerHTML = '<i class="fab fa-apple"></i> Install on iPhone';
+    // Remove the event listener requirement so it shows immediately
+}
+
+/* =========================================
+   NEW TOOLS & RESOURCES ENGINE (All 4 Features)
+   ========================================= */
+
+// --- 1. HIJRI DATE CONVERTER ---
+function convertDate() {
+    const input = document.getElementById('gregorian-input').value;
+    const resBox = document.getElementById('hijri-result');
+    
+    if(!input) {
+        alert("Please select a date first.");
+        return;
+    }
+    
+    // Use the browser's native Islamic Calendar converter
+    const date = new Date(input);
+    const hijri = new Intl.DateTimeFormat('en-TN-u-ca-islamic', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    }).format(date);
+    
+    resBox.style.display = 'block';
+    resBox.innerHTML = `
+        <span style="font-size:0.8rem; color:rgba(255,255,255,0.7)">Hijri Date:</span><br>
+        <span style="font-size:1.2rem; color:var(--brand-gold); font-weight:bold;">${hijri}</span>
+    `;
+}
+
+// --- 2. LEARN TO PRAY (Accordion Logic) ---
+// This script ensures only one section is open at a time (Accordion Style)
+document.addEventListener("DOMContentLoaded", () => {
+    const details = document.querySelectorAll("details");
+    
+    details.forEach((targetDetail) => {
+        targetDetail.addEventListener("click", () => {
+            // Close all others
+            details.forEach((detail) => {
+                if (detail !== targetDetail) {
+                    detail.removeAttribute("open");
+                }
+            });
+        });
+    });
+});
+
+/* --- THE FULL 40 RABBANA DUAS --- */
+const rabbanaDuas = [
+    { ref: "2:127", ar: "رَبَّنَا تَقَبَّلْ مِنَّا ۖ إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ", en: "Our Lord, accept [this] from us. Indeed You are the Hearing, the Knowing." },
+    { ref: "2:201", ar: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ", en: "Our Lord, give us in this world good and in the Hereafter good and protect us from the punishment of the Fire." },
+    { ref: "2:250", ar: "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ", en: "Our Lord, pour upon us patience and plant firmly our feet and give us victory over the disbelieving people." },
+    { ref: "2:286", ar: "رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا أَوْ أَخْطَأْنَا", en: "Our Lord, do not impose blame upon us if we have forgotten or erred." },
+    { ref: "2:286", ar: "رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَا إِصْرًا كَمَا حَمَلْتَهُ عَلَى الَّذِينَ مِن قَبْلِنَا", en: "Our Lord, and lay not upon us a burden like that which You laid upon those before us." },
+    { ref: "2:286", ar: "رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِ ۖ وَاعْفُ عَنَّا وَاغْفِرْ لَنَا وَارْحَمْنَا", en: "Our Lord, and burden us not with that which we have no ability to bear. And pardon us; and forgive us; and have mercy upon us." },
+    { ref: "3:8", ar: "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً", en: "Our Lord, let not our hearts deviate after You have guided us and grant us from Yourself mercy." },
+    { ref: "3:9", ar: "رَبَّنَا إِنَّكَ جَامِعُ النَّاسِ لِيَوْمٍ لَّا رَيْبَ فِيهِ ۚ إِنَّ اللَّهَ لَا يُخْلِفُ الْمِيعَادَ", en: "Our Lord, surely You will gather the people for a Day about which there is no doubt." },
+    { ref: "3:16", ar: "رَبَّنَا إِنَّنَا آمَنَّا فَاغْفِرْ لَنَا ذُنُوبَنَا وَقِنَا عَذَابَ النَّارِ", en: "Our Lord, indeed we have believed, so forgive us our sins and protect us from the punishment of the Fire." },
+    { ref: "3:53", ar: "رَبَّنَا آمَنَّا بِمَا أَنزَلْتَ وَاتَّبَعْنَا الرَّسُولَ فَاكْتُبْنَا مَعَ الشَّاهِدِينَ", en: "Our Lord, we have believed in what You revealed and have followed the messenger, so register us among the witnesses." },
+    { ref: "3:147", ar: "رَبَّنَا اغْفِرْ لَنَا ذُنُوبَنَا وَإِسْرَافَنَا فِي أَمْرِنَا وَثَبِّتْ أَقْدَامَنَا", en: "Our Lord, forgive us our sins and the excess in our affairs and plant firmly our feet." },
+    { ref: "3:191", ar: "رَبَّنَا مَا خَلَقْتَ هَٰذَا بَاطِلًا سُبْحَانَكَ فَقِنَا عَذَابَ النَّارِ", en: "Our Lord, You did not create this aimlessly; exalted are You; then protect us from the punishment of the Fire." },
+    { ref: "3:192", ar: "رَبَّنَا إِنَّكَ مَن تُدْخِلِ النَّارَ فَقَدْ أَخْزَيْتَهُ ۖ وَمَا لِلظَّالِمِينَ مِنْ أَنصَارٍ", en: "Our Lord, indeed whoever You admit to the Fire - You have disgraced him, and for the wrongdoers there are no helpers." },
+    { ref: "3:193", ar: "رَبَّنَا إِنَّنَا سَمِعْنَا مُنَادِيًا يُنَادِي لِلْإِيمَانِ أَنْ آمِنُوا بِرَبِّكُمْ فَآمَنَّا", en: "Our Lord, indeed we have heard a caller calling to faith... so we have believed." },
+    { ref: "3:194", ar: "رَبَّنَا وَآتِنَا مَا وَعَدتَّنَا عَلَىٰ رُسُلِكَ وَلَا تُخْزِنَا يَوْمَ الْقِيَامَةِ", en: "Our Lord, and grant us what You promised us through Your messengers and do not disgrace us on the Day of Resurrection." },
+    { ref: "5:83", ar: "رَبَّنَا آمَنَّا فَاكْتُبْنَا مَعَ الشَّاهِدِينَ", en: "Our Lord, we have believed, so register us among the witnesses." },
+    { ref: "7:23", ar: "رَبَّنَا ظَلَمْنَا أَنفُسَنَا وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ", en: "Our Lord, we have wronged ourselves, and if You do not forgive us and have mercy upon us, we will surely be among the losers." },
+    { ref: "7:47", ar: "رَبَّنَا لَا تَجْعَلْنَا مَعَ الْقَوْمِ الظَّالِمِينَ", en: "Our Lord, do not place us with the wrongdoing people." },
+    { ref: "7:89", ar: "رَبَّنَا افْتَحْ بَيْنَنَا وَبَيْنَ قَوْمِنَا بِالْحَقِّ وَأَنتَ خَيْرُ الْفَاتِحِينَ", en: "Our Lord, decide between us and our people in truth, and You are the best of those who give decision." },
+    { ref: "7:126", ar: "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَتَوَفَّنَا مُسْلِمِينَ", en: "Our Lord, pour upon us patience and let us die as Muslims." },
+    { ref: "10:85", ar: "رَبَّنَا لَا تَجْعَلْنَا فِتْنَةً لِّلْقَوْمِ الظَّالِمِينَ", en: "Our Lord, make us not [objects of] trial for the wrongdoing people." },
+    { ref: "10:86", ar: "وَنَجِّنَا بِرَحْمَتِكَ مِنَ الْقَوْمِ الْكَافِرِينَ", en: "And save us by Your mercy from the disbelieving people." },
+    { ref: "14:38", ar: "رَبَّنَا إِنَّكَ تَعْلَمُ مَا نُخْفِي وَمَا نُعْلِنُ ۗ وَمَا يَخْفَىٰ عَلَى اللَّهِ مِن شَيْءٍ", en: "Our Lord, indeed You know what we conceal and what we declare." },
+    { ref: "14:40", ar: "رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِن ذُرِّيَّتِي ۚ رَبَّنَا وَتَقَبَّلْ دُعَاءِ", en: "My Lord, make me an establisher of prayer, and [many] from my descendants. Our Lord, and accept my supplication." },
+    { ref: "14:41", ar: "رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ", en: "Our Lord, forgive me and my parents and the believers the Day the account is established." },
+    { ref: "18:10", ar: "رَبَّنَا آتِنَا مِن لَّدُنكَ رَحْمَةً وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَدًا", en: "Our Lord, grant us from Yourself mercy and prepare for us from our affair right guidance." },
+    { ref: "20:45", ar: "رَبَّنَا إِنَّنَا نَخَافُ أَن يَفْرُطَ عَلَيْنَا أَوْ أَن يَطْغَىٰ", en: "Our Lord, indeed we are afraid that he will hasten [punishment] against us or that he will transgress." },
+    { ref: "23:109", ar: "رَبَّنَا آمَنَّا فَاغْفِرْ لَنَا وَارْحَمْنَا وَأَنتَ خَيْرُ الرَّاحِمِينَ", en: "Our Lord, we have believed, so forgive us and have mercy upon us, and You are the best of the merciful." },
+    { ref: "25:65", ar: "رَبَّنَا اصْرِفْ عَنَّا عَذَابَ جَهَنَّمَ ۖ إِنَّ عَذَابَهَا كَانَ غَرَامًا", en: "Our Lord, avert from us the punishment of Hell. Indeed, its punishment is ever adhering." },
+    { ref: "25:74", ar: "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا", en: "Our Lord, grant us from among our wives and offspring comfort to our eyes and make us an example for the righteous." },
+    { ref: "40:7", ar: "رَبَّنَا وَسِعْتَ كُلَّ شَيْءٍ رَّحْمَةً وَعِلْمًا فَاغْفِرْ لِلَّذِينَ تَابُوا وَاتَّبَعُوا سَبِيلَكَ", en: "Our Lord, You have encompassed all things in mercy and knowledge, so forgive those who have repented and followed Your way." },
+    { ref: "40:8", ar: "رَبَّنَا وَأَدْخِلْهُمْ جَنَّاتِ عَدْنٍ", en: "Our Lord, and admit them to gardens of perpetual residence." },
+    { ref: "59:10", ar: "رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ", en: "Our Lord, forgive us and our brothers who preceded us in faith." },
+    { ref: "60:4", ar: "رَبَّنَا عَلَيْكَ تَوَكَّلْنَا وَإِلَيْكَ أَنَبْنَا وَإِلَيْكَ الْمَصِيرُ", en: "Our Lord, upon You we have relied, and to You we have returned, and to You is the destination." },
+    { ref: "60:5", ar: "رَبَّنَا لَا تَجْعَلْنَا فِتْنَةً لِّلَّذِينَ كَفَرُوا وَاغْفِرْ لَنَا رَبَّنَا", en: "Our Lord, make us not [objects of] torment for the disbelievers and forgive us, our Lord." },
+    { ref: "66:8", ar: "رَبَّنَا أَتْمِمْ لَنَا نُورَنَا وَاغْفِرْ لَنَا ۖ إِنَّكَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ", en: "Our Lord, perfect for us our light and forgive us. Indeed, You are over all things competent." },
+    { ref: "60:12", ar: "رَبَّنَا بَاعِدْ بَيْنَ أَسْفَارِنَا", en: "(Dua for travel distance - Sab'a) Our Lord, lengthen the distance between our journeys." },
+    { ref: "2:128", ar: "رَبَّنَا وَاجْعَلْنَا مُسْلِمَيْنِ لَكَ وَمِن ذُرِّيَّتِنَا أُمَّةً مُّسْلِمَةً لَّكَ", en: "Our Lord, and make us Muslims [in submission] to You and from our descendants a Muslim nation." },
+    { ref: "23:118", ar: "رَبِّ اغْفِرْ وَارْحَمْ وَأَنتَ خَيْرُ الرَّاحِمِينَ", en: "My Lord, forgive and have mercy, and You are the best of the merciful." },
+    { ref: "111:1", ar: "رَبَّنَا تَقَبَّلْ مِنَّا", en: "Our Lord, accept from us." }
+];
+
+function loadRabbana() {
+    const container = document.getElementById('rabbana-container');
+    if(!container) return;
+    
+    container.innerHTML = rabbanaDuas.map(d => `
+        <div class="rabbana-card">
+            <div class="rabbana-arabic">${d.ar}</div>
+            <div style="font-size:0.9rem; color:#fff; margin-bottom:10px;">${d.en}</div>
+            <div class="rabbana-ref" style="border-top:1px solid rgba(255,255,255,0.1); padding-top:5px; margin-top:5px;">
+                <i class="fas fa-book-open" style="color:var(--brand-gold); font-size:0.7rem;"></i> Surah ${d.ref}
+            </div>
+        </div>
+    `).join('');
+}
+
+// --- 4. HYBRID E-CODE CHECKER (With EXPANDED DATABASE) ---
+
+// 🔴 THE MASTER LIST (50+ Codes)
+const criticalCodes = {
+    // --- 🔴 HARAM (Definitely Avoid) ---
+    "e120": { status: "Haram", reason: "Cochineal (Crushed Insects). Used in red food dye." },
+    "e441": { status: "Haram", reason: "Gelatin (Animal Bone/Skin). Usually pork or non-zabiha beef." },
+    "e542": { status: "Haram", reason: "Edible Bone Phosphate (Animal Bones)." },
+    "e904": { status: "Haram", reason: "Shellac (Insect Secretion). Used in glazing candy/fruit." },
+    "e920": { status: "Haram", reason: "L-Cysteine (Human Hair/Duck Feathers). Used in bread/dough." },
+    "e921": { status: "Haram", reason: "L-Cystine (Animal Hair/Feathers)." },
+    
+    // --- 🟡 MUSHBOOH (Doubtful - Check Source) ---
+    "e422": { status: "Mushbooh", reason: "Glycerol. Can be from Animal Fat or Plant Oil." },
+    "e470": { status: "Mushbooh", reason: "Fatty Acid Salts. Source can be animal or plant." },
+    "e471": { status: "Mushbooh", reason: "Mono- and Diglycerides. Very common. Check for 'Vegetable' label." },
+    "e472": { status: "Mushbooh", reason: "Esters of Glycerides. Needs verification of source." },
+    "e472e": { status: "Mushbooh", reason: "DATEM. Common in baking. Check source." },
+    "e473": { status: "Mushbooh", reason: "Sucrose Esters. Made from fatty acids (Animal/Plant)." },
+    "e474": { status: "Mushbooh", reason: "Sucroglycerides. Animal or Plant fat source." },
+    "e475": { status: "Mushbooh", reason: "Polyglycerol Esters. Check source." },
+    "e476": { status: "Mushbooh", reason: "PGPR. Used in chocolate. Usually plant-based but check label." },
+    "e481": { status: "Mushbooh", reason: "Stearoyl-2-lactylate. Can be animal fat derived." },
+    "e482": { status: "Mushbooh", reason: "Calcium Stearoyl Lactylate. Check source." },
+    "e483": { status: "Mushbooh", reason: "Stearyl Tartrate. Check source." },
+    "e491": { status: "Mushbooh", reason: "Sorbitan Monostearate. Check source." },
+    "e492": { status: "Mushbooh", reason: "Sorbitan Tristearate. Check source." },
+    "e570": { status: "Mushbooh", reason: "Stearic Acid. Fatty acid. Often animal derived." },
+    "e572": { status: "Mushbooh", reason: "Magnesium Stearate. Check source." },
+    "e430": { status: "Mushbooh", reason: "Polyoxyethylene Stearate. Check source." },
+    "e431": { status: "Mushbooh", reason: "Polyoxyethylene Stearate. Check source." },
+
+    // --- 🟢 HALAL (Safe / Plant / Mineral / Synthetic) ---
+    "e100": { status: "Halal", reason: "Curcumin (Turmeric Extract)." },
+    "e101": { status: "Halal", reason: "Riboflavin (Vitamin B2)." },
+    "e133": { status: "Halal", reason: "Brilliant Blue (Synthetic)." },
+    "e140": { status: "Halal", reason: "Chlorophyll (Plant pigment)." },
+    "e141": { status: "Halal", reason: "Copper complexes of Chlorophyll." },
+    "e150": { status: "Halal", reason: "Caramel Color (Burnt Sugar)." },
+    "e160a": { status: "Halal", reason: "Carotene (Plant extract)." },
+    "e162": { status: "Halal", reason: "Beetroot Red (Beet extract)." },
+    "e171": { status: "Halal", reason: "Titanium Dioxide (Mineral Whitener)." },
+    "e200": { status: "Halal", reason: "Sorbic Acid (Preservative)." },
+    "e202": { status: "Halal", reason: "Potassium Sorbate (Preservative)." },
+    "e211": { status: "Halal", reason: "Sodium Benzoate (Preservative)." },
+    "e260": { status: "Halal", reason: "Acetic Acid (Vinegar)." },
+    "e270": { status: "Halal", reason: "Lactic Acid (Microbial fermentation)." },
+    "e296": { status: "Halal", reason: "Malic Acid (Found in apples)." },
+    "e300": { status: "Halal", reason: "Ascorbic Acid (Vitamin C)." },
+    "e322": { status: "Halal", reason: "Lecithin (Usually Soy or Sunflower)." },
+    "e330": { status: "Halal", reason: "Citric Acid (Citrus fruit derivative)." },
+    "e406": { status: "Halal", reason: "Agar (Seaweed extract). Gelatin alternative." },
+    "e407": { status: "Halal", reason: "Carrageenan (Seaweed extract)." },
+    "e410": { status: "Halal", reason: "Locust Bean Gum (Carob seeds)." },
+    "e412": { status: "Halal", reason: "Guar Gum (Guar beans)." },
+    "e414": { status: "Halal", reason: "Acacia Gum (Tree sap)." },
+    "e415": { status: "Halal", reason: "Xanthan Gum (Fermented sugar)." },
+    "e440": { status: "Halal", reason: "Pectin (Fruit peel)." },
+    "e951": { status: "Halal", reason: "Aspartame (Sweetener)." },
+    "e955": { status: "Halal", reason: "Sucralose (Splenda/Sweetener)." }
+};
+
+// THE SCANNER LOGIC
+async function checkEcodeAPI() {
+    const input = document.getElementById('ecode-input');
+    const resBox = document.getElementById('ecode-result');
+    const loading = document.getElementById('api-loading');
+    
+    let code = input.value.toLowerCase().trim();
+    if(!code) return;
+    if(!code.startsWith('e')) code = 'e' + code; // Auto add 'e'
+
+    resBox.style.display = 'none';
+    if(loading) loading.style.display = 'block';
+
+    // 1. CHECK LOCAL LIST FIRST (Instant Result)
+    if (criticalCodes[code]) {
+        showResult(code, criticalCodes[code].status, criticalCodes[code].reason);
+        if(loading) loading.style.display = 'none';
+        return;
+    }
+
+    // 2. IF NOT IN LOCAL, ASK OPEN FOOD FACTS API
+    try {
+        const response = await fetch(`https://world.openfoodfacts.org/api/v2/additive/${code}`);
+        
+        if (!response.ok) throw new Error("Not found");
+        
+        const data = await response.json();
+        
+        // If data is empty or code not found
+        if (!data || !data.code) {
+            showResult(code, "Unknown", "Code not found in database. Please verify label.");
+        } else {
+            // Logic to guess status based on API data
+            let status = "Halal (Likely)";
+            let desc = data.wiki_data?.en?.wiki_extract || "A common food additive.";
+            
+            // Keyword Analysis
+            if (desc.toLowerCase().includes("pork") || desc.toLowerCase().includes("pig")) status = "Haram";
+            if (desc.toLowerCase().includes("animal") || desc.toLowerCase().includes("insect")) status = "Mushbooh";
+
+            showResult(code, status, desc.substring(0, 100) + "..."); 
+        }
+
+    } catch (e) {
+        showResult(code, "Unknown", "Could not verify. Check internet connection.");
+    } finally {
+        if(loading) loading.style.display = 'none';
+    }
+}
+
+function showResult(code, status, reason) {
+    const resBox = document.getElementById('ecode-result');
+    resBox.style.display = 'block';
+    resBox.className = 'ecode-result'; // Reset class
+
+    // Color Coding
+    if(status.toLowerCase().includes("haram")) resBox.classList.add('ecode-haram');
+    else if(status.toLowerCase().includes("mushbooh")) resBox.classList.add('ecode-mushbooh');
+    else if(status.toLowerCase().includes("halal")) resBox.classList.add('ecode-halal');
+
+    resBox.innerHTML = `
+        <span style="font-size:1.2rem; display:block; margin-bottom:5px;">${code.toUpperCase()}</span>
+        <strong style="text-transform:uppercase;">${status}</strong><br>
+        <span style="font-size:0.9rem; font-weight:normal;">${reason}</span>
+    `;
+}
+
+// --- INITIALIZE NEW FEATURES ---
+document.addEventListener('DOMContentLoaded', () => {
+    loadRabbana();
 });
 
     </script>
