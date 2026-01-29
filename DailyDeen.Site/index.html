@@ -1960,7 +1960,244 @@ body.time-asr .hero-dua {
     font-weight: 600;
 }
 
+/* --- PREMIUM INSPIRATION TABS --- */
+.inspiration-tabs {
+    display: flex;
+    gap: 10px;
+    padding: 6px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    margin-bottom: 20px;
+}
 
+.insp-tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 12px;
+    border-radius: 40px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.insp-tab-btn.active {
+    background: var(--brand-gold);
+    color: #000 !important;
+    box-shadow: 0 4px 15px var(--brand-gold-glow);
+}
+
+/* --- CONTENT VISIBILITY FIXES --- */
+.insp-content { display: none; animation: fadeIn 0.4s ease; }
+.insp-content.active { display: block; }
+
+.insp-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    min-height: 350px;
+    padding: 30px !important;
+}
+
+.insp-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 2rem !important;
+    text-align: center;
+    line-height: 1.8;
+    color: var(--brand-gold) !important;
+    margin-bottom: 20px;
+}
+
+.insp-translation {
+    font-size: 1.1rem;
+    color: var(--text-primary) !important;
+    text-align: center;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.insp-text-main {
+    font-size: 1.15rem;
+    color: var(--text-primary) !important;
+    text-align: center;
+    line-height: 1.7;
+}
+
+.insp-reference {
+    color: var(--brand-gold);
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.insp-share-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin: 20px auto 0 auto;
+    display: block;
+}
+
+/* --- ULTIMATE VISIBILITY REPAIR --- */
+
+/* 1. Force the Mosque button text to Dark Brown in Light/Asr modes */
+body.light-theme .mosque-btn, 
+body.light-theme .location-btn,
+body.time-asr .mosque-btn, 
+body.time-asr .location-btn {
+    color: #3e2723 !important; 
+    background: #ffffff !important;
+    border: 2px solid rgba(62, 39, 35, 0.4) !important;
+    opacity: 1 !important;
+    font-weight: 700 !important;
+}
+
+/* 2. Force the Qada icons and text to Dark Brown */
+body.light-theme .qada-plus-btn,
+body.light-theme .qada-count {
+    color: #3e2723 !important;
+}
+
+body.light-theme .qada-plus-btn {
+    background: #ffffff !important;
+    border: 1px solid rgba(62, 39, 35, 0.2) !important;
+}
+
+/* 3. Handle Icons specifically */
+body.light-theme i, 
+body.time-asr i {
+    filter: drop-shadow(0 1px 0 rgba(255,255,255,0.5)); 
+}
+
+/* --- DAILY VERSE ALIGNMENT FIX --- */
+#tab-verse .insp-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* Forces all items to center */
+    text-align: center !important;
+    justify-content: center;
+}
+
+#verse-controls {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 20px auto 0 auto !important; /* Horizontal auto-centering */
+}
+
+/* Ensure the Share button at the bottom is also aligned */
+.insp-share-btn {
+    margin: 25px auto 0 auto !important;
+}
+
+/* --- SECRET HOVER TOOLTIP --- */
+.inspired-heart {
+    position: relative;
+    cursor: help;
+    display: inline-block;
+}
+
+.secret-tooltip {
+    visibility: hidden;
+    width: 240px;
+    background: var(--bg-nav);
+    color: var(--brand-gold);
+    text-align: center;
+    border-radius: 12px;
+    padding: 12px;
+    position: absolute;
+    z-index: 100;
+    bottom: 130%; /* Positions it above the text */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-size: 0.8rem;
+    font-weight: 500;
+    font-family: 'Outfit', sans-serif;
+    border: 1px solid var(--brand-gold);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    pointer-events: none;
+    line-height: 1.4;
+}
+
+/* Tooltip Arrow */
+.secret-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--brand-gold) transparent transparent transparent;
+}
+
+/* Trigger on Hover */
+.inspired-heart:hover .secret-tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* LIGHT MODE: Daily Verse Heart Icon */
+body.light-theme .bookmark-btn i,
+body.time-asr .bookmark-btn i {
+    color: #3e2723 !important; /* Force Dark Brown */
+    opacity: 1 !important;
+}
+
+/* Ensure the button background has contrast */
+body.light-theme .bookmark-btn {
+    background: rgba(62, 39, 35, 0.1) !important;
+    border: 1px solid rgba(62, 39, 35, 0.2) !important;
+}
+
+/* --- CONSOLIDATED THEME REPAIR --- */
+
+/* 1. Global Player Title Fix */
+#player-title {
+    color: #ffffff !important; 
+    font-weight: 700 !important;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+/* 2. LIGHT MODE & ASR TIME OVERRIDES */
+body.light-theme, body.time-asr {
+    #player-title {
+        color: #3e2723 !important; /* Force Dark Brown */
+        text-shadow: none !important;
+    }
+    #player-category {
+        color: #b45309 !important; /* Force Gold */
+        opacity: 1 !important;
+    }
+    .mosque-btn, .location-btn, .btn-action[onclick*="findMosque"] {
+        color: #3e2723 !important;
+        background: #ffffff !important;
+        border: 2px solid rgba(62, 39, 35, 0.4) !important;
+        opacity: 1 !important;
+    }
+    /* Qada & Favorite Buttons */
+    .qada-plus-btn, .qada-count, .bookmark-btn i {
+        color: #3e2723 !important;
+        opacity: 1 !important;
+    }
+    .qada-plus-btn, .bookmark-btn {
+        background: #ffffff !important;
+        border: 1px solid rgba(62, 39, 35, 0.2) !important;
+    }
+}
 
 
 </style>
@@ -2184,41 +2421,63 @@ body.time-asr .hero-dua {
     <div class="qada-grid">
         </div>
 </div>
- <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:-15px; padding: 0 5px; opacity:0.7;">
+ 
+
+<div id="inspiration-section" style="max-width: 800px; margin: 25px auto;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; padding: 0 5px; opacity:0.7;">
         <span style="font-size:0.7rem; font-weight:600; letter-spacing:1px;">DAILY INSPIRATION</span>
-        <span style="font-size:0.7rem;"><i class="fas fa-chevron-right"></i></span>
     </div>
 
-    <div class="horizontal-scroll">
-        <div class="card swipe-card">
-            <div class="card-header"><i class="fas fa-book-open"></i> Daily Verse</div>
-            <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
-                <p id="verse-ar" style="font-family:'Amiri'; font-size:1.5rem; text-align:center; line-height:1.8; margin-bottom:10px;">Loading...</p>
-                <p id="verse-en" style="font-size:0.95rem; color:var(--text-secondary); text-align:center; font-style:italic;">...</p>
-                <p id="verse-ref" style="text-align:center; color:var(--brand-gold); font-size:0.8rem; margin-top:10px; font-weight:bold;"></p>
+    <div class="inspiration-tabs">
+        <button class="insp-tab-btn active" onclick="switchInspiration('verse', this)">
+            <i class="fas fa-book-open"></i> Verse
+        </button>
+        <button class="insp-tab-btn" onclick="switchInspiration('hadith', this)">
+            <i class="fas fa-scroll"></i> Hadith
+        </button>
+        <button class="insp-tab-btn" onclick="switchInspiration('dua', this)">
+            <i class="fas fa-hands-praying"></i> Dua
+        </button>
+    </div>
+
+    <div id="insp-content-container">
+        <div id="tab-verse" class="insp-content active">
+            <div class="card insp-card">
+                <div style="flex:1; display:flex; flex-direction:column; justify-content:center; min-height: 250px;">
+                    <p id="verse-ar" class="insp-arabic">Loading...</p>
+                    <p id="verse-en" class="insp-translation">...</p>
+                    <p id="verse-ref" class="insp-reference"></p>
+
+
+                      <br> Favourite verses will be stored in settings  <br> Go to settings to view them </p>
+                </div>
+                <button onclick="shareVerseImage()" class="insp-share-btn">
+                    <i class="fas fa-share-nodes"></i> Share this Verse
+                </button>
             </div>
-            <button onclick="shareVerseImage()" style="margin-top:15px; background:transparent; border:none; color:var(--text-secondary); cursor:pointer; font-size:0.8rem; display:flex; align-items:center; gap:5px; margin: 10px auto;">
-    <i class="fas fa-share-nodes"></i> Save as Image and Share this Verse
-</button>
         </div>
 
-        <div class="card swipe-card">
-            <div class="card-header"><i class="fas fa-scroll"></i> Daily Hadith</div>
-            <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
-                <p id="hadith-text" style="font-size:1rem; line-height:1.5; text-align:center;">Loading...</p>
-                <p id="hadith-ref" style="text-align:right; color:var(--brand-gold); font-size:0.75rem; margin-top:10px; font-weight:bold;"></p>
+        <div id="tab-hadith" class="insp-content">
+            <div class="card insp-card">
+                <div style="flex:1; display:flex; flex-direction:column; justify-content:center; min-height: 250px;">
+                    <p id="hadith-text" class="insp-text-main">Loading...</p>
+                    <p id="hadith-ref" class="insp-reference" style="text-align:right;"></p>
+                </div>
             </div>
         </div>
 
-        <div class="card swipe-card">
-            <div class="card-header"><i class="fas fa-hands-praying"></i> Daily Dua</div>
-            <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
-                <p id="dua-ar" style="font-family:'Amiri'; font-size:1.6rem; text-align:center; line-height:1.8; margin-bottom:10px;">Loading...</p>
-                <p id="dua-en" style="color:var(--text-secondary); text-align:center; font-style:italic;">...</p>
+        <div id="tab-dua" class="insp-content">
+            <div class="card insp-card">
+                <div style="flex:1; display:flex; flex-direction:column; justify-content:center; min-height: 250px;">
+                    <p id="dua-ar" class="insp-arabic">Loading...</p>
+                    <p id="dua-en" class="insp-translation">...</p>
+                </div>
             </div>
         </div>
     </div>
-    <div class="card">
+</div>
+
+  <div class="card">
         <div class="card-header">
             <i class="fas fa-star"></i> Name of Allah SWT
             <button onclick="toggleNameDua()" style="margin-left:auto; background:rgba(255,255,255,0.1); border:none; color:var(--brand-gold); padding:5px 12px; border-radius:15px; cursor:pointer; font-size:0.75rem;">
@@ -2239,7 +2498,7 @@ body.time-asr .hero-dua {
             </div>
         </div>
     </div>
-
+    
     <div class="card">
         <div class="card-header"><i class="fas fa-seedling"></i> Good Deed</div>
         <p id="deed-text" style="font-size:1.2rem; text-align:center; margin:15px 0;">...</p>
@@ -2309,7 +2568,7 @@ body.time-asr .hero-dua {
         </section>
 
         <section id="qibla" class="view-section">
-<button onclick="findMosques()" class="btn-action" style="margin-top:20px; width:100%; background:rgba(255,255,255,0.1);">
+<button onclick="findMosques()" class="mosque-btn btn-action" style="margin-top:20px; width:100%; background:rgba(255,255,255,0.1);">
     <i class="fas fa-mosque"></i> Find Mosques Near Me
 </button>
 
@@ -2415,7 +2674,7 @@ body.time-asr .hero-dua {
     
     <div style="background: rgba(0,0,0,0.3); padding: 25px; text-align: center; border-bottom: 1px solid var(--border);">
         <i class="fas fa-headphones-alt" style="color: var(--brand-gold); font-size: 1.5rem; margin-bottom: 10px;"></i>
-        <h4 id="player-title" style="margin-bottom: 5px; color: #fff; font-weight:600;">Select a Track</h4>
+        <h4 id="player-title" style="margin-bottom: 5px; font-weight:600;">Select a Track</h4>
         <p id="player-category" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 15px;">Serenity Station</p>
 
         <div style="display:flex; justify-content:center; align-items:center; gap:20px; margin-bottom:15px;">
@@ -2440,8 +2699,6 @@ body.time-asr .hero-dua {
     <div style="display:flex; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02);">
         <button onclick="filterPlaylist('all')" class="playlist-tab active" id="tab-all">All</button>
         <button onclick="filterPlaylist('quran')" class="playlist-tab" id="tab-quran">Quran</button>
-        <button onclick="filterPlaylist('nasheed')" class="playlist-tab" id="tab-nasheed">Nasheeds</button>
-        <button onclick="filterPlaylist('nature')" class="playlist-tab" id="tab-nature">Nature</button>
     </div>
             <div id="playlist-container" style="flex:1; overflow-y: auto; background: rgba(0,0,0,0.2);">
         </div>
@@ -2524,10 +2781,11 @@ body.time-asr .hero-dua {
         </p>
         
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 15px;">
-            <span style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--border);">
-                ✨ The woman who inspires my heart
-            </span>
-            <span style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--border);">
+                     <span class="inspired-heart" style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--border);">
+    ✨ The woman who inspires my heart
+    <span class="secret-tooltip">may Allah bless her and keep her safe and make her happy and give her good health and knowledge</span>
+</span>
+                     <span style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--border);">
                 <i class="fab fa-reddit"></i> r/MuslimDevs & Reddit
             </span>
             <span style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--border);">
@@ -3911,18 +4169,19 @@ async function loadDailyVerse() {
         const oldControls = document.getElementById('verse-controls');
         if(oldControls) oldControls.remove();
 
-        // Create new controls wrapper
-        const controlsHTML = `
-            <div id="verse-controls" style="display:flex; justify-content:center; gap:10px; margin-top:15px;">
-                <audio id="verse-player" src="${d.data[2].audio}"></audio>
-                <button onclick="document.getElementById('verse-player').play()" class="pop-btn share-btn" style="padding: 10px 20px;">
-                    <i class="fas fa-play"></i> Listen
-                </button>
-                <button id="fav-btn-${id}" onclick="toggleFavorite(${id}, '${refText}')" class="pop-btn bookmark-btn" style="padding: 10px 20px;">
-                    <i class="${isFavorite(id) ? 'fas' : 'far'} fa-heart"></i>
-                </button>
-            </div>`;
+      // --- UPDATED VERSE CONTROLS FOR PERFECT ALIGNMENT ---
+const controlsHTML = `
+    <div id="verse-controls" style="display:flex; justify-content:center; align-items:center; gap:12px; margin-top:25px; width:100%;">
+        <audio id="verse-player" src="${d.data[2].audio}"></audio>
         
+        <button onclick="document.getElementById('verse-player').play()" class="pop-btn share-btn" style="padding: 12px 25px; margin:0; display:flex; align-items:center; gap:8px;">
+            <i class="fas fa-play"></i> Listen
+        </button>
+        
+        <button id="fav-btn-${id}" onclick="toggleFavorite(${id}, '${refText}')" class="pop-btn bookmark-btn" style="padding: 12px 20px; margin:0;">
+            <i class="${isFavorite(id) ? 'fas' : 'far'} fa-heart"></i>
+        </button>
+    </div>`;
         ref.insertAdjacentHTML('afterend', controlsHTML);
 
     } catch(e) {
@@ -5121,26 +5380,7 @@ const audioTracks = [
     // ============================================================
     // 2. NASHEED LIBRARY (Vocals Only - Mac Friendly)
     // ============================================================
-    { title: "Mawlaya Salli", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/maher-zain/maher-zain-mawlaya-vocals-only.mp3", meta: "Maher Zain" },
-    { title: "Hasbi Rabbi", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/sami-yusuf/sami-yusuf-hasbi-rabbi.mp3", meta: "Sami Yusuf" },
-    { title: "Ya Adheeman", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/ahmed-bukhatir/ahmed-bukhatir-ya-adheeman.mp3", meta: "Ahmed Bukhatir" },
-    { title: "Tala' al Badru 'Alayna", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/mishary-rashid-alafasy/nasheed/mishary-rashid-alafasy-nasheed-019-tala-al-badru.mp3", meta: "Mishary Alafasy" },
-    { title: "Assalamu Alayka", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/maher-zain/maher-zain-assalamu-alayka-vocals-only.mp3", meta: "Maher Zain" },
-    { title: "Ramadan (English)", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/maher-zain/maher-zain-ramadan-english-vocals-only.mp3", meta: "Maher Zain" },
-    { title: "Insha Allah", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/maher-zain/maher-zain-insha-allah-vocals-only.mp3", meta: "Maher Zain" },
-    { title: "The Chosen One", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/maher-zain/maher-zain-the-chosen-one-vocals-only.mp3", meta: "Maher Zain" },
-    { title: "For the Rest of My Life", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/maher-zain/maher-zain-for-the-rest-of-my-life-vocals-only.mp3", meta: "Maher Zain" },
-    { title: "Give Thanks to Allah", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/zain-bhikha/zain-bhikha-give-thanks-to-allah.mp3", meta: "Zain Bhikha" },
-    { title: "Mountains of Makkah", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/zain-bhikha/zain-bhikha-mountains-of-makkah.mp3", meta: "Zain Bhikha" },
-    { title: "Allah Knows", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/zain-bhikha/zain-bhikha-allah-knows.mp3", meta: "Zain Bhikha" },
-    { title: "A is for Allah", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/zain-bhikha/zain-bhikha-a-is-for-allah.mp3", meta: "Zain Bhikha" },
-    { title: "The Way of Tears", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/muhammad-al-muqit/muhammad-al-muqit-the-way-of-tears.mp3", meta: "Muhammad Al Muqit" },
-    { title: "Last Breath", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/ahmed-bukhatir/ahmed-bukhatir-last-breath.mp3", meta: "Ahmed Bukhatir" },
-    { title: "Rahman", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/mishary-rashid-alafasy/nasheed/mishary-rashid-alafasy-nasheed-001-rahman.mp3", meta: "Mishary Alafasy" },
-    { title: "A Whisper of Peace", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/dawud-wharnsby/dawud-wharnsby-a-whisper-of-peace.mp3", meta: "Dawud Wharnsby" },
-    { title: "Supplication", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/sami-yusuf/sami-yusuf-supplication.mp3", meta: "Sami Yusuf" },
-    { title: "Asma Allah", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/sami-yusuf/sami-yusuf-asma-allah.mp3", meta: "Sami Yusuf" },
-    { title: "Healing", category: "nasheed", src: "https://media.blubrry.com/muslim_central_nasheed/podcasts.qurancentral.com/sami-yusuf/sami-yusuf-healing.mp3", meta: "Sami Yusuf" },
+   
 
     // ============================================================
     // 3. WORLD LEGENDS (The Classics)
@@ -5153,12 +5393,7 @@ const audioTracks = [
 
     // ============================================================
     // 4. NATURE (Mac Friendly MP3s)
-    // ============================================================
-    { title: "Heavy Rain", category: "nature", src: "https://archive.org/download/rain-sound-effect_202105/Rain%20Sound%20Effect.mp3", meta: "Sleep Aid" },
-    { title: "Ocean Waves", category: "nature", src: "https://archive.org/download/ocean-waves-sound-effect_202105/Ocean%20Waves%20Sound%20Effect.mp3", meta: "Calming" },
-    { title: "Forest Birds", category: "nature", src: "https://archive.org/download/forest-birds-sound-effect/Forest%20Birds%20Sound%20Effect.mp3", meta: "Morning Focus" },
-    { title: "Crackling Fire", category: "nature", src: "https://archive.org/download/fireplace-sound-effect_202105/Fireplace%20Sound%20Effect.mp3", meta: "Warmth" }
-];
+    ];
 
 let currentPlaylist = audioTracks; 
 let currentTrackIndex = -1;
@@ -5581,21 +5816,18 @@ const prayers = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
 function initQadaTracker() {
     const grid = document.querySelector('.qada-grid');
     if(!grid) return;
-    
     grid.innerHTML = '';
     
     prayers.forEach(p => {
-        // Load count
         const count = localStorage.getItem(`qada_${p}`) || 0;
-        
         const div = document.createElement('div');
         div.className = 'qada-item';
         div.innerHTML = `
             <span style="font-size:0.8rem; color:var(--text-secondary)">${p}</span>
             <span id="qada-val-${p}" class="qada-count">${count}</span>
             <div>
-                <button class="qada-btn" style="background:var(--brand-green); color:#000;" onclick="modQada('${p}', -1)">-</button>
-                <button class="qada-btn" style="background:rgba(255,255,255,0.1); color:#fff;" onclick="modQada('${p}', 1)">+</button>
+                <button class="qada-btn qada-minus-btn" style="background:var(--brand-green); color:#000;" onclick="modQada('${p}', -1)">-</button>
+                <button class="qada-btn qada-plus-btn" style="background:rgba(255,255,255,0.1);" onclick="modQada('${p}', 1)">+</button>
             </div>
         `;
         grid.appendChild(div);
@@ -5965,6 +6197,25 @@ function showResult(code, status, reason) {
 document.addEventListener('DOMContentLoaded', () => {
     loadRabbana();
 });
+
+function switchInspiration(category, btn) {
+    // 1. Hide all content blocks
+    document.querySelectorAll('.insp-content').forEach(content => {
+        content.classList.remove('active');
+    });
+
+    // 2. Remove active state from all buttons
+    document.querySelectorAll('.insp-tab-btn').forEach(b => {
+        b.classList.remove('active');
+    });
+
+    // 3. Show selected content and activate button
+    document.getElementById('tab-' + category).classList.add('active');
+    btn.classList.add('active');
+
+    // 4. Haptic Feedback
+    if(navigator.vibrate) navigator.vibrate(15);
+}
 
     </script>
     <script>
