@@ -33,6 +33,18 @@
 <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
 <script src="https://unpkg.com/split-type"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,hi,te,ur',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
 /* =========================================
@@ -1134,7 +1146,7 @@ button:active {
         z-index: 1000;
     }
 
-    .brand{ display: none; } 
+    .brand, .theme-toggle { display: none; } 
     
     .nav-menu { 
         width: 100%; 
@@ -2204,7 +2216,7 @@ body.light-theme .insp-share-btn {
     border-color: rgba(62, 39, 35, 0.2) !important;
 }
  
-/* 1. Target the elements AND their animated children (.word) */
+ /* 1. Target the elements AND their animated children (.word) */
 .hero-arabic, .greeting, h1, h2, h3, h4, .card-header, .insp-arabic,
 .hero-arabic *, .greeting *, h1 *, h2 *, h3 *, h4 *, .card-header *, .insp-arabic * {
     display: inline-block !important;
@@ -2222,7 +2234,8 @@ body.light-theme .insp-share-btn {
     
     filter: drop-shadow(0 2px 10px rgba(0,0,0,0.3));
 }
-    body.light-theme .hero-arabic, body.light-theme .hero-arabic *,
+
+body.light-theme .hero-arabic, body.light-theme .hero-arabic *,
 body.light-theme .greeting, body.light-theme .greeting *,
 body.light-theme h1, body.light-theme h2, body.light-theme #player-title,
 body.time-asr .hero-arabic, body.time-asr .greeting {
@@ -2231,133 +2244,44 @@ body.time-asr .hero-arabic, body.time-asr .greeting {
     color: #3e2723 !important;
     text-shadow: none !important;
 }
-    /* --- PREMIUM ARABIC TYPOGRAPHY (Decreased Size) --- */
-.insp-arabic, .rabbana-arabic, .hero-arabic {
-    font-family: 'Amiri', serif !important;
-    font-size: 2.2rem !important; /* Decreased from 2.8rem */
-    font-weight: 700 !important;
-    line-height: 1.6 !important;
-    text-align: center;
-    background: linear-gradient(180deg, #fbbf24 0%, #ffffff 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.4));
-    margin-bottom: 20px;
-}
 
-/* Maintain a larger size for the Name of Allah */
-#name-ar {
-    font-family: 'Amiri', serif !important;
-    font-size: 3.8rem !important;
-    filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.6));
-    -webkit-text-fill-color: transparent;
-    background: linear-gradient(180deg, #fbbf24 0%, #ffffff 100%);
-    -webkit-background-clip: text;
-}
+/* --- NAME OF ALLAH BUTTON FIX --- */
 
-/* --- "HOW TO ASK" BUTTON VISIBILITY FIX --- */
+/* 1. Default (Dark/Atmosphere) styling */
 .name-dua-btn {
     background: rgba(255, 255, 255, 0.1) !important;
     color: var(--brand-gold) !important;
 }
 
+/* 2. FORCE visibility in Day Mode (Light Theme) and Asr Time */
 body.light-theme .name-dua-btn,
 body.time-asr .name-dua-btn {
-    background: rgba(62, 39, 35, 0.1) !important; /* Dark tint for visibility */
-    color: #3e2723 !important; /* Dark brown text */
+    background: rgba(62, 39, 35, 0.1) !important; /* Subtle dark brown tint */
+    color: #3e2723 !important; /* Solid Dark Brown text */
     border: 1px solid rgba(62, 39, 35, 0.2) !important;
     opacity: 1 !important;
 }
 
-body.light-theme .name-dua-btn i {
+/* Ensure the praying hands icon also turns dark */
+body.light-theme .name-dua-btn i,
+body.time-asr .name-dua-btn i {
     color: #b45309 !important; /* Deeper gold for the icon */
 }
 
-    /* --- FIXED THEME TOGGLE FOR ALL MOBILE MODES --- */
-@media (max-width: 768px) {
-    #theme-toggle, .theme-toggle {
-        display: flex !important; /* Force it to show */
-        position: fixed !important;
-        top: 15px !important;
-        right: 15px !important;
-        z-index: 2005 !important; /* Higher than nav and tutorials */
-        background: var(--bg-card) !important;
-        border: 1.5px solid var(--border) !important;
-        border-radius: 50% !important;
-        width: 45px !important;
-        height: 45px !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.4) !important;
-    }
-
-    /* Ensure it turns dark in Light Mode so you can see it */
-    body.light-theme .theme-toggle i {
-        color: #3e2723 !important;
-    }
+/* Hide Google Translate Branding */
+.goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon {
+    display: none !important;
 }
-    /* --- SECRET TOOLTIP SYSTEM --- */
-
-/* 1. The Trigger Text Container */
-.inspired-heart {
-    position: relative;
-    cursor: help;
-    transition: all 0.3s ease;
+body {
+    top: 0px !important;
 }
-
-.inspired-heart:hover {
-    background: rgba(251, 191, 36, 0.1) !important;
-    border-color: var(--brand-gold) !important;
+.goog-te-menu-value {
+    display: none !important;
 }
-
-/* 2. The Hidden Tooltip */
-.secret-tooltip {
-    visibility: hidden;
-    opacity: 0;
-    width: 220px;
-    background: #0f172a; /* Deep Navy */
-    color: #ffffff;
-    text-align: center;
-    border-radius: 12px;
-    padding: 12px;
-    position: absolute;
-    z-index: 3000; /* Ensure it's above everything */
-    bottom: 140%; /* Position above the text */
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    
-    font-size: 0.75rem;
-    font-style: italic;
-    line-height: 1.5;
-    border: 1px solid var(--brand-gold);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    pointer-events: none;
-}
-
-/* 3. The Little Arrow on the bottom of the tooltip */
-.secret-tooltip::after {
-    content: "";
-    position: absolute;
-    top: 100%; /* Bottom of tooltip */
-    left: 50%;
-    margin-left: -6px;
-    border-width: 6px;
-    border-style: solid;
-    border-color: var(--brand-gold) transparent transparent transparent;
-}
-
-/* 4. The Hover Action (Make it Visible) */
-.inspired-heart:hover .secret-tooltip {
-    visibility: visible;
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
-/* 5. LIGHT MODE OVERRIDE */
-body.light-theme .secret-tooltip {
-    background: #ffffff;
-    color: #3e2723; /* Dark Coffee */
-    box-shadow: 0 10px 30px rgba(62, 39, 35, 0.15);
+/* Ensure Urdu text is readable */
+body[lang="ur"] {
+    font-family: 'Noto Nastaliq Urdu', serif !important;
+    line-height: 2.2 !important;
 }
 
 </style>
@@ -2378,6 +2302,8 @@ body.light-theme .secret-tooltip {
     <div class="bismillah-text">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
     <div class="bismillah-eng">In the Name of Allah, the Most Gracious, the Most Merciful</div>
 </div>
+
+<div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px;"></div>
 
     <nav>
         <div class="brand-lockup">
@@ -2644,8 +2570,8 @@ body.light-theme .secret-tooltip {
   <div class="card">
         <div class="card-header">
             <i class="fas fa-star"></i> Name of Allah SWT
-           <button onclick="toggleNameDua()" class="name-dua-btn" style="margin-left:auto; border:none; padding:5px 12px; border-radius:15px; cursor:pointer; font-size:0.75rem;">
-               <i class="fas fa-hands-praying"></i> How to Ask
+            <button onclick="toggleNameDua()" class="name-dua-btn" style="margin-left:auto; border:none; padding:5px 12px; border-radius:15px; cursor:pointer; font-size:0.75rem;">
+                <i class="fas fa-hands-praying"></i> How to Ask
             </button>
         </div>
         <div style="text-align:center;">
@@ -2881,6 +2807,10 @@ body.light-theme .secret-tooltip {
     <button onclick="saveReflection()" class="btn-action" style="width: 100%; margin-top: 10px; font-size: 0.7rem; border: 1px solid var(--brand-gold); background: transparent; color: var(--brand-gold);">
         SAVE REFLECTION
     </button>
+
+    <button onclick="exportJournalToPDF()" class="btn-action" style="background:transparent; border:1px solid var(--text-secondary); color:var(--text-secondary); font-size:0.7rem; margin-top:10px;">
+    <i class="fas fa-file-pdf"></i> EXPORT ALL TO PDF
+</button>
 
     <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border);">
         <h5 style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 1px;">PREVIOUS ENTRIES</h5>
@@ -3197,6 +3127,9 @@ body.light-theme .secret-tooltip {
                     <input type="text" id="set-city" class="styled-input" placeholder="City (e.g. Toronto)">
                     <input type="text" id="set-country" class="styled-input" placeholder="Country" style="max-width:100px;">
                 </div>
+
+                 <button class="btn-action" onclick="saveSettings()">Save Changes</button>
+                <p id="save-msg" style="text-align:center; color:var(--brand-green); margin-top:15px; display:none;">Saved Successfully!</p>
 <div class="card">
     <div class="card-header"><i class="fas fa-calculator"></i> Calculation Method</div>
     <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:10px;">Adjust this if prayer times are different from your local mosque.</p>
@@ -3225,19 +3158,40 @@ body.light-theme .secret-tooltip {
         <i class="fas fa-redo"></i> Reset Tutorial
     </button>
 </div>
-                <button class="btn-action" onclick="saveSettings()">Save Changes</button>
-                <p id="save-msg" style="text-align:center; color:var(--brand-green); margin-top:15px; display:none;">Saved Successfully!</p>
-                <div style="margin-top: 20px; text-align: center; opacity: 0.7;">
+
+<div class="setting-item" style="border-top:1px solid var(--border); padding-top:20px;">
+    <span><i class="fas fa-bell"></i> Adhan Alerts</span>
+    <button onclick="initNotifications()" class="btn-action" style="width:auto; padding:8px 15px; font-size:0.75rem;">
+        Enable Notifications
+    </button>
+</div>
+               
+                
+
+<div class="setting-item">
+    <span><i class="fas fa-language"></i> App Language</span>
+    <select id="lang-select" onchange="triggerAutoTranslate()" class="styled-input">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="te">Telugu</option>
+        <option value="ur">Urdu</option>
+    </select>
+</div>
+
+<div class="card-header"><i class="fas fa-heart"></i> My Favorite Verses</div>
+<div id="favorites-list-container" style="max-height: 300px; overflow-y: auto; padding: 10px 0;">
+    <p style="text-align:center; color:var(--text-secondary); font-size:0.85rem;">No favorite verses yet.</p>
+</div>
+
+            <div style="margin-top: 20px; text-align: center; opacity: 0.7;">
     <p style="font-size: 0.8rem; color: var(--text-secondary);">
         <i class="fas fa-lock" style="color: var(--brand-gold); margin-right: 5px;"></i>
         Your settings are stored in your browser's <b>Local Storage</b>. No data is sent to any external server.
     </p>
 </div>
-<div class="card-header"><i class="fas fa-heart"></i> My Favorite Verses</div>
-<div id="favorites-list-container" style="max-height: 300px; overflow-y: auto; padding: 10px 0;">
-    <p style="text-align:center; color:var(--text-secondary); font-size:0.85rem;">No favorite verses yet.</p>
-</div>
             </div>
+
+
         </section>
 
     </div>
@@ -3849,6 +3803,7 @@ function updatePrayerUI(timings, hijri) {
         checkSpecialEvents(hijri);
     }
     
+    localStorage.setItem('last_prayer_timings', JSON.stringify(timings));
     // Render the list
     if(container) {
         container.innerHTML = `
@@ -6381,6 +6336,149 @@ function switchInspiration(category, btn) {
     if(navigator.vibrate) navigator.vibrate(15);
 }
 
+function triggerAutoTranslate() {
+    const lang = document.getElementById('lang-select').value;
+    
+    // Function to find and click the Google hidden dropdown
+    const attemptTranslation = () => {
+        const googleSelect = document.querySelector('.goog-te-combo');
+        
+        if (googleSelect) {
+            googleSelect.value = lang;
+            googleSelect.dispatchEvent(new Event('change'));
+            
+            // Handle RTL for Urdu
+            document.documentElement.dir = (lang === 'ur') ? 'rtl' : 'ltr';
+            
+            // Custom font for Urdu readability
+            if(lang === 'ur') {
+                document.body.style.fontFamily = "'Noto Nastaliq Urdu', serif";
+            } else {
+                document.body.style.fontFamily = "'Outfit', sans-serif";
+            }
+            
+            showToast(`Switching to ${lang.toUpperCase()}...`);
+        } else {
+            // If not loaded yet, try again in 500ms
+            showToast("Initializing translation engine...");
+            setTimeout(attemptTranslation, 500);
+        }
+    };
+
+    attemptTranslation();
+}
+
+async function exportJournalToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const history = JSON.parse(localStorage.getItem('reflection_history') || "[]");
+
+    if(history.length === 0) {
+        showToast("No reflections to export yet!");
+        return;
+    }
+
+    // PDF Header
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(22);
+    doc.setTextColor(180, 83, 9); // Brand Gold color
+    doc.text("Daily Deen: My Spiritual Journey", 20, 20);
+    
+    doc.setFontSize(10);
+    doc.setTextColor(100);
+    doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 20, 30);
+    doc.line(20, 35, 190, 35); // Decorative line
+
+    let y = 45;
+    doc.setFontSize(12);
+    
+    history.forEach((entry, index) => {
+        // Check if we need a new page
+        if (y > 270) { doc.addPage(); y = 20; }
+
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(62, 39, 35);
+        doc.text(`${entry.date} at ${entry.time}`, 20, y);
+        
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(0);
+        const lines = doc.splitTextToSize(entry.text, 170);
+        doc.text(lines, 20, y + 7);
+        
+        y += (lines.length * 7) + 15; // Move down for next entry
+    });
+
+    doc.save("My_DailyDeen_Journal.pdf");
+    showToast("PDF Downloaded Successfully!");
+}
+
+// 1. Request Permission
+function initNotifications() {
+    if (!("Notification" in window)) return;
+    
+    Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+            showToast("Prayer alerts enabled!");
+            // Start the background checker
+            startNotificationTimer();
+        }
+    });
+}
+
+// 2. The Scheduler
+function startNotificationTimer() {
+    console.log("Adhan Notification Engine Started...");
+    
+    setInterval(() => {
+        const now = new Date();
+        // Force HH:mm format (e.g., "05:01")
+        const currentMin = now.getHours().toString().padStart(2, '0') + ":" + 
+                           now.getMinutes().toString().padStart(2, '0');
+        
+        const timingsRaw = localStorage.getItem('last_prayer_timings');
+        if(!timingsRaw) return;
+
+        const timings = JSON.parse(timingsRaw);
+        const prayersToNotify = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+
+        prayersToNotify.forEach(prayer => {
+            if (timings[prayer]) {
+                // Remove anything in brackets, like (IST)
+                const prayerTime = timings[prayer].split(' ')[0].trim();
+                
+                // 1. Alert 5 minutes before
+                if (isFiveMinsBefore(currentMin, prayerTime)) {
+                    sendAdhanAlert(prayer, "5 minutes remaining until Salah.");
+                }
+                
+                // 2. Alert exactly at prayer time
+                if (currentMin === prayerTime) {
+                    sendAdhanAlert(prayer, `It is now time for ${prayer}.`);
+                }
+            }
+        });
+    }, 60000); // Check every 60 seconds
+}
+
+// Helper: Calculate if current time is 5 mins before target
+function isFiveMinsBefore(now, target) {
+    const [nH, nM] = now.split(':').map(Number);
+    const [tH, tM] = target.split(':').map(Number);
+    const nowInMins = nH * 60 + nM;
+    const targetInMins = tH * 60 + tM;
+    return (targetInMins - nowInMins === 5);
+}
+
+// 3. Fire the Alert
+function sendAdhanAlert(prayer, message) {
+    new Notification(`Daily Deen: ${prayer}`, {
+        body: message,
+        icon: "icon(2).png", // Pulls your app icon
+        badge: "icon(2).png",
+        vibrate: [200, 100, 200]
+    });
+}
+
     </script>
     <script>
     // This runs independently to guarantee the screen clears
@@ -6395,6 +6493,10 @@ function switchInspiration(category, btn) {
             }
         }, 1500); // Wait 1.5s then fade
     };
+        // Start the notification checker automatically if permission is already granted
+if ("Notification" in window && Notification.permission === "granted") {
+    startNotificationTimer();
+}
 </script>
 </body>
 </html>
