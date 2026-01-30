@@ -2284,6 +2284,71 @@ body[lang="ur"] {
     line-height: 2.2 !important;
 }
 
+    /* --- SECRET TOOLTIP SYSTEM --- */
+
+/* 1. The Trigger Text Container */
+.inspired-heart {
+    position: relative;
+    cursor: help;
+    transition: all 0.3s ease;
+}
+
+.inspired-heart:hover {
+    background: rgba(251, 191, 36, 0.1) !important;
+    border-color: var(--brand-gold) !important;
+}
+
+/* 2. The Hidden Tooltip */
+.secret-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    width: 220px;
+    background: #0f172a; /* Deep Navy */
+    color: #ffffff;
+    text-align: center;
+    border-radius: 12px;
+    padding: 12px;
+    position: absolute;
+    z-index: 3000; /* Ensure it's above everything */
+    bottom: 140%; /* Position above the text */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    font-size: 0.75rem;
+    font-style: italic;
+    line-height: 1.5;
+    border: 1px solid var(--brand-gold);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    pointer-events: none;
+}
+
+/* 3. The Little Arrow on the bottom of the tooltip */
+.secret-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* Bottom of tooltip */
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--brand-gold) transparent transparent transparent;
+}
+
+/* 4. The Hover Action (Make it Visible) */
+.inspired-heart:hover .secret-tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* 5. LIGHT MODE OVERRIDE */
+body.light-theme .secret-tooltip {
+    background: #ffffff;
+    color: #3e2723; /* Dark Coffee */
+    box-shadow: 0 10px 30px rgba(62, 39, 35, 0.15);
+}
+
 </style>
 </head>
 
