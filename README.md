@@ -39,7 +39,7 @@ I went "old school" with the build. No heavy frameworks, no React, no complex bu
 *   **Local Storage:** Your settings (location, theme, counters) stay on *your* device. Nothing ever touches a cloud database.
 *   **APIs:** Powered by Aladhan (Prayer), AlQuran Cloud (Verses), and GitHub (Hadith).
 
-**To run it yourself:** Just download the code and open `dailydeennocomments.html`. It runs right in your browser. No `npm install` required.
+**To run it yourself:** Just download the code and open `index.html`. It runs right in your browser. No `npm install` required.
 
 ---
 
