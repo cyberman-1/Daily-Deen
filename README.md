@@ -11,7 +11,7 @@ It is completely free, open-source, and privacy-focused. No servers, no tracking
 
 ---
 
-## 📖 The Story (Sadaqah Jariyah)
+##  The Story (Sadaqah Jariyah)
 
 This project is deeply personal. I’ve intended it as a **Sadaqah Jariyah** (ongoing charity).
 
@@ -19,7 +19,7 @@ It was inspired by someone who brought me closer to my faith and changed my life
 
 ---
 
-## ✨ What’s Inside?
+##  What’s Inside?
 
 I tried to include the essentials for a modern Muslim without any of the bloat:
 
@@ -31,7 +31,7 @@ I tried to include the essentials for a modern Muslim without any of the bloat:
 
 ---
 
-## 🛠️ The Philosophy (and Tech)
+##  The Techstack!
 
 I went "old school" with the build. No heavy frameworks, no React, no complex build steps. I wanted it to be as lightweight as possible.
 
@@ -43,7 +43,7 @@ I went "old school" with the build. No heavy frameworks, no React, no complex bu
 
 ---
 
-## 🤲 A Sincere Request
+##  A Sincere Request
 
 If this app helps you in any way, I don't need stars or donations. I only ask for one thing:
 
