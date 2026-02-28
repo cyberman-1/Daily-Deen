@@ -3,23 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Daily Deen | Prayer Times, Quran, Qibla & Serenity</title>
-    <meta name="title" content="Daily Deen | Your Digital Islamic Companion">
-    <meta name="description" content="A privacy-focused Islamic dashboard featuring accurate Prayer Times, Al-Quran reading, Qibla direction, daily Duas, and a Serenity station for focus and sleep.">
-    <meta name="keywords" content="Prayer Times, Quran, Qibla Finder, Islamic App, Daily Dua, Ramadan Tracker, Muslim Dashboard">
+    <title>Daily Deen | Private Prayer Times, Quran & Islamic Mindfulness</title>
+    <meta name="title" content="Daily Deen | Your Ad-Free Digital Islamic Sanctuary">
+    <meta name="description" content="A privacy-focused, ad-free Islamic dashboard. Features accurate Prayer Times, Al-Quran, Qibla finder, Daily Duas, and a Serenity station for focus and sleep. No tracking, just Deen.">
+    <meta name="keywords" content="Prayer Times, Quran, Qibla Finder, Islamic App, Daily Dua, Ramadan Tracker, Muslim Dashboard, Ad-free Prayer Times, Privacy Quran, Islamic Mindfulness">
+    <meta name="author" content="Daily Deen">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#0f172a">
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dailydeen.site/">
-    <meta property="og:title" content="Daily Deen | Your Digital Sanctuary">
-    <meta property="og:description" content="Accurate Prayer Times, Quran, and Mindfulness for the modern Muslim. Ad-free and privacy-focused.">
-    <meta property="og:image" content="https://your-website-url.com/preview-image.jpg">
+    <meta property="og:title" content="Daily Deen | Your Digital Islamic Sanctuary">
+    <meta property="og:description" content="Accurate Prayer Times, Quran, and Mindfulness for the modern Muslim. Ad-free, private, and beautifully designed.">
+    <meta property="og:image" content="https://dailydeen.site/og-image.jpg">
+
+    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Daily Deen">
-    <meta property="twitter:description" content="Accurate Prayer Times, Quran, and Mindfulness for the modern Muslim.">
-    <link rel="apple-touch-icon" href="icon(2).png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta property="twitter:url" content="https://dailydeen.site/">
+    <meta property="twitter:title" content="Daily Deen | Private Prayer Times & Quran">
+    <meta property="twitter:description" content="Accurate Prayer Times, Quran, and Mindfulness for the modern Muslim. No ads, no tracking.">
+    <meta property="twitter:image" content="https://dailydeen.site/og-image.jpg">
+
+    <!-- Canonical and PWA -->
     <link rel="canonical" href="https://dailydeen.site/">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Daily Deen",
+      "url": "https://dailydeen.site/",
+      "description": "A privacy-focused, ad-free Islamic dashboard with Prayer Times, Quran, and Mindfulness tools.",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -4432,12 +4459,25 @@ function initChecklist() {
 
 initChecklist();
 async function shareApp() {
+    const shareData = {
+        title: 'Daily Deen',
+        text: 'I found this beautiful, ad-free Islamic dashboard. Check out Daily Deen for Prayer Times, Quran, and Mindfulness:',
+        url: 'https://dailydeen.site/'
+    };
+    
     if (navigator.share) {
-        try { await navigator.share({ title: 'Daily Deen', text: 'Free Prayer Times & Quran App. No Ads.', url: window.location.href }); } catch (err) {}
+        try { 
+            await navigator.share(shareData); 
+        } catch (err) {
+            console.log('Share failed:', err);
+        }
     } else {
-        navigator.clipboard.writeText(window.location.href);
+        const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareData.text + " " + shareData.url)}`;
+        window.open(whatsappUrl, '_blank');
+        
         const toast = document.getElementById('toast-box');
-        toast.innerText = "Link copied! Share the rewards.";
+        toast.innerText = "Opening WhatsApp... or Link copied!";
+        navigator.clipboard.writeText(shareData.url);
         toast.style.display = "block";
         setTimeout(() => toast.style.display = "none", 3000);
     }
