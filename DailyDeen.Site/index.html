@@ -43,6 +43,32 @@
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-body);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--brand-gold), #d97706);
+  border-radius: 10px;
+  border: 1px solid var(--bg-body);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-gold);
+  box-shadow: 0 0 10px var(--brand-gold-glow);
+}
+
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-gold) var(--bg-body);
+}
+
 :root {
     --bg-body: #09090b; 
     --bg-card: rgba(24, 24, 27, 0.6); 
@@ -1329,7 +1355,7 @@ body.light-theme .heat-box.active {
 body.sleep-mode {
     filter: sepia(100%) hue-rotate(-50deg) contrast(1.1) brightness(0.8);
     background: #000;
-    transition: filter 1s ease; background: 1s ease;
+    transition: filter 1s ease, background 1s ease;
 }
 body.sleep-mode nav, 
 body.sleep-mode .nav-menu {
@@ -1803,6 +1829,423 @@ body.light-theme .secret-tooltip {
     margin-top: 20px;
     padding-top: 20px;
 }
+
+.theme-switch {
+  --toggle-size: 12px; /* Adjusted size for mobile header */
+  --container-width: 5.625em;
+  --container-height: 2.5em;
+  --container-radius: 6.25em;
+  --container-light-bg: #3D7EAE;
+  --container-night-bg: #1D1F2C;
+  --circle-container-diameter: 3.375em;
+  --sun-moon-diameter: 2.125em;
+  --sun-bg: #ECCA2F;
+  --moon-bg: #C4C9D1;
+  --spot-color: #959DB1;
+  --circle-container-offset: calc((var(--circle-container-diameter) - var(--container-height)) / 2 * -1);
+  --stars-color: #fff;
+  --clouds-color: #F3FDFF;
+  --back-clouds-color: #AACADF;
+  --transition: .5s cubic-bezier(0, -0.02, 0.4, 1.25);
+  --circle-transition: .3s cubic-bezier(0, -0.02, 0.35, 1.17);
+}
+
+.theme-switch, .theme-switch *, .theme-switch *::before, .theme-switch *::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: var(--toggle-size);
+}
+
+.theme-switch__container {
+  width: var(--container-width);
+  height: var(--container-height);
+  background-color: var(--container-light-bg);
+  border-radius: var(--container-radius);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0em -0.062em 0.062em rgba(0, 0, 0, 0.25), 0em 0.062em 0.125em rgba(255, 255, 255, 0.94);
+  transition: var(--transition);
+  position: relative;
+}
+
+.theme-switch__container::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  box-shadow: 0em 0.05em 0.187em rgba(0, 0, 0, 0.25) inset, 0em 0.05em 0.187em rgba(0, 0, 0, 0.25) inset;
+  border-radius: var(--container-radius)
+}
+
+.theme-switch__checkbox {
+  display: none;
+}
+
+.theme-switch__circle-container {
+  width: var(--circle-container-diameter);
+  height: var(--circle-container-diameter);
+  background-color: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  left: var(--circle-container-offset);
+  top: var(--circle-container-offset);
+  border-radius: var(--container-radius);
+  box-shadow: inset 0 0 0 3.375em rgba(255, 255, 255, 0.1), inset 0 0 0 3.375em rgba(255, 255, 255, 0.1), 0 0 0 0.625em rgba(255, 255, 255, 0.1), 0 0 0 1.25em rgba(255, 255, 255, 0.1);
+  display: flex;
+  transition: var(--circle-transition);
+  pointer-events: none;
+}
+
+.theme-switch__sun-moon-container {
+  pointer-events: auto;
+  position: relative;
+  z-index: 2;
+  width: var(--sun-moon-diameter);
+  height: var(--sun-moon-diameter);
+  margin: auto;
+  border-radius: var(--container-radius);
+  background-color: var(--sun-bg);
+  box-shadow: 0.062em 0.062em 0.062em 0em rgba(254, 255, 239, 0.61) inset, 0em -0.062em 0.062em 0em #a1872a inset;
+  filter: drop-shadow(0.062em 0.125em 0.125em rgba(0, 0, 0, 0.25)) drop-shadow(0em 0.062em 0.125em rgba(0, 0, 0, 0.25));
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.theme-switch__moon {
+  transform: translateX(100%);
+  width: 100%;
+  height: 100%;
+  background-color: var(--moon-bg);
+  border-radius: inherit;
+  box-shadow: 0.062em 0.062em 0.062em 0em rgba(254, 255, 239, 0.61) inset, 0em -0.062em 0.062em 0em #969696 inset;
+  transition: var(--transition);
+  position: relative;
+}
+
+.theme-switch__spot {
+  position: absolute;
+  top: 0.75em;
+  left: 0.312em;
+  width: 0.75em;
+  height: 0.75em;
+  border-radius: var(--container-radius);
+  background-color: var(--spot-color);
+  box-shadow: 0em 0.0312em 0.062em rgba(0, 0, 0, 0.25) inset;
+}
+
+.theme-switch__spot:nth-of-type(2) {
+  width: 0.375em;
+  height: 0.375em;
+  top: 0.937em;
+  left: 1.375em;
+}
+
+.theme-switch__spot:nth-last-of-type(3) {
+  width: 0.25em;
+  height: 0.25em;
+  top: 0.312em;
+  left: 0.812em;
+}
+
+.theme-switch__clouds {
+  width: 1.25em;
+  height: 1.25em;
+  background-color: var(--clouds-color);
+  border-radius: var(--container-radius);
+  position: absolute;
+  bottom: -0.625em;
+  left: 0.312em;
+  box-shadow: 0.937em 0.312em var(--clouds-color), -0.312em -0.312em var(--back-clouds-color), 1.437em 0.375em var(--clouds-color), 0.5em -0.125em var(--back-clouds-color), 2.187em 0 var(--clouds-color), 1.25em -0.062em var(--back-clouds-color), 2.937em 0.312em var(--clouds-color), 2em -0.312em var(--back-clouds-color), 3.625em -0.062em var(--clouds-color), 2.625em 0em var(--back-clouds-color), 4.5em -0.312em var(--clouds-color), 3.375em -0.437em var(--back-clouds-color), 4.625em -1.75em 0 0.437em var(--clouds-color), 4em -0.625em var(--back-clouds-color), 4.125em -2.125em 0 0.437em var(--back-clouds-color);
+  transition: 0.5s cubic-bezier(0, -0.02, 0.4, 1.25);
+}
+
+.theme-switch__stars-container {
+  position: absolute;
+  color: var(--stars-color);
+  top: -100%;
+  left: 0.312em;
+  width: 2.75em;
+  height: auto;
+  transition: var(--transition);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container {
+  background-color: var(--container-night-bg);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container {
+  left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter));
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container:hover {
+  left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter) - 0.187em)
+}
+
+.theme-switch__circle-container:hover {
+  left: calc(var(--circle-container-offset) + 0.187em);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__moon {
+  transform: translate(0);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__clouds {
+  bottom: -4.062em;
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__stars-container {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#sunnah-list {
+  display: grid;
+  grid-template-columns: 30px auto;
+  align-items: center;
+  justify-content: start;
+  gap: 15px 0;
+  background: transparent;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  border-radius: 0;
+  box-shadow: none;
+  --text: var(--text-primary);
+  --check: var(--brand-gold);
+  --disabled: var(--text-secondary);
+}
+
+#sunnah-list label {
+  color: var(--text);
+  position: relative;
+  cursor: pointer;
+  display: grid;
+  align-items: center;
+  width: fit-content;
+  transition: color 0.3s ease;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+#sunnah-list label::before {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 8px;
+  left: -27px;
+  background: var(--check);
+  border-radius: 2px;
+  transition: background 0.3s ease;
+}
+
+#sunnah-list label:after {
+  content: "";
+  position: absolute;
+  height: 4px;
+  width: 4px;
+  top: 8px;
+  left: -25px;
+  border-radius: 50%;
+}
+
+#sunnah-list input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+  height: 15px;
+  width: 15px;
+  outline: none;
+  border: 0;
+  margin: 0;
+  cursor: pointer;
+  background: transparent;
+  display: grid;
+  align-items: center;
+}
+
+#sunnah-list input[type="checkbox"]::before, 
+#sunnah-list input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  top: auto;
+  background: var(--check);
+  border-radius: 2px;
+}
+
+#sunnah-list input[type="checkbox"]::before {
+  width: 0px;
+  right: 60%;
+  transform-origin: right bottom;
+}
+
+#sunnah-list input[type="checkbox"]::after {
+  width: 0px;
+  left: 40%;
+  transform-origin: left bottom;
+}
+
+#sunnah-list input[type="checkbox"]:checked::before {
+  animation: check-01 0.4s ease forwards;
+}
+
+#sunnah-list input[type="checkbox"]:checked::after {
+  animation: check-02 0.4s ease forwards;
+}
+
+#sunnah-list input[type="checkbox"]:checked + label {
+  color: var(--disabled);
+  animation: move 0.3s ease 0.1s forwards;
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+#sunnah-list input[type="checkbox"]:checked + label::before {
+  background: var(--disabled);
+  animation: slice 0.4s ease forwards;
+}
+
+#sunnah-list input[type="checkbox"]:checked + label::after {
+  animation: firework 0.5s ease forwards 0.1s;
+}
+
+@keyframes move {
+  50% { padding-left: 8px; padding-right: 0px; }
+  100% { padding-right: 4px; }
+}
+
+@keyframes slice {
+  60% { width: 100%; left: 4px; }
+  100% { width: 100%; left: -2px; padding-left: 0; }
+}
+
+@keyframes check-01 {
+  0% { width: 4px; top: auto; transform: rotate(0); }
+  50% { width: 0px; top: auto; transform: rotate(0); }
+  51% { width: 0px; top: 8px; transform: rotate(45deg); }
+  100% { width: 5px; top: 8px; transform: rotate(45deg); }
+}
+
+@keyframes check-02 {
+  0% { width: 4px; top: auto; transform: rotate(0); }
+  50% { width: 0px; top: auto; transform: rotate(0); }
+  51% { width: 0px; top: 8px; transform: rotate(-45deg); }
+  100% { width: 10px; top: 8px; transform: rotate(-45deg); }
+}
+
+@keyframes firework {
+  0% { opacity: 1; box-shadow: 0 0 0 -2px #fbbf24, 0 0 0 -2px #fbbf24, 0 0 0 -2px #fbbf24, 0 0 0 -2px #fbbf24, 0 0 0 -2px #fbbf24, 0 0 0 -2px #fbbf24; }
+  30% { opacity: 1; }
+  100% { opacity: 0; box-shadow: 0 -15px 0 0px #fbbf24, 14px -8px 0 0px #fbbf24, 14px 8px 0 0px #fbbf24, 0 15px 0 0px #fbbf24, -14px 8px 0 0px #fbbf24, -14px -8px 0 0px #fbbf24; }
+}
+
+.input-group {
+ position: relative;
+ margin-bottom: 20px; 
+ width: 100%;
+}
+
+.input {
+ border: 1px solid var(--border);
+ border-radius: 1rem;
+ background: transparent;
+ padding: 1rem;
+ font-size: 1rem;
+ color: var(--text-primary);
+ width: 100%;
+ box-sizing: border-box;
+ transition: border 150ms cubic-bezier(0.4,0,0.2,1);
+ font-family: inherit; 
+}
+
+.user-label {
+ position: absolute;
+ left: 15px;
+ top: 50%;
+ transform: translateY(-50%);
+ color: var(--text-secondary);
+ pointer-events: none;
+ transition: 150ms cubic-bezier(0.4,0,0.2,1);
+ font-size: 0.9rem;
+ z-index: 1;
+}
+
+.input:focus, .input:valid {
+ outline: none;
+ border: 1.5px solid var(--brand-gold);
+}
+
+.input:focus ~ .user-label, 
+.input:valid ~ .user-label {
+ top: 0;
+ transform: translateY(-50%) scale(0.8);
+ background-color: #1e1b4b; 
+ padding: 0 0.4em;
+ color: var(--brand-gold);
+ border-radius: 5px;
+}
+
+body.light-theme .input:focus ~ .user-label, 
+body.light-theme .input:valid ~ .user-label {
+ background-color: #fff; 
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  margin: 20px auto;
+}
+
+.spinner::before, .spinner::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--brand-gold);
+  opacity: 0.6;
+  transform: translate(-50%, -50%);
+  animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+
+.spinner::after {
+  animation-delay: -0.5s;
+}
+
+@keyframes pulse-ring {
+  0% { transform: translate(-50%, -50%) scale(0.33); opacity: 1; }
+  80%, 100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
+}
+
+.prayer-row.next-prayer {
+  position: relative;
+  overflow: hidden;
+  border-left: 3px solid var(--brand-gold);
+  background: rgba(251, 191, 36, 0.05);
+  animation: noor-glow 3s infinite alternate;
+}
+
+@keyframes noor-glow {
+  0% { box-shadow: inset 10px 0 15px -10px rgba(251, 191, 36, 0.2); }
+  100% { box-shadow: inset 15px 0 25px -10px rgba(251, 191, 36, 0.5); }
+}
+
+button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.96); 
+  filter: brightness(1.2); 
+}
+
+
 </style>
 </head>
 <body>
@@ -1858,8 +2301,31 @@ body.light-theme .secret-tooltip {
         <i class="fas fa-cog"></i> <span class="nav-label">Settings</span>
     </button>
 </div>
-        <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
-    </nav>
+      
+      <label class="theme-switch">
+  <input type="checkbox" class="theme-switch__checkbox" id="theme-toggle">
+  <div class="theme-switch__container">
+    <div class="theme-switch__clouds"></div>
+    <div class="theme-switch__stars-container">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 55" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M135.831 3.00688C135.055 3.85027 134.111 4.29946 133 4.35447C134.111 4.40947 135.055 4.85867 135.831 5.71123C136.607 6.55462 136.996 7.56303 136.996 8.72727C136.996 7.95722 137.172 7.25134 137.525 6.59129C137.886 5.93124 138.372 5.39954 138.98 5.00535C139.598 4.60199 140.268 4.39114 141 4.35447C139.88 4.2903 138.936 3.85027 138.16 3.00688C137.384 2.16348 136.996 1.16425 136.996 0C136.996 1.16425 136.607 2.16348 135.831 3.00688ZM31 23.3545C32.1114 23.2995 33.0551 22.8503 33.8313 22.0069C34.6075 21.1635 34.9956 20.1642 34.9956 19C34.9956 20.1642 35.3837 21.1635 36.1599 22.0069C36.9361 22.8503 37.8798 23.2903 39 23.3545C38.2679 23.3911 37.5976 23.602 36.9802 24.0053C36.3716 24.3995 35.8864 24.9312 35.5248 25.5913C35.172 26.2513 34.9956 26.9572 34.9956 27.7273C34.9956 26.563 34.6075 25.5546 33.8313 24.7112C33.0551 23.8587 32.1114 23.4095 31 23.3545ZM0 36.3545C1.11136 36.2995 2.05513 35.8503 2.83131 35.0069C3.6075 34.1635 3.99559 33.1642 3.99559 32C3.99559 33.1642 4.38368 34.1635 5.15987 35.0069C5.93605 35.8503 6.87982 36.2903 8 36.3545C7.26792 36.3911 6.59757 36.602 5.98015 37.0053C5.37155 37.3995 4.88644 37.9312 4.52481 38.5913C4.172 39.2513 3.99559 39.9572 3.99559 40.7273C3.99559 39.563 3.6075 38.5546 2.83131 37.7112C2.05513 36.8587 1.11136 36.4095 0 36.3545ZM56.8313 24.0069C56.0551 24.8503 55.1114 25.2995 54 25.3545C55.1114 25.4095 56.0551 25.8587 56.8313 26.7112C57.6075 27.5546 57.9956 28.563 57.9956 29.7273C57.9956 28.9572 58.172 28.2513 58.5248 27.5913C58.8864 26.9312 59.3716 26.3995 59.9802 26.0053C60.5976 25.602 61.2679 25.3911 62 25.3545C60.8798 25.2903 59.9361 24.8503 59.1599 24.0069C58.3837 23.1635 57.9956 22.1642 57.9956 21C57.9956 22.1642 57.6075 23.1635 56.8313 24.0069ZM81 25.3545C82.1114 25.2995 83.0551 24.8503 83.8313 24.0069C84.6075 23.1635 84.9956 22.1642 84.9956 21C84.9956 22.1642 85.3837 23.1635 86.1599 24.0069C86.9361 24.8503 87.8798 25.2903 89 25.3545C88.2679 25.3911 87.5976 25.602 86.9802 26.0053C86.3716 26.3995 85.8864 26.9312 85.5248 27.5913C85.172 28.2513 84.9956 28.9572 84.9956 29.7273C84.9956 28.563 84.6075 27.5546 83.8313 26.7112C83.0551 25.8587 82.1114 25.4095 81 25.3545ZM136 36.3545C137.111 36.2995 138.055 35.8503 138.831 35.0069C139.607 34.1635 139.996 33.1642 139.996 32C139.996 33.1642 140.384 34.1635 141.16 35.0069C141.936 35.8503 142.88 36.2903 144 36.3545C143.268 36.3911 142.598 36.602 141.98 37.0053C141.372 37.3995 140.886 37.9312 140.525 38.5913C140.172 39.2513 139.996 39.9572 139.996 40.7273C139.996 39.563 139.607 38.5546 138.831 37.7112C138.055 36.8587 137.111 36.4095 136 36.3545ZM101.831 49.0069C101.055 49.8503 100.111 50.2995 99 50.3545C100.111 50.4095 101.055 50.8587 101.831 51.7112C102.607 52.5546 102.996 53.563 102.996 54.7273C102.996 53.9572 103.172 53.2513 103.525 52.5913C103.886 51.9312 104.372 51.3995 104.98 51.0053C105.598 50.602 106.268 50.3911 107 50.3545C105.88 50.2903 104.936 49.8503 104.16 49.0069C103.384 48.1635 102.996 47.1642 102.996 46C102.996 47.1642 102.607 48.1635 101.831 49.0069Z" fill="currentColor"></path>
+      </svg>
+    </div>
+    <div class="theme-switch__circle-container">
+      <div class="theme-switch__sun-moon-container">
+        <div class="theme-switch__moon">
+          <div class="theme-switch__spot"></div>
+          <div class="theme-switch__spot"></div>
+          <div class="theme-switch__spot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</label> 
+
+</nav> 
+<div class="container">
+
         <section id="home" class="view-section active">
            <div class="hero">
     <div class="hero-content">
@@ -1889,7 +2355,7 @@ body.light-theme .secret-tooltip {
 </div> 
         </div>
     </div>
-</div>
+
    <div class="scroll-indicator" onclick="scrollToGrid()">
         <span class="scroll-text">Scroll to Begin</span>
         <div class="mouse-icon">
@@ -2071,10 +2537,15 @@ body.light-theme .secret-tooltip {
         <i class="fas fa-lightbulb" style="color: var(--brand-gold);"></i> Help Us Improve
     </div>
     <div style="text-align: center;">
-        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 15px;">
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 25px;">
             This site is built for the Ummah. What feature or Dua should we add next?
         </p>
-        <textarea id="feedback-input" class="styled-input" rows="3" placeholder="I wish this app had..." style="width: 100%; resize: none; margin-bottom: 15px;"></textarea>
+
+        <div class="input-group">
+            <textarea required="" id="feedback-input" class="input" rows="3" style="resize: none; height: auto; min-height: 100px;"></textarea>
+            <label class="user-label">I wish this app had...</label>
+        </div>
+
         <button class="btn-action" onclick="openThankYouModal()" style="background: var(--bg-nav); border: 1px solid var(--brand-gold); color: var(--brand-gold);">
             <i class="fas fa-paper-plane"></i> Send Suggestion
         </button>
@@ -2141,28 +2612,30 @@ body.light-theme .secret-tooltip {
         <h1 class="greeting">Noble Quran</h1>
         <p style="color:var(--text-secondary)">Search, Read, and Reflect</p>
     </div>
+
     <div class="card" style="margin-bottom: 25px; padding: 20px;">
-    <div class="card-header" style="margin-bottom: 15px;"><i class="fas fa-bullseye"></i> Khatam Planner</div>
-    <div style="display: flex; gap: 10px; align-items: center;">
-        <input type="number" id="khatam-days" class="styled-input" placeholder="Days (e.g. 30)" style="width: 120px;">
-        <button onclick="calcKhatam()" class="btn-action" style="width: auto; padding: 10px 20px;">Plan</button>
+        <div class="card-header" style="margin-bottom: 15px;"><i class="fas fa-bullseye"></i> Khatam Planner</div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <div class="input-group" style="margin-bottom: 0; width: 150px;">
+                <input required="" type="number" id="khatam-days" class="input" placeholder=" ">
+                <label class="user-label">Target Days</label>
+            </div>
+            <button onclick="calcKhatam()" class="btn-action" style="width: auto; padding: 10px 20px;">Plan</button>
+        </div>
+        <div id="khatam-result" style="margin-top: 10px; font-size: 0.9rem; color: var(--brand-gold); display: none;">
+            Read <b><span id="khatam-pages">20</span> pages</b> per day to finish.
+        </div>
     </div>
-    <div id="khatam-result" style="margin-top: 10px; font-size: 0.9rem; color: var(--brand-gold); display: none;">
-        Read <b><span id="khatam-pages">20</span> pages</b> per day to finish.
-    </div>
+
+<div class="input-group" style="max-width: 500px; margin: 0 auto 25px auto;">
+    <input required="" type="text" id="quran-search" autocomplete="off" class="input" onkeyup="handleSearch(event)" onkeydown="checkForEnter(event)">
+    <label class="user-label"><i class="fas fa-search"></i> Search Surah (e.g. 'Mulk' or '36:3')</label>
 </div>
-    <div style="max-width: 500px; margin: 0 auto 25px auto; position: relative;">
-        <input type="text" id="quran-search" 
-               onkeyup="handleSearch(event)" 
-               onkeydown="checkForEnter(event)" 
-               placeholder="Search Surah (e.g. 'Mulk' or '36:3')..." 
-               class="styled-input" 
-               style="width: 100%; padding-left: 45px; border-radius: 50px; background: rgba(0,0,0,0.2);">
-        <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--brand-gold);"></i>
-    </div>
+
     <div id="surah-list-view" class="surah-list">
         <div class="spinner"></div>
     </div>
+
     <div id="surah-read-view" style="display:none;">
         <button onclick="closeSurah()" style="background:none; border:none; color:var(--brand-gold); cursor:pointer; margin-bottom:20px; font-size:1rem; display:flex; align-items:center; gap:8px;">
             <i class="fas fa-arrow-left"></i> Back to List
@@ -2173,6 +2646,7 @@ body.light-theme .secret-tooltip {
         </div>
     </div>
 </section>
+
         <section id="adhkar" class="view-section">
     <div class="hero">
         <h1 class="greeting">Dhikr & Remembrance</h1>
@@ -2232,17 +2706,23 @@ body.light-theme .secret-tooltip {
 </div>
         <div class="card" style="padding: 25px; border: 1px solid var(--border); background: rgba(255,255,255,0.02);">
     <h4 style="color: var(--brand-gold); font-weight: 500; margin-bottom: 5px; font-size: 0.9rem;">Reflection Journal</h4>
-    <p id="reflection-prompt" style="color: var(--text-secondary); font-size: 0.85rem; font-style: italic; margin-bottom: 15px; min-height:40px;">
+    <p id="reflection-prompt" style="color: var(--text-secondary); font-size: 0.85rem; font-style: italic; margin-bottom: 25px; min-height:40px;">
         Loading prompt...
     </p>
-    <textarea id="reflection-input" placeholder="Start writing here..." 
-        style="width: 100%; height: 100px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: #fff; padding: 12px; border-radius: 8px; font-size: 0.85rem; resize: none;"></textarea>
+    
+    <div class="input-group">
+        <textarea required="" id="reflection-input" class="input" style="height: 150px; resize: none;"></textarea>
+        <label class="user-label">Start writing here...</label>
+    </div>
+
     <button onclick="saveReflection()" class="btn-action" style="width: 100%; margin-top: 10px; font-size: 0.7rem; border: 1px solid var(--brand-gold); background: transparent; color: var(--brand-gold);">
         SAVE REFLECTION
     </button>
+    
     <button onclick="exportJournalToPDF()" class="btn-action" style="background:transparent; border:1px solid var(--text-secondary); color:var(--text-secondary); font-size:0.7rem; margin-top:10px;">
-    <i class="fas fa-file-pdf"></i> EXPORT ALL YOUR REFLECTIONS TO PDF 
-</button>
+        <i class="fas fa-file-pdf"></i> EXPORT ALL YOUR REFLECTIONS TO PDF 
+    </button>
+    
     <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border);">
         <h5 style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 1px;">PREVIOUS ENTRIES</h5>
         <div id="reflection-history" style="display: flex; flex-direction: column; gap: 15px;"></div>
@@ -2479,14 +2959,18 @@ body.light-theme .secret-tooltip {
     </div>
 </div>
         <div id="contribute" class="info-tab-content">
-            <h3 style="color:var(--brand-gold); margin-bottom:10px;">Community Contribution</h3>
-            <p style="margin-bottom:20px; color:var(--text-secondary);">Do you have a beautiful Dua, a Hadith, or a Good Deed idea? Submit it below to help build this app for everyone.</p>
-            <textarea id="contribution-input" class="styled-input" rows="5" 
-                placeholder="Share your wisdom here..." style="width:100%; resize:none; margin-bottom:15px;"></textarea>
-            <button id="submit-contrib-btn" class="btn-action" onclick="submitToFormspree()">
-                <i class="fas fa-paper-plane"></i> Submit to Developer
-            </button>
-        </div>
+    <h3 style="color:var(--brand-gold); margin-bottom:10px;">Community Contribution</h3>
+    <p style="margin-bottom:25px; color:var(--text-secondary);">Do you have a beautiful Dua, a Hadith, or a Good Deed idea? Submit it below.</p>
+    
+    <div class="input-group">
+        <textarea required="" id="contribution-input" class="input" rows="5" style="resize:none; height:auto; min-height: 120px;"></textarea>
+        <label class="user-label">Share your wisdom here...</label>
+    </div>
+
+    <button id="submit-contrib-btn" class="btn-action" onclick="submitToFormspree()">
+        <i class="fas fa-paper-plane"></i> Submit to Developer
+    </button>
+</div>
         <div id="contact" class="info-tab-content">
             <h3 style="color:var(--brand-gold); margin-bottom:10px;">Get in Touch</h3>
             <p>For support, bugs, or business inquiries, reach out to us at:</p>
@@ -2508,10 +2992,16 @@ body.light-theme .secret-tooltip {
                 <button onclick="getGPSLocation()" class="btn-action" style="margin-bottom:15px; background:var(--brand-gold); color:#000;">
     <i class="fas fa-location-arrow"></i> Auto-Detect Location (GPS)
 </button>
-                <div class="input-group">
-                    <input type="text" id="set-city" class="styled-input" placeholder="City (e.g. Toronto)">
-                    <input type="text" id="set-country" class="styled-input" placeholder="Country" style="max-width:100px;">
-                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+    <div class="input-group">
+        <input required="" type="text" id="set-city" class="input" autocomplete="off">
+        <label class="user-label">City</label>
+    </div>
+    <div class="input-group">
+        <input required="" type="text" id="set-country" class="input" autocomplete="off">
+        <label class="user-label">Country</label>
+    </div>
+</div>
                  <button class="btn-action" onclick="saveSettings()">Save Changes</button>
                 <p id="save-msg" style="text-align:center; color:var(--brand-green); margin-top:15px; display:none;">Saved Successfully!</p>
 <div class="card">
@@ -2688,14 +3178,36 @@ if ('serviceWorker' in navigator) {
         .then(() => console.log('Service Worker Registered'))
         .catch((err) => console.log('SW Error:', err));
 }
-     window.addEventListener('load', () => {
+    window.addEventListener('load', () => {
     console.log("App Starting...");
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'light') {
+        document.body.classList.add('light-theme');
+        themeToggle.checked = false; 
+    } else {
+        document.body.classList.remove('light-theme');
+        themeToggle.checked = true;
+    }
+
+    themeToggle.addEventListener('change', function() {
+        if (this.checked) {
+            document.body.classList.remove('light-theme');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.body.classList.add('light-theme');
+            localStorage.setItem('theme', 'light');
+        }
+    });
     updateAtmosphere();
     updateGregorianDate();
     loadDailyVerse();
     loadDailyHadith();
     initChecklist();
     generateDailyContent();
+
     const savedCity = localStorage.getItem('city');
     if(savedCity && savedCity !== "GPS Location") {
         document.getElementById('set-city').value = savedCity;
@@ -2706,13 +3218,26 @@ if ('serviceWorker' in navigator) {
         loadPrayers("Makkah", "Saudi Arabia");
         document.getElementById('set-city').value = "Makkah";
     }
+
     setTimeout(() => {
         const screen = document.getElementById('bismillah-screen');
         if(screen) {
             screen.style.opacity = '0';
             setTimeout(() => screen.style.display = 'none', 1500);
         }
-    }, 1500); 
+    }, 1500);
+
+    if (typeof checkRamadanPrompt === 'function') {
+        checkRamadanPrompt();
+    }
+
+    if (!localStorage.getItem('tutorial_done')) {
+        setTimeout(() => {
+            if (typeof startTutorial === 'function') {
+                startTutorial();
+            }
+        }, 3500);
+    }
 });
         function toggleTheme() {
             document.body.classList.toggle('light-theme');
@@ -3198,20 +3723,48 @@ function handleSearch(e) {
         }
     });
 }
+
 async function checkForEnter(e) {
     if (e.key === 'Enter') {
         e.preventDefault();
-        const val = e.target.value.trim();
-        const versePattern = /^(\d+)[:.](\d+)$/;
-        const match = val.match(versePattern);
+        e.target.blur();
+
+        let val = e.target.value.toLowerCase().trim();
+        val = val.replace('surah', '').trim();
+
+        const numberPattern = /^(\d+)[\s]*[:.\s][\s]*(\d+)$/;
+        const nameAndVersePattern = /^([a-z\s'-]+)[\s]*[:.\s][\s]*(\d+)$/;
+
+        let match = val.match(numberPattern);
+
         if (match) {
-            e.target.blur();
-            const surahNum = match[1];
-            const ayahNum = match[2];
-            await readSurah(surahNum, null, ayahNum); 
+            await readSurah(match[1], null, match[2]);
+        } else {
+            match = val.match(nameAndVersePattern);
+            let surahNameQuery = val;
+            let ayahNum = null;
+
+            if (match) {
+                surahNameQuery = match[1].trim();
+                ayahNum = match[2];
+            }
+
+            const surahList = JSON.parse(localStorage.getItem('quran_surah_list') || "[]");
+            const foundSurah = surahList.find(s =>
+                s.englishName.toLowerCase().includes(surahNameQuery) ||
+                s.englishNameTranslation.toLowerCase().includes(surahNameQuery) ||
+                s.name.includes(surahNameQuery)
+            );
+
+            if (foundSurah) {
+                await readSurah(foundSurah.number, foundSurah.englishName, ayahNum);
+            } else {
+                alert("Surah not found. Please check spelling.");
+            }
         }
     }
 }
+
 async function readSurah(num, name, highlightAyah = null) {
     document.getElementById('surah-list-view').style.display = 'none';
     document.getElementById('surah-read-view').style.display = 'block';
@@ -3243,9 +3796,11 @@ function renderFullSurah(data, highlightAyah = null) {
     const en = data.data[1].ayahs;
     const tr = data.data[2].ayahs;
     const container = document.getElementById('ayah-container');
+    
     let html = '';
     ar.forEach((ayah, i) => {
-        const isTarget = (ayah.numberInSurah == highlightAyah);
+        const isTarget = (highlightAyah && ayah.numberInSurah == highlightAyah);
+        
         html += `
         <div id="ayah-${ayah.numberInSurah}" class="ayah-box ${isTarget ? 'highlight-ayah' : ''}" style="margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
             <p class="ayah-arabic" style="margin-bottom: 10px;">${ayah.text}</p>
@@ -3260,18 +3815,21 @@ function renderFullSurah(data, highlightAyah = null) {
             </p>
         </div>`;
     });
+    
     container.innerHTML = html;
+
     if (highlightAyah) {
         setTimeout(() => {
             const target = document.getElementById(`ayah-${highlightAyah}`);
-            if(target) {
+            if (target) {
                 target.scrollIntoView({ behavior: "smooth", block: "center" });
             }
-        }, 300);
+        }, 500);
     } else {
         window.scrollTo(0, 0);
     }
 }
+
 function closeSurah() {
     document.getElementById('surah-read-view').style.display = 'none';
     document.getElementById('surah-list-view').style.display = 'grid';
@@ -3557,20 +4115,32 @@ else {
     document.getElementById('set-city').value = "Makkah";
 }
     function updateRamadanCountdown() {
-        const ramadanStart = new Date(2026, 1, 17); 
-        const now = new Date();
-        const diff = ramadanStart - now;
-        const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
-        const textEl = document.getElementById('ramadan-countdown-text');
-        if (daysLeft > 0) {
-            textEl.innerText = `${daysLeft} Days until Ramadan`;
-        } else if (daysLeft > -30) {
-            textEl.innerText = "Ramadan Mubarak!";
-            textEl.style.color = "var(--brand-gold)";
-        } else {
-            textEl.innerText = ""; 
-        }
+    const ramadanStart = new Date(2026, 1, 19); 
+    const now = new Date();
+    
+    ramadanStart.setHours(0,0,0,0);
+    now.setHours(0,0,0,0);
+
+    const diffTime = now - ramadanStart;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    const textEl = document.getElementById('ramadan-countdown-text');
+    
+    if (diffDays < 0) {
+        textEl.innerText = `${Math.abs(diffDays)} Days until Ramadan`;
+        textEl.style.color = "var(--text-secondary)";
+    } 
+    else if (diffDays >= 0 && diffDays < 30) {
+        const currentRamadanDay = diffDays + 1;
+        textEl.innerHTML = `<i class="fas fa-moon"></i> Ramadan Day ${currentRamadanDay}`;
+        textEl.style.color = "var(--brand-gold)";
+     
+    } 
+    else {
+        textEl.innerText = "Eid Mubarak!";
+        textEl.style.color = "var(--brand-green)";
     }
+}
     updateRamadanCountdown();
 function updateSerenityClock() {
     const now = new Date();
@@ -3740,28 +4310,41 @@ const sunnahs = [
     { id: 's4', text: "Gave Charity (or smiled)" },
     { id: 's5', text: "Did Istighfar (100x)" }
 ];
+
 function initChecklist() {
     const list = document.getElementById('sunnah-list');
     const today = new Date().toDateString();
+    
     if (localStorage.getItem('checklist_date') !== today) {
         sunnahs.forEach(s => localStorage.removeItem(s.id));
         localStorage.setItem('checklist_date', today);
     }
+    
     list.innerHTML = '';
-    sunnahs.forEach(item => {
+    
+    sunnahs.forEach((item) => {
         const isChecked = localStorage.getItem(item.id) === 'true';
-        const div = document.createElement('div');
-        div.className = `check-item ${isChecked ? 'checked' : ''}`;
-        div.onclick = () => {
-            const checked = !div.classList.contains('checked');
-            div.classList.toggle('checked');
-            localStorage.setItem(item.id, checked);
-            if(navigator.vibrate) navigator.vibrate(10);
-        };
-        div.innerHTML = `<div class="custom-checkbox"></div><span>${item.text}</span>`;
-        list.appendChild(div);
+        
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = item.id;
+        checkbox.checked = isChecked;
+        
+        const label = document.createElement('label');
+        label.htmlFor = item.id;
+        label.innerText = item.text;
+        
+        checkbox.addEventListener('change', function() {
+            localStorage.setItem(item.id, this.checked);
+            checkHabitCompletion(); 
+            if(navigator.vibrate) navigator.vibrate(20);
+        });
+        
+        list.appendChild(checkbox);
+        list.appendChild(label);
     });
 }
+
 initChecklist();
 async function shareApp() {
     if (navigator.share) {
@@ -4442,18 +5025,28 @@ function updateHeatmap() {
     }
 }
 function checkHabitCompletion() {
-    const totalItems = document.querySelectorAll('.check-item').length;
-    const checkedItems = document.querySelectorAll('.check-item.checked').length;
+    
+    const checkboxes = document.querySelectorAll('#sunnah-list input[type="checkbox"]');
+    const totalItems = checkboxes.length;
+    
+   
+    const checkedItems = Array.from(checkboxes).filter(box => box.checked).length;
+
     const todayStr = new Date().toDateString();
     let history = JSON.parse(localStorage.getItem('habit_history') || "{}");
+
+    
     if (totalItems > 0 && totalItems === checkedItems) {
         history[todayStr] = true;
     } else {
+        
         delete history[todayStr];
     }
+
     localStorage.setItem('habit_history', JSON.stringify(history));
     updateHeatmap();
 }
+
 function shareVerseImage() {
     const arText = document.getElementById('verse-ar').innerText;
     const enText = document.getElementById('verse-en').innerText;
@@ -4961,22 +5554,50 @@ function sendAdhanAlert(prayer, message) {
         vibrate: [200, 100, 200]
     });
 }
-    </script>
-    <script>
-    window.onload = function() {
-        setTimeout(function() {
-            var screen = document.getElementById('bismillah-screen');
-            if (screen) {
-                screen.style.opacity = '0';
-                setTimeout(function() { 
-                    screen.style.display = 'none'; 
-                }, 1500);
-            }
-        }, 1500);
-    };
-if ("Notification" in window && Notification.permission === "granted") {
-    startNotificationTimer();
+
+function checkRamadanPrompt() {
+    const today = new Date();
+    const ramadanStart = new Date(2026, 1, 19); 
+    
+    if (today >= ramadanStart && localStorage.getItem('ramadan') !== 'true' && sessionStorage.getItem('ramadan_asked') !== 'true') {
+        
+        setTimeout(() => {
+            const modal = document.createElement('div');
+            modal.id = 'ramadan-prompt';
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.85); z-index: 9999;
+                display: flex; align-items: center; justify-content: center;
+                animation: fadeIn 0.5s ease;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: #2e1065; padding: 30px; border-radius: 20px; border: 2px solid #fbbf24; text-align: center; max-width: 90%; width: 350px; color: #fff; box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);">
+                    <i class="fas fa-moon" style="font-size: 3rem; color: #fbbf24; margin-bottom: 20px;"></i>
+                    <h2 style="font-family: 'Amiri', serif; color: #fbbf24; margin-bottom: 10px;">Ramadan Mubarak!</h2>
+                    <p style="margin-bottom: 25px; color: #e9d5ff;">Would you like to switch to Ramadan Mode to track your fasts and Taraweeh?</p>
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <button id="enable-ramadan" style="background: #fbbf24; color: #000; border: none; padding: 10px 20px; border-radius: 50px; font-weight: bold; cursor: pointer;">Yes, Enable</button>
+                        <button id="close-ramadan" style="background: transparent; border: 1px solid #fbbf24; color: #fbbf24; padding: 10px 20px; border-radius: 50px; cursor: pointer;">No, Later</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            document.getElementById('enable-ramadan').onclick = function() {
+                toggleRamadanMode(); 
+                document.body.removeChild(modal);
+            };
+            
+            document.getElementById('close-ramadan').onclick = function() {
+                sessionStorage.setItem('ramadan_asked', 'true'); 
+                document.body.removeChild(modal);
+            };
+        }, 5000); 
+    }
 }
-</script>
+    </script>
+
 </body>
 </html>
