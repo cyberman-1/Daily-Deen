@@ -291,6 +291,7 @@ body.time-night { background: linear-gradient(300deg, #0f172a, #312e81, #000000)
     font-size: 2.8rem;
     font-weight: 700;
     display: inline-block; 
+    direction: rtl;
     line-height: 1.6;
     padding: 0 10px;
     width: auto;
@@ -3121,58 +3122,150 @@ button:active {
     </div>
 </div>
     <script>
-const impactfulVerses = [
-    262,
-    293,
-    332,
-    1721,
-    2019,
-    5151,
-    6105,
-    6149,
-    6150,
-    4140,
-    195,
-    160,
-    161,
-    6,
-    4066,
-    4649,
-    194,
-    165,
-    1719,
-    2373,
-    3385,
-    4243,
-    910,
-    2052,
-    90,
-    2918,
-    4622,
-    677,
-    5243,
-    6189,
-    425,
-    594,
-    723,
-    1152,
-    1246,
-    1344,
-    1443,
-    1498,
-    1582,
-    1615,
-    1635,
-    1810,
-    1925,
-    2103,
-    2113,
-    2190,
-    2382,
-    2615,
-    2744,
-    6210
+const curatedVerses = [
+    { ref: "2:255", en: "The ultimate verse of protection, describing Allah's majesty and power." },
+    { ref: "112:1", en: "Say, 'He is Allah, [who is] One, Allah, the Eternal Refuge...'" },
+    { ref: "20:14", en: "Indeed, I am Allah. There is no deity except Me, so worship Me and establish prayer for My remembrance." },
+    { ref: "50:16", en: "...We are closer to him than [his] jugular vein." },
+    { ref: "59:22", en: "He is Allah, other than whom there is no deity, Knower of the unseen and the witnessed." },
+    { ref: "57:3", en: "He is the First and the Last, the Ascendant and the Intimate, and He is, of all things, Knowing." },
+    { ref: "7:54", en: "Indeed, your Lord is Allah, who created the heavens and earth in six days..." },
+    { ref: "23:116", en: "So exalted is Allah, the Sovereign, the Truth; there is no deity except Him..." },
+    { ref: "6:103", en: "Vision perceives Him not, but He perceives [all] vision; and He is the Subtle, the Acquainted." },
+    { ref: "42:11", en: "...There is nothing like unto Him, and He is the Hearing, the Seeing." },
+    { ref: "2:153", en: "O you who have believed, seek help through patience and prayer. Indeed, Allah is with the patient." },
+    { ref: "94:5", en: "For indeed, with hardship [will be] ease. Indeed, with hardship [will be] ease." },
+    { ref: "2:286", en: "Allah does not charge a soul except [with that within] its capacity." },
+    { ref: "12:86", en: "He said, 'I only complain of my suffering and my grief to Allah...'" },
+    { ref: "2:155", en: "And We will surely test you with fear and hunger... but give good tidings to the patient." },
+    { ref: "3:200", en: "O you who have believed, persevere and endure and remain stationed and fear Allah." },
+    { ref: "39:10", en: "...Indeed, the patient will be given their reward without account." },
+    { ref: "8:46", en: "...And be patient. Indeed, Allah is with the patient." },
+    { ref: "29:2", en: "Do the people think that they will be left to say, 'We believe' and they will not be tried?" },
+    { ref: "31:17", en: "...enjoin what is right, forbid what is wrong, and be patient over what befalls you." },
+    { ref: "39:53", en: "Say, 'O My servants who have transgressed against themselves, do not despair of the mercy of Allah...'" },
+    { ref: "55:13", en: "So which of the favors of your Lord would you deny?" },
+    { ref: "93:3", en: "Your Lord has not taken leave of you, nor has He detested [you]." },
+    { ref: "9:40", en: "...Do not grieve; indeed Allah is with us." },
+    { ref: "2:186", en: "And when My servants ask you concerning Me - indeed I am near." },
+    { ref: "7:156", en: "...My mercy encompasses all things." },
+    { ref: "15:49", en: "Inform My servants that it is I who am the Forgiving, the Merciful." },
+    { ref: "2:216", en: "...But perhaps you hate a thing and it is good for you; and perhaps you love a thing and it is bad for you." },
+    { ref: "10:62", en: "Unquestionably, [for] the allies of Allah there will be no fear concerning them, nor will they grieve." },
+    { ref: "3:139", en: "So do not weaken and do not grieve, and you will be superior if you are believers." },
+    { ref: "13:28", en: "Verily, in the remembrance of Allah do hearts find rest." },
+    { ref: "33:41", en: "O you who have believed, remember Allah with much remembrance." },
+    { ref: "2:152", en: "So remember Me; I will remember you. And be grateful to Me and do not deny Me." },
+    { ref: "20:124", en: "And whoever turns away from My remembrance - indeed, he will have a depressed life." },
+    { ref: "62:10", en: "...And remember Allah often that you may succeed." },
+    { ref: "7:205", en: "And remember your Lord within yourself in humility and in fear..." },
+    { ref: "8:2", en: "The believers are only those who, when Allah is mentioned, their hearts become fearful..." },
+    { ref: "4:103", en: "...Remember Allah standing, sitting, or lying on your sides." },
+    { ref: "63:9", en: "O you who have believed, let not your wealth and your children divert you from remembrance of Allah." },
+    { ref: "2:200", en: "...Remember Allah with much greater remembrance." },
+    { ref: "1:6", en: "Guide us to the straight path." },
+    { ref: "2:2", en: "This is the Book about which there is no doubt, a guidance for those conscious of Allah." },
+    { ref: "2:256", en: "There shall be no compulsion in [acceptance of] the religion." },
+    { ref: "20:114", en: "...And say, 'My Lord, increase me in knowledge.'" },
+    { ref: "3:8", en: "[Who say], 'Our Lord, let not our hearts deviate after You have guided us...'" },
+    { ref: "6:153", en: "And, [moreover], this is My path, which is straight, so follow it." },
+    { ref: "18:10", en: "...Our Lord, grant us from Yourself mercy and prepare for us from our affair right guidance." },
+    { ref: "2:269", en: "He gives wisdom to whom He wills, and whoever has been given wisdom has certainly been given much good." },
+    { ref: "16:125", en: "Invite to the way of your Lord with wisdom and good instruction." },
+    { ref: "17:9", en: "Indeed, this Qur'an guides to that which is most suitable..." },
+    { ref: "4:135", en: "O you who have believed, be persistently standing firm in justice, witnesses for Allah." },
+    { ref: "49:13", en: "Indeed, the most noble of you in the sight of Allah is the most righteous of you." },
+    { ref: "5:8", en: "...And do not let the hatred of a people prevent you from being just." },
+    { ref: "41:34", en: "...Repel [evil] by that [deed] which is better." },
+    { ref: "3:134", en: "Who spend during ease and hardship and who restrain anger... Allah loves the doers of good." },
+    { ref: "31:18", en: "And do not turn your cheek ward people and do not walk through the earth exultantly." },
+    { ref: "25:63", en: "The servants of the Most Merciful are those who walk upon the earth easily..." },
+    { ref: "2:263", en: "Kind speech and forgiveness are better than charity followed by injury." },
+    { ref: "33:70", en: "O you who have believed, fear Allah and speak words of appropriate justice." },
+    { ref: "16:90", en: "Indeed, Allah orders justice and good conduct and giving to relatives." },
+    { ref: "3:135", en: "...And who can forgive sins except Allah?" },
+    { ref: "66:8", en: "O you who have believed, repent to Allah with sincere repentance." },
+    { ref: "2:222", en: "Indeed, Allah loves those who are constantly repentant and loves those who purify themselves." },
+    { ref: "4:110", en: "And whoever wrongs himself but then seeks forgiveness will find Allah Forgiving and Merciful." },
+    { ref: "11:90", en: "And ask forgiveness of your Lord and then repent to Him." },
+    { ref: "71:10", en: "And said, 'Ask forgiveness of your Lord. Indeed, He is ever a Perpetual Forgiver.'" },
+    { ref: "8:33", en: "But Allah would not punish them while they seek forgiveness." },
+    { ref: "42:25", en: "And it is He who accepts repentance from his servants and pardons misdeeds." },
+    { ref: "7:23", en: "They said, 'Our Lord, we have wronged ourselves... we will surely be among the losers.'" },
+    { ref: "25:70", en: "Except for those who repent... For them Allah will replace their evil deeds with good." },
+    { ref: "30:21", en: "He created for you mates that you may find tranquility... He placed between you affection and mercy." },
+    { ref: "2:187", en: "...They are clothing for you and you are clothing for them." },
+    { ref: "4:1", en: "O mankind, fear your Lord, who created you from one soul and created from it its mate..." },
+    { ref: "17:23", en: "And your Lord has decreed that you not worship except Him, and to parents, good treatment." },
+    { ref: "46:15", en: "And We have enjoined upon man, to his parents, good treatment." },
+    { ref: "4:19", en: "...And live with them in kindness." },
+    { ref: "25:74", en: "Our Lord, grant us from among our wives and offspring comfort to our eyes." },
+    { ref: "66:6", en: "O you who have believed, protect yourselves and your families from a Fire..." },
+    { ref: "24:26", en: "Women of purity are for men of purity, and men of purity are for women of purity." },
+    { ref: "31:14", en: "And We have enjoined upon man [care] for his parents." },
+    { ref: "14:7", en: "And [remember] when your Lord proclaimed, 'If you are grateful, I will surely increase you...'" },
+    { ref: "65:2", en: "And whoever fears Allah - He will make for him a way out and provide from where he does not expect." },
+    { ref: "2:172", en: "O you who have believed, eat from the good things... and be grateful to Allah." },
+    { ref: "31:12", en: "...And whoever is grateful is grateful for himself." },
+    { ref: "16:114", en: "Then eat of what Allah has provided for you which is lawful and good." },
+    { ref: "11:6", en: "And there is no creature on earth but that upon Allah is its provision..." },
+    { ref: "51:58", en: "Indeed, it is Allah who is the Provider, the firm possessor of strength." },
+    { ref: "67:15", en: "It is He who made the earth tame for you... so eat of His provision." },
+    { ref: "27:40", en: "...This is from the favor of my Lord to test me whether I will be grateful or ungrateful." },
+    { ref: "16:18", en: "And if you should count the favors of Allah, you could not enumerate them." },
+    { ref: "3:185", en: "Every soul will taste death, and you will only be given your full compensation on the Day of Resurrection." },
+    { ref: "29:64", en: "And this worldly life is not but diversion... indeed, the home of the Hereafter is the true life." },
+    { ref: "67:2", en: "He who created death and life to test you as to which of you is best in deed." },
+    { ref: "2:156", en: "Who, when disaster strikes them, say, 'Indeed we belong to Allah, and indeed to Him we will return.'" },
+    { ref: "50:19", en: "And the intoxication of death will bring the truth; that is what you were trying to avoid." },
+    { ref: "57:20", en: "Know that the life of this world is but amusement and diversion." },
+    { ref: "39:42", en: "Allah takes the souls at the time of their death." },
+    { ref: "36:51", en: "And the Horn will be blown; and at once from the graves to their Lord they will hasten." },
+    { ref: "101:6", en: "Then as for one whose scales are heavy, he will be in a pleasant life." },
+    { ref: "89:27", en: "O reassured soul, return to your Lord, well-pleased and pleasing." }
 ];
+
+async function loadDailyVerse() {
+    const tabAr = document.getElementById('verse-ar');
+    const tabEn = document.getElementById('verse-en');
+    const tabRef = document.getElementById('verse-ref');
+
+    try {
+        const randomIndex = Math.floor(Math.random() * curatedVerses.length);
+        const selected = curatedVerses[randomIndex];
+        
+        const res = await fetch(`https://api.alquran.cloud/v1/ayah/${selected.ref}/editions/quran-uthmani,ar.alafasy`);
+        const d = await res.json();
+        
+        const arText = d.data[0].text;
+        const audioSrc = d.data[1].audio;
+        const refDisplay = `${d.data[0].surah.englishName} ${selected.ref}`;
+
+        if(tabAr) {
+            tabAr.innerText = arText;
+            tabEn.innerText = selected.en;
+            tabRef.innerText = refDisplay;
+        }
+
+        const oldControls = document.getElementById('verse-controls');
+        if(oldControls) oldControls.remove();
+        
+        const absoluteId = d.data[0].number;
+        const controlsHTML = `
+            <div id="verse-controls" style="display:flex; justify-content:center; align-items:center; gap:12px; margin-top:25px; width:100%;">
+                <audio id="verse-player" src="${audioSrc}"></audio>
+                <button onclick="document.getElementById('verse-player').play()" class="pop-btn share-btn" style="padding: 12px 25px; margin:0; display:flex; align-items:center; gap:8px;">
+                    <i class="fas fa-play"></i> Listen
+                </button>
+                <button id="fav-btn-${absoluteId}" onclick="toggleFavorite(${absoluteId}, '${refDisplay}')" class="pop-btn bookmark-btn" style="padding: 12px 20px; margin:0;">
+                    <i class="${isFavorite(absoluteId) ? 'fas' : 'far'} fa-heart"></i>
+                </button>
+            </div>`;
+        if (tabRef) tabRef.insertAdjacentHTML('afterend', controlsHTML);
+    } catch(e) {
+        console.error("Verse loading error:", e);
+    }
+}
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js')
         .then(() => console.log('Service Worker Registered'))
@@ -3563,11 +3656,14 @@ function toggleNameDua() {
             }
         }
 function checkSpecialEvents(hijriData) {
-    const day = parseInt(hijriData.day);
+    const day = parseInt(hijriData.day);     
     const month = parseInt(hijriData.month.number); 
     let eventName = "";
     if (month === 1 && day === 10) eventName = "Yawm al-Ashura";
+    else if (month === 1 && day === 1) eventName = "Hijri New Year (1447)";
     else if (month === 9) eventName = "Ramadan Mubarak";
+    else if (month === 3 && day === 12) eventName = "Mawlid an-Nabi";
+    else if (month === 9 && day >= 20 && day <= 30) eventName = "The Last 10 Nights of Ramadan";
     else if (month === 10 && day === 1) eventName = "Eid al-Fitr";
     else if (month === 12 && day === 9) eventName = "Day of Arafah";
     else if (month === 12 && day === 10) eventName = "Eid al-Adha";
@@ -3603,6 +3699,10 @@ function updatePrayerUI(timings, hijri) {
     if(hijri && document.getElementById('hijri-date')) {
         document.getElementById('hijri-date').innerText = `${hijri.day} ${hijri.month.en} ${hijri.year}`;
         checkSpecialEvents(hijri);
+    
+
+    localStorage.setItem('current_hijri_month', hijri.month.number);
+        localStorage.setItem('current_hijri_day', hijri.day);
     }
     localStorage.setItem('last_prayer_timings', JSON.stringify(timings));
     if(container) {
@@ -3963,36 +4063,7 @@ function startCountdown(timings) {
         document.body.classList.add('ramadan-mode');
         updateRamadanUI(true);
     }
-async function loadDailyVerse() {
-    const container = document.getElementById('verse-ar');
-    const trans = document.getElementById('verse-en');
-    const ref = document.getElementById('verse-ref');
-    try {
-        const randomIndex = Math.floor(Math.random() * impactfulVerses.length);
-        const id = impactfulVerses[randomIndex];
-        const res = await fetch(`https://api.alquran.cloud/v1/ayah/${id}/editions/quran-uthmani,en.asad,ar.alafasy`);
-        const d = await res.json();
-        container.innerText = d.data[0].text;
-        trans.innerText = d.data[1].text;
-        const refText = `${d.data[0].surah.englishName} : ${d.data[0].numberInSurah}`;
-        ref.innerText = refText;
-        const oldControls = document.getElementById('verse-controls');
-        if(oldControls) oldControls.remove();
-const controlsHTML = `
-    <div id="verse-controls" style="display:flex; justify-content:center; align-items:center; gap:12px; margin-top:25px; width:100%;">
-        <audio id="verse-player" src="${d.data[2].audio}"></audio>
-        <button onclick="document.getElementById('verse-player').play()" class="pop-btn share-btn" style="padding: 12px 25px; margin:0; display:flex; align-items:center; gap:8px;">
-            <i class="fas fa-play"></i> Listen
-        </button>
-        <button id="fav-btn-${id}" onclick="toggleFavorite(${id}, '${refText}')" class="pop-btn bookmark-btn" style="padding: 12px 20px; margin:0;">
-            <i class="${isFavorite(id) ? 'fas' : 'far'} fa-heart"></i>
-        </button>
-    </div>`;
-        ref.insertAdjacentHTML('afterend', controlsHTML);
-    } catch(e) {
-        console.error("Verse loading error:", e);
-    }
-}
+
 function isFavorite(id) {
     const favorites = JSON.parse(localStorage.getItem('fav_verses') || "[]");
     return favorites.some(fav => fav.id === id);
@@ -4114,31 +4185,45 @@ else {
     loadPrayers("Makkah", "Saudi Arabia");
     document.getElementById('set-city').value = "Makkah";
 }
-    function updateRamadanCountdown() {
-    const ramadanStart = new Date(2026, 1, 19); 
-    const now = new Date();
-    
-    ramadanStart.setHours(0,0,0,0);
-    now.setHours(0,0,0,0);
-
-    const diffTime = now - ramadanStart;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
+   function updateRamadanCountdown() {
     const textEl = document.getElementById('ramadan-countdown-text');
+    if (!textEl) return;
+
+   
+    const lastTimingsStr = localStorage.getItem('last_prayer_timings');
+    const today = new Date();
     
-    if (diffDays < 0) {
-        textEl.innerText = `${Math.abs(diffDays)} Days until Ramadan`;
-        textEl.style.color = "var(--text-secondary)";
-    } 
-    else if (diffDays >= 0 && diffDays < 30) {
-        const currentRamadanDay = diffDays + 1;
-        textEl.innerHTML = `<i class="fas fa-moon"></i> Ramadan Day ${currentRamadanDay}`;
+   
+    const estimatedRamadanStart = new Date(2026, 1, 19); 
+
+    
+    const currentMonthNum = parseInt(localStorage.getItem('current_hijri_month') || "0");
+    const currentHijriDay = parseInt(localStorage.getItem('current_hijri_day') || "0");
+
+    if (currentMonthNum === 9) {
+       
+        textEl.innerHTML = `<i class="fas fa-moon"></i> Ramadan Day ${currentHijriDay}`;
         textEl.style.color = "var(--brand-gold)";
-     
     } 
-    else {
+    else if (currentMonthNum === 10 && currentHijriDay === 1) {
+        
         textEl.innerText = "Eid Mubarak!";
         textEl.style.color = "var(--brand-green)";
+    }
+    else {
+       
+        estimatedRamadanStart.setHours(0,0,0,0);
+        today.setHours(0,0,0,0);
+        const diffTime = estimatedRamadanStart - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays > 0) {
+            textEl.innerText = `${diffDays} Days until Ramadan`;
+            textEl.style.color = "var(--text-secondary)";
+        } else {
+             textEl.innerText = "Ramadan has passed.";
+             textEl.style.color = "var(--text-secondary)";
+        }
     }
 }
     updateRamadanCountdown();
